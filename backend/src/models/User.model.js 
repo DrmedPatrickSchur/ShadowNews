@@ -1,0 +1,319 @@
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
+
+const userSchema = new mongoose.Schema({
+ username: {
+   type: String,
+   required: [true, 'Username is required'],
+   unique: true,
+   trim: true,
+   lowercase: true,
+   minlength: [3, 'Username must be at least 3 characters'],
+   maxlength: [30, 'Username cannot exceed 30 characters'],
+   match: [/^[a-z0-9_-]+$/, 'Username can only contain lowercase letters, numbers, underscores, and hyphens']
+ },
+ 
+ email: {
+   type: String,
+   required: [true, 'Email is required'],
+   unique: true,
+   lowercase: true,
+   trim: true,
+   match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email']
+ },
+ 
+ shadownewsEmail: {
+   type: String,
+   unique: true,
+   sparse: true,
+   lowercase: true,
+   immutable: true
+ },
+ 
+ password: {
+   type: String,
+   required: [true, 'Password is required'],
+   minlength: [8, 'Password must be at least 8 characters'],
+   select: false
+ },
+ 
+ displayName: {
+   type: String,
+   trim: true,
+   maxlength: [50, 'Display name cannot exceed 50 characters']
+ },
+ 
+ bio: {
+   type: String,
+   maxlength: [500, 'Bio cannot exceed 500 characters']
+ },
+ 
+ avatar: {
+   type: String,
+   default: null
+ },
+ 
+ karma: {
+   total: { type: Number, default: 0 },
+   posts: { type: Number, default: 0 },
+   comments: { type: Number, default: 0 },
+   curation: { type: Number, default: 0 },
+   repositories: { type: Number, default: 0 }
+ },
+ 
+ badges: [{
+   type: {
+     type: String,
+     enum: ['early_adopter', 'curator', 'contributor', 'builder', 'ambassador', 'golden_curator']
+   },
+   awardedAt: { type: Date, default: Date.now },
+   description: String
+ }],
+ 
+ preferences: {
+   emailDigest: {
+     enabled: { type: Boolean, default: true },
+     frequency: { type: String, enum: ['daily', 'weekly', 'never'], default: 'daily' },
+     timezone: { type: String, default: 'UTC' }
+   },
+   notifications: {
+     comments: { type: Boolean, default: true },
+     mentions: { type: Boolean, default: true },
+     follows: { type: Boolean, default: true },
+     repositoryUpdates: { type: Boolean, default: true }
+   },
+   privacy: {
+     showEmail: { type: Boolean, default: false },
+     showRepositories: { type: Boolean, default: true },
+     allowInvites: { type: Boolean, default: true }
+   },
+   theme: { type: String, enum: ['light', 'dark', 'auto'], default: 'auto' }
+ },
+ 
+ following: [{
+   type: mongoose.Schema.Types.ObjectId,
+   ref: 'User'
+ }],
+ 
+ followers: [{
+   type: mongoose.Schema.Types.ObjectId,
+   ref: 'User'
+ }],
+ 
+ followedHashtags: [{
+   type: String,
+   lowercase: true,
+   trim: true
+ }],
+ 
+ repositories: [{
+   type: mongoose.Schema.Types.ObjectId,
+   ref: 'Repository'
+ }],
+ 
+ savedPosts: [{
+   type: mongoose.Schema.Types.ObjectId,
+   ref: 'Post'
+ }],
+ 
+ votedPosts: [{
+   post: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' },
+   vote: { type: Number, enum: [1, -1] },
+   votedAt: { type: Date, default: Date.now }
+ }],
+ 
+ votedComments: [{
+   comment: { type: mongoose.Schema.Types.ObjectId, ref: 'Comment' },
+   vote: { type: Number, enum: [1, -1] },
+   votedAt: { type: Date, default: Date.now }
+ }],
+ 
+ emailVerified: { type: Boolean, default: false },
+ emailVerificationToken: String,
+ emailVerificationExpires: Date,
+ 
+ passwordResetToken: String,
+ passwordResetExpires: Date,
+ 
+ twoFactorSecret: {
+   type: String,
+   select: false
+ },
+ twoFactorEnabled: { type: Boolean, default: false },
+ 
+ apiKeys: [{
+   key: { type: String, select: false },
+   name: String,
+   permissions: [String],
+   lastUsed: Date,
+   createdAt: { type: Date, default: Date.now }
+ }],
+ 
+ loginHistory: [{
+   ip: String,
+   userAgent: String,
+   timestamp: { type: Date, default: Date.now }
+ }],
+ 
+ flags: {
+   isActive: { type: Boolean, default: true },
+   isBanned: { type: Boolean, default: false },
+   isVerified: { type: Boolean, default: false },
+   isPremium: { type: Boolean, default: false },
+   isAdmin: { type: Boolean, default: false },
+   isModerator: { type: Boolean, default: false }
+ },
+ 
+ stats: {
+   postsCount: { type: Number, default: 0 },
+   commentsCount: { type: Number, default: 0 },
+   repositoriesCount: { type: Number, default: 0 },
+   followersCount: { type: Number, default: 0 },
+   followingCount: { type: Number, default: 0 }
+ },
+ 
+ lastActiveAt: { type: Date, default: Date.now },
+ lastPostAt: Date,
+ lastCommentAt: Date,
+ 
+ metadata: {
+   referredBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+   signupSource: { type: String, enum: ['web', 'email', 'api', 'mobile'] },
+   signupIp: String,
+   userAgent: String
+ }
+}, {
+ timestamps: true,
+ toJSON: { virtuals: true },
+ toObject: { virtuals: true }
+});
+
+// Indexes
+userSchema.index({ email: 1 });
+userSchema.index({ username: 1 });
+userSchema.index({ shadownewsEmail: 1 });
+userSchema.index({ karma: -1 });
+userSchema.index({ createdAt: -1 });
+userSchema.index({ 'flags.isActive': 1 });
+userSchema.index({ followedHashtags: 1 });
+
+// Virtual for profile URL
+userSchema.virtual('profileUrl').get(function() {
+ return `/u/${this.username}`;
+});
+
+// Virtual for karma level
+userSchema.virtual('karmaLevel').get(function() {
+ const totalKarma = this.karma.total;
+ if (totalKarma >= 5000) return 'ambassador';
+ if (totalKarma >= 1000) return 'poweruser';
+ if (totalKarma >= 500) return 'contributor';
+ if (totalKarma >= 100) return 'member';
+ return 'newbie';
+});
+
+// Pre-save middleware
+userSchema.pre('save', async function(next) {
+ // Generate Shadownews email
+ if (!this.shadownewsEmail && this.username) {
+   this.shadownewsEmail = `${this.username}@shadownews.community`;
+ }
+ 
+ // Hash password
+ if (this.isModified('password')) {
+   const salt = await bcrypt.genSalt(10);
+   this.password = await bcrypt.hash(this.password, salt);
+ }
+ 
+ // Set display name if not provided
+ if (!this.displayName) {
+   this.displayName = this.username;
+ }
+ 
+ next();
+});
+
+// Methods
+userSchema.methods.comparePassword = async function(candidatePassword) {
+ return await bcrypt.compare(candidatePassword, this.password);
+};
+
+userSchema.methods.generateEmailVerificationToken = function() {
+ const verificationToken = crypto.randomBytes(32).toString('hex');
+ this.emailVerificationToken = crypto
+   .createHash('sha256')
+   .update(verificationToken)
+   .digest('hex');
+ this.emailVerificationExpires = Date.now() + 24 * 60 * 60 * 1000; // 24 hours
+ return verificationToken;
+};
+
+userSchema.methods.generatePasswordResetToken = function() {
+ const resetToken = crypto.randomBytes(32).toString('hex');
+ this.passwordResetToken = crypto
+   .createHash('sha256')
+   .update(resetToken)
+   .digest('hex');
+ this.passwordResetExpires = Date.now() + 60 * 60 * 1000; // 1 hour
+ return resetToken;
+};
+
+userSchema.methods.generateApiKey = function(name, permissions = ['read']) {
+ const apiKey = crypto.randomBytes(32).toString('hex');
+ const hashedKey = crypto
+   .createHash('sha256')
+   .update(apiKey)
+   .digest('hex');
+ 
+ this.apiKeys.push({
+   key: hashedKey,
+   name,
+   permissions
+ });
+ 
+ return apiKey;
+};
+
+userSchema.methods.updateKarma = function(type, amount) {
+ this.karma.total += amount;
+ if (this.karma[type] !== undefined) {
+   this.karma[type] += amount;
+ }
+ 
+ // Check for badge awards
+ if (this.karma.total >= 100 && !this.badges.some(b => b.type === 'member')) {
+   this.badges.push({ type: 'member', description: 'Reached 100 karma' });
+ }
+ if (this.karma.total >= 500 && !this.badges.some(b => b.type === 'contributor')) {
+   this.badges.push({ type: 'contributor', description: 'Reached 500 karma' });
+ }
+ if (this.karma.total >= 1000 && !this.badges.some(b => b.type === 'poweruser')) {
+   this.badges.push({ type: 'poweruser', description: 'Reached 1000 karma' });
+ }
+ if (this.karma.total >= 5000 && !this.badges.some(b => b.type === 'ambassador')) {
+   this.badges.push({ type: 'ambassador', description: 'Reached 5000 karma' });
+ }
+};
+
+userSchema.methods.canCreateRepository = function() {
+ return this.karma.total >= 500 || this.flags.isPremium || this.flags.isAdmin;
+};
+
+userSchema.methods.getPublicProfile = function() {
+ const obj = this.toObject();
+ delete obj.password;
+ delete obj.emailVerificationToken;
+ delete obj.passwordResetToken;
+ delete obj.twoFactorSecret;
+ delete obj.apiKeys;
+ delete obj.loginHistory;
+ if (!obj.preferences.privacy.showEmail) {
+   delete obj.email;
+ }
+ return obj;
+};
+
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
+ <meta name="theme-color" content="#ff6600" />
+ <meta name="description" content="Shadownews - Where Ideas Snowball Into Communities. An enhanced Hacker News clone with email repositories and snowball distribution." />
+ <meta name="keywords" content="shadownews, hacker news, tech news, email repository, community, discussions, technology" />
+ <meta name="author" content="Shadownews Team" />
+ 
+ <!-- Open Graph / Facebook -->
+ <meta property="og:type" content="website" />
+ <meta property="og:url" content="https://shadownews.community/" />
+ <meta property="og:title" content="Shadownews - Where Ideas Snowball Into Communities" />
+ <meta property="og:description" content="Join the next generation of community-driven discussions with email repositories and snowball distribution." />
+ <meta property="og:image" content="%PUBLIC_URL%/og-image.png" />
+ 
+ <!-- Twitter -->
+ <meta property="twitter:card" content="summary_large_image" />
+ <meta property="twitter:url" content="https://shadownews.community/" />
+ <meta property="twitter:title" content="Shadownews - Where Ideas Snowball Into Communities" />
+ <meta property="twitter:description" content="Join the next generation of community-driven discussions with email repositories and snowball distribution." />
+ <meta property="twitter:image" content="%PUBLIC_URL%/twitter-image.png" />
+ 
+ <!-- PWA -->
+ <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+ <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+ 
+ <!-- Favicon -->
+ <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+ <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32x32.png" />
+ <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png" />
+ 
+ <!-- Fonts -->
+ <link rel="preconnect" href="https://fonts.googleapis.com" />
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+ 
+ <!-- Preload critical resources -->
+ <link rel="preload" href="/static/css/main.css" as="style" />
+ <link rel="preload" href="/static/js/main.js" as="script" />
+ 
+ <title>Shadownews - Where Ideas Snowball Into Communities</title>
+ 
+ <!-- Critical CSS for initial render -->
+ <style>
+   body {
+     margin: 0;
+     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+       sans-serif;
+     -webkit-font-smoothing: antialiased;
+     -moz-osx-font-smoothing: grayscale;
+     background-color: #f6f6ef;
+     color: #000;
+   }
+   
+   #root {
+     min-height: 100vh;
+   }
+   
+   .initial-loader {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     min-height: 100vh;
+     background-color: #f6f6ef;
+   }
+   
+   .loader-content {
+     text-align: center;
+   }
+   
+   .loader-logo {
+     width: 80px;
+     height: 80px;
+     margin: 0 auto 20px;
+     animation: pulse 2s ease-in-out infinite;
+   }
+   
+   @keyframes pulse {
+     0% { opacity: 1; transform: scale(1); }
+     50% { opacity: 0.7; transform: scale(0.95); }
+     100% { opacity: 1; transform: scale(1); }
+   }
+   
+   .loader-text {
+     color: #666;
+     font-size: 14px;
+     margin-top: 10px;
+   }
+   
+   .noscript-message {
+     display: block;
+     padding: 20px;
+     background-color: #ff6600;
+     color: white;
+     text-align: center;
+     font-size: 16px;
+   }
+   
+   /* Dark mode support */
+   @media (prefers-color-scheme: dark) {
+     body {
+       background-color: #1a1a1a;
+       color: #f0f0f0;
+     }
+     
+     .initial-loader {
+       background-color: #1a1a1a;
+     }
+     
+     .loader-text {
+       color: #999;
+     }
+   }
+ </style>
+ 
+ <!-- Analytics -->
+ <script>
+   window.dataLayer = window.dataLayer || [];
+   function gtag(){dataLayer.push(arguments);}
+   gtag('js', new Date());
+   gtag('config', 'GA_MEASUREMENT_ID');
+ </script>
+ 
+ <!-- Service Worker Registration -->
+ <script>
+   if ('serviceWorker' in navigator) {
+     window.addEventListener('load', () => {
+       navigator.serviceWorker.register('%PUBLIC_URL%/service-worker.js')
+         .then(registration => console.log('SW registered:', registration.scope))
+         .catch(error => console.log('SW registration failed:', error));
+     });
+   }
+ </script>
+</head>
+<body>
+ <noscript>
+   <div class="noscript-message">
+     You need to enable JavaScript to run Shadownews. Please enable JavaScript in your browser settings and reload the page.
+   </div>
+ </noscript>
+ 
+ <div id="root">
+   <div class="initial-loader">
+     <div class="loader-content">
+       <svg class="loader-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+         <circle cx="50" cy="50" r="45" fill="#ff6600" />
+         <path d="M35 35 L65 35 L50 65 Z" fill="white" />
+         <circle cx="50" cy="45" r="15" fill="white" />
+         <circle cx="50" cy="45" r="8" fill="#ff6600" />
+       </svg>
+       <div class="loader-text">Loading Shadownews...</div>
+     </div>
+   </div>
+ </div>
+ 
+ <!-- Error boundary fallback -->
+ <script>
+   window.addEventListener('error', function(e) {
+     if (e.error && e.error.message && e.error.message.includes('ChunkLoadError')) {
+       console.error('Chunk load error detected, reloading page...');
+       window.location.reload();
+     }
+   });
+ </script>
+ 
+ <!-- Intersection Observer polyfill for older browsers -->
+ <script>
+   if (!('IntersectionObserver' in window)) {
+     const script = document.createElement('script');
+     script.src = 'https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver';
+     document.head.appendChild(script);
+   }
+ </script>
+</body>
+</html>

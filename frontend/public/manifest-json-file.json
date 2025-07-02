@@ -1,0 +1,96 @@
+{
+  "short_name": "Shadownews",
+  "name": "Shadownews - Where Ideas Snowball Into Communities",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#ff6600",
+  "background_color": "#f6f6ef",
+  "description": "Enhanced Hacker News clone with email repositories and snowball distribution",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-US",
+  "categories": ["news", "social", "productivity"],
+  "screenshots": [
+    {
+      "src": "screenshots/desktop-home.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "label": "Desktop home screen"
+    },
+    {
+      "src": "screenshots/mobile-home.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "label": "Mobile home screen"
+    },
+    {
+      "src": "screenshots/repository-view.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "label": "Email repository management"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Submit Post",
+      "short_name": "Submit",
+      "description": "Create a new post",
+      "url": "/submit",
+      "icons": [{ "src": "icons/submit.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Repositories",
+      "short_name": "Repos",
+      "description": "Manage email repositories",
+      "url": "/repositories",
+      "icons": [{ "src": "icons/repository.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Trending",
+      "short_name": "Hot",
+      "description": "View trending posts",
+      "url": "/hot",
+      "icons": [{ "src": "icons/trending.png", "sizes": "192x192" }]
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "share_target": {
+    "action": "/submit",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}

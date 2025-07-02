@@ -1,0 +1,83 @@
+module.exports = {
+ roots: ['<rootDir>/src'],
+ collectCoverageFrom: [
+   'src/**/*.{js,jsx,ts,tsx}',
+   '!src/**/*.d.ts',
+   '!src/index.tsx',
+   '!src/serviceWorker.ts',
+   '!src/reportWebVitals.ts',
+ ],
+ setupFiles: ['react-app-polyfill/jsdom'],
+ setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
+ testMatch: [
+   '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',
+   '<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}',
+ ],
+ testEnvironment: 'jsdom',
+ transform: {
+   '^.+\\.(js|jsx|mjs|cjs|ts|tsx)$': '<rootDir>/config/jest/babelTransform.js',
+   '^.+\\.css$': '<rootDir>/config/jest/cssTransform.js',
+   '^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)': '<rootDir>/config/jest/fileTransform.js',
+ },
+ transformIgnorePatterns: [
+   '[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|cjs|ts|tsx)$',
+   '^.+\\.module\\.(css|sass|scss)$',
+ ],
+ modulePaths: ['<rootDir>/src'],
+ moduleNameMapper: {
+   '^react-native$': 'react-native-web',
+   '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
+   '^@/(.*)$': '<rootDir>/src/$1',
+   '^@components/(.*)$': '<rootDir>/src/components/$1',
+   '^@pages/(.*)$': '<rootDir>/src/pages/$1',
+   '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
+   '^@services/(.*)$': '<rootDir>/src/services/$1',
+   '^@store/(.*)$': '<rootDir>/src/store/$1',
+   '^@utils/(.*)$': '<rootDir>/src/utils/$1',
+   '^@types/(.*)$': '<rootDir>/src/types/$1',
+   '^@styles/(.*)$': '<rootDir>/src/styles/$1',
+ },
+ moduleFileExtensions: [
+   'web.js',
+   'js',
+   'web.ts',
+   'ts',
+   'web.tsx',
+   'tsx',
+   'json',
+   'web.jsx',
+   'jsx',
+   'node',
+ ],
+ watchPlugins: [
+   'jest-watch-typeahead/filename',
+   'jest-watch-typeahead/testname',
+ ],
+ resetMocks: true,
+ coverageThreshold: {
+   global: {
+     branches: 70,
+     functions: 70,
+     lines: 70,
+     statements: 70,
+   },
+ },
+ coverageReporters: ['json', 'lcov', 'text', 'clover', 'html'],
+ coveragePathIgnorePatterns: [
+   '/node_modules/',
+   '<rootDir>/src/styles/',
+   '<rootDir>/src/types/',
+   '<rootDir>/src/stories/',
+   '.stories.tsx',
+   '.stories.ts',
+ ],
+ globals: {
+   'ts-jest': {
+     tsconfig: {
+       jsx: 'react-jsx',
+     },
+   },
+ },
+ testTimeout: 10000,
+ verbose: true,
+};

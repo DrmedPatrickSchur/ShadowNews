@@ -1,0 +1,358 @@
+const cron = require('node-cron');
+const moment = require('moment');
+const { Email } = require('../models/Email.model');
+const { User } = require('../models/User.model');
+const { Post } = require('../models/Post.model');
+const { Repository } = require('../models/Repository.model');
+const emailService = require('./email.service');
+const logger = require('../utils/logger');
+const redis = require('../utils/redis');
+
+class DigestService {
+ constructor() {
+   this.digestTypes = {
+     DAILY: 'daily',
+     WEEKLY: 'weekly',
+     INSTANT: 'instant'
+   };
+   this.initializeCronJobs();
+ }
+
+ initializeCronJobs() {
+   // Daily digest at 8 AM
+   cron.schedule('0 8 * * *', () => {
+     this.sendScheduledDigests(this.digestTypes.DAILY);
+   });
+
+   // Weekly digest on Mondays at 9 AM
+   cron.schedule('0 9 * * 1', () => {
+     this.sendScheduledDigests(this.digestTypes.WEEKLY);
+   });
+
+   logger.info('Digest cron jobs initialized');
+ }
+
+ async sendScheduledDigests(digestType) {
+   try {
+     const users = await User.find({
+       'preferences.digestFrequency': digestType,
+       'preferences.emailNotifications': true,
+       isActive: true
+     });
+
+     logger.info(`Sending ${digestType} digests to ${users.length} users`);
+
+     for (const user of users) {
+       await this.sendUserDigest(user, digestType);
+     }
+   } catch (error) {
+     logger.error('Error sending scheduled digests:', error);
+   }
+ }
+
+ async sendUserDigest(user, digestType) {
+   try {
+     const cacheKey = `digest:${user._id}:${digestType}`;
+     const cached = await redis.get(cacheKey);
+     
+     if (cached && digestType !== this.digestTypes.INSTANT) {
+       logger.info(`Digest already sent to user ${user._id} for ${digestType}`);
+       return;
+     }
+
+     const content = await this.generateDigestContent(user, digestType);
+     
+     if (!content.posts.length && !content.repositories.length) {
+       logger.info(`No content for digest to user ${user._id}`);
+       return;
+     }
+
+     const emailData = {
+       to: user.email,
+       subject: this.generateSubjectLine(digestType, content),
+       template: 'digest',
+       data: {
+         user: user.username,
+         digestType,
+         ...content,
+         unsubscribeToken: user.unsubscribeToken
+       }
+     };
+
+     await emailService.sendEmail(emailData);
+     
+     // Cache to prevent duplicate sends
+     await redis.setex(cacheKey, 86400, 'sent'); // 24 hour expiry
+     
+     // Update user's last digest sent timestamp
+     await User.findByIdAndUpdate(user._id, {
+       'metadata.lastDigestSent': new Date(),
+       $inc: { 'metadata.digestsSent': 1 }
+     });
+
+     logger.info(`Digest sent successfully to user ${user._id}`);
+   } catch (error) {
+     logger.error(`Error sending digest to user ${user._id}:`, error);
+   }
+ }
+
+ async generateDigestContent(user, digestType) {
+   const timeRange = this.getTimeRange(digestType);
+   const userHashtags = user.followedHashtags || [];
+   const userRepositories = await this.getUserRepositories(user._id);
+   
+   // Get top posts based on user interests
+   const posts = await this.getTopPosts(userHashtags, userRepositories, timeRange);
+   
+   // Get repository updates
+   const repositoryUpdates = await this.getRepositoryUpdates(userRepositories, timeRange);
+   
+   // Get trending topics
+   const trendingTopics = await this.getTrendingTopics(timeRange);
+   
+   // Get network activity (from followed users)
+   const networkActivity = await this.getNetworkActivity(user._id, timeRange);
+   
+   // Generate personalized insights
+   const insights = await this.generateInsights(user, posts, repositoryUpdates);
+   
+   // Get CSV attachment if user has repositories
+   const csvAttachment = await this.generateRepositoryCSV(userRepositories);
+
+   return {
+     posts: posts.slice(0, 10), // Top 10 posts
+     repositories: repositoryUpdates.slice(0, 5), // Top 5 repository updates
+     trending: trendingTopics.slice(0, 5),
+     networkActivity: networkActivity.slice(0, 5),
+     insights,
+     csvAttachment,
+     digestDate: new Date(),
+     nextDigest: this.getNextDigestDate(digestType)
+   };
+ }
+
+ async getTopPosts(hashtags, repositories, timeRange) {
+   const query = {
+     createdAt: { $gte: timeRange.start, $lte: timeRange.end },
+     $or: [
+       { hashtags: { $in: hashtags } },
+       { repositories: { $in: repositories.map(r => r._id) } }
+     ],
+     score: { $gte: 5 } // Minimum quality threshold
+   };
+
+   const posts = await Post.find(query)
+     .populate('author', 'username karma')
+     .populate('repositories', 'name emailCount')
+     .sort({ score: -1, upvotes: -1, commentsCount: -1 })
+     .limit(20)
+     .lean();
+
+   // Calculate relevance score for each post
+   return posts.map(post => ({
+     ...post,
+     relevanceScore: this.calculateRelevanceScore(post, hashtags, repositories),
+     summary: this.generatePostSummary(post)
+   })).sort((a, b) => b.relevanceScore - a.relevanceScore);
+ }
+
+ async getRepositoryUpdates(repositories, timeRange) {
+   const updates = [];
+   
+   for (const repo of repositories) {
+     const repoData = await Repository.findById(repo._id)
+       .populate('recentPosts', 'title upvotes')
+       .lean();
+     
+     if (!repoData) continue;
+     
+     const newEmails = await Email.countDocuments({
+       repository: repo._id,
+       createdAt: { $gte: timeRange.start }
+     });
+     
+     const growth = this.calculateGrowthRate(
+       repoData.emailCount,
+       repoData.emailCount - newEmails
+     );
+     
+     updates.push({
+       repository: repoData,
+       newEmails,
+       growth,
+       topPosts: repoData.recentPosts?.slice(0, 3) || [],
+       milestoneReached: this.checkMilestone(repoData.emailCount)
+     });
+   }
+   
+   return updates.sort((a, b) => b.growth - a.growth);
+ }
+
+ async getTrendingTopics(timeRange) {
+   const pipeline = [
+     {
+       $match: {
+         createdAt: { $gte: timeRange.start, $lte: timeRange.end }
+       }
+     },
+     { $unwind: '$hashtags' },
+     {
+       $group: {
+         _id: '$hashtags',
+         count: { $sum: 1 },
+         totalUpvotes: { $sum: '$upvotes' },
+         avgScore: { $avg: '$score' }
+       }
+     },
+     {
+       $project: {
+         hashtag: '$_id',
+         count: 1,
+         totalUpvotes: 1,
+         avgScore: 1,
+         trendScore: {
+           $multiply: [
+             '$count',
+             { $add: ['$avgScore', 1] },
+             { $log10: { $add: ['$totalUpvotes', 1] } }
+           ]
+         }
+       }
+     },
+     { $sort: { trendScore: -1 } },
+     { $limit: 10 }
+   ];
+
+   return await Post.aggregate(pipeline);
+ }
+
+ async getNetworkActivity(userId, timeRange) {
+   const user = await User.findById(userId).select('following');
+   if (!user.following || !user.following.length) return [];
+
+   const activities = await Post.find({
+     author: { $in: user.following },
+     createdAt: { $gte: timeRange.start, $lte: timeRange.end }
+   })
+     .populate('author', 'username')
+     .sort({ upvotes: -1 })
+     .limit(10)
+     .lean();
+
+   return activities.map(activity => ({
+     ...activity,
+     activityType: 'post',
+     summary: this.generatePostSummary(activity)
+   }));
+ }
+
+ async generateInsights(user, posts, repositoryUpdates) {
+   const insights = [];
+   
+   // Karma progress insight
+   const karmaGrowth = await this.calculateKarmaGrowth(user._id);
+   if (karmaGrowth > 0) {
+     insights.push({
+       type: 'karma',
+       message: `Your karma increased by ${karmaGrowth} points this week!`,
+       icon: '🚀'
+     });
+   }
+   
+   // Repository growth insight
+   const fastestGrowing = repositoryUpdates[0];
+   if (fastestGrowing && fastestGrowing.growth > 20) {
+     insights.push({
+       type: 'repository',
+       message: `${fastestGrowing.repository.name} grew by ${fastestGrowing.growth}% - amazing snowball effect!`,
+       icon: '📈'
+     });
+   }
+   
+   // Engagement insight
+   if (posts.length > 0) {
+     const avgEngagement = posts.reduce((sum, p) => sum + p.upvotes, 0) / posts.length;
+     insights.push({
+       type: 'engagement',
+       message: `Posts in your interests averaged ${Math.round(avgEngagement)} upvotes`,
+       icon: '💬'
+     });
+   }
+   
+   // Milestone insight
+   const nextMilestone = this.getNextKarmaMilestone(user.karma);
+   if (nextMilestone - user.karma <= 100) {
+     insights.push({
+       type: 'milestone',
+       message: `Only ${nextMilestone - user.karma} karma points to reach ${nextMilestone} and unlock new features!`,
+       icon: '🎯'
+     });
+   }
+   
+   return insights;
+ }
+
+ async generateRepositoryCSV(repositories) {
+   if (!repositories.length) return null;
+   
+   const csvData = [];
+   const headers = ['Email', 'Repository', 'Added Date', 'Verified', 'Tags'];
+   
+   for (const repo of repositories) {
+     const emails = await Email.find({ repository: repo._id })
+       .select('email createdAt verified tags')
+       .limit(1000)
+       .lean();
+     
+     emails.forEach(email => {
+       csvData.push([
+         email.email,
+         repo.name,
+         moment(email.createdAt).format('YYYY-MM-DD'),
+         email.verified ? 'Yes' : 'No',
+         (email.tags || []).join(';')
+       ]);
+     });
+   }
+   
+   if (!csvData.length) return null;
+   
+   return {
+     filename: `shadownews_repositories_${moment().format('YYYY-MM-DD')}.csv`,
+     headers,
+     data: csvData
+   };
+ }
+
+ generateSubjectLine(digestType, content) {
+   const emoji = this.getRandomEmoji();
+   const topHashtag = content.trending[0]?.hashtag || '';
+   
+   switch (digestType) {
+     case this.digestTypes.DAILY:
+       return `${emoji} Your daily Shadownews: ${content.posts.length} posts, ${topHashtag} trending`;
+     case this.digestTypes.WEEKLY:
+       return `${emoji} Weekly digest: ${content.insights[0]?.message || 'Your community updates'}`;
+     case this.digestTypes.INSTANT:
+       return `⚡ Breaking: New post in ${topHashtag}`;
+     default:
+       return `${emoji} Your Shadownews digest is ready`;
+   }
+ }
+
+ calculateRelevanceScore(post, userHashtags, userRepositories) {
+   let score = post.score || 0;
+   
+   // Boost for matching hashtags
+   const matchingHashtags = post.hashtags.filter(h => userHashtags.includes(h));
+   score += matchingHashtags.length * 10;
+   
+   // Boost for repository membership
+   const inUserRepo = post.repositories?.some(r => 
+     userRepositories.find(ur => ur._id.equals(r))
+   );
+   if (inUserRepo) score += 20;
+   
+   // Time decay factor
+   const hoursSincePost = (Date.now() - post.createdAt) / (1000 * 60 * 60);
+   const timeFactor = Math.max(0, 1 - (hoursSincePost / 168));

@@ -1,0 +1,38 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Directories
+Allow: /api/docs
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /user/settings/
+Disallow: /user/dashboard/
+Disallow: /auth/
+Disallow: /logout/
+Disallow: /reset-password/
+Disallow: /verify-email/
+
+# Files
+Disallow: /config.json
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /service-worker.js
+Disallow: /*.map$
+
+# Allow search engines to index posts and repositories
+Allow: /posts/
+Allow: /repositories/
+Allow: /p/
+Allow: /r/
+Allow: /user/*/profile
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Sitemaps
+Sitemap: https://shadownews.com/sitemap.xml
+Sitemap: https://shadownews.com/sitemap-posts.xml
+Sitemap: https://shadownews.com/sitemap-repositories.xml
+Sitemap: https://shadownews.com/sitemap-users.xml

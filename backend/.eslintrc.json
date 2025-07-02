@@ -1,0 +1,56 @@
+{
+ "env": {
+   "es2021": true,
+   "node": true,
+   "jest": true
+ },
+ "extends": [
+   "eslint:recommended",
+   "plugin:node/recommended",
+   "plugin:security/recommended",
+   "prettier"
+ ],
+ "parserOptions": {
+   "ecmaVersion": 2021,
+   "sourceType": "module"
+ },
+ "plugins": [
+   "node",
+   "security",
+   "jest"
+ ],
+ "rules": {
+   "no-console": ["warn", { "allow": ["warn", "error"] }],
+   "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+   "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+   "prefer-const": "error",
+   "no-var": "error",
+   "object-shorthand": "error",
+   "prefer-arrow-callback": "error",
+   "prefer-destructuring": ["error", { "object": true, "array": false }],
+   "prefer-template": "error",
+   "no-param-reassign": ["error", { "props": false }],
+   "no-return-await": "error",
+   "require-await": "error",
+   "no-path-concat": "error",
+   "node/no-unsupported-features/es-syntax": ["error", {
+     "ignores": ["modules"]
+   }],
+   "node/no-missing-import": "off",
+   "node/no-unpublished-import": "off",
+   "security/detect-object-injection": "off",
+   "jest/no-disabled-tests": "warn",
+   "jest/no-focused-tests": "error",
+   "jest/no-identical-title": "error",
+   "jest/prefer-to-have-length": "warn",
+   "jest/valid-expect": "error"
+ },
+ "overrides": [
+   {
+     "files": ["*.test.js", "*.spec.js"],
+     "env": {
+       "jest": true
+     }
+   }
+ ]
+}

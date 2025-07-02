@@ -1,0 +1,325 @@
+const emailService = require('../../services/email.service');
+const emailParserService = require('../../services/emailParser.service');
+const repositoryService = require('../../services/repository.service');
+const postService = require('../../services/posts.service');
+const userService = require('../../services/users.service');
+const csvService = require('../../services/csv.service');
+const { validationResult } = require('express-validator');
+const logger = require('../../utils/logger');
+const { AppError } = require('../../utils/errors');
+const { EMAIL_TYPES, EMAIL_STATUS } = require('../../utils/constants');
+
+class EmailController {
+ async processInboundEmail(req, res, next) {
+   try {
+     const errors = validationResult(req);
+     if (!errors.isEmpty()) {
+       return res.status(400).json({ errors: errors.array() });
+     }
+
+     const { from, to, subject, text, html, attachments, headers } = req.body;
+
+     logger.info('Processing inbound email', { from, to, subject });
+
+     const user = await userService.findByEmail(from);
+     if (!user) {
+       throw new AppError('User not found for email address', 404);
+     }
+
+     const parsedEmail = await emailParserService.parse({
+       from,
+       to,
+       subject,
+       text,
+       html,
+       headers,
+       userId: user._id
+     });
+
+     let result;
+
+     switch (parsedEmail.type) {
+       case EMAIL_TYPES.POST:
+         result = await this._handlePostEmail(parsedEmail, user, attachments);
+         break;
+       
+       case EMAIL_TYPES.COMMENT:
+         result = await this._handleCommentEmail(parsedEmail, user);
+         break;
+       
+       case EMAIL_TYPES.COMMAND:
+         result = await this._handleCommandEmail(parsedEmail, user);
+         break;
+       
+       case EMAIL_TYPES.REPOSITORY:
+         result = await this._handleRepositoryEmail(parsedEmail, user, attachments);
+         break;
+       
+       default:
+         throw new AppError('Unknown email type', 400);
+     }
+
+     await emailService.logInboundEmail({
+       userId: user._id,
+       type: parsedEmail.type,
+       from,
+       to,
+       subject,
+       status: EMAIL_STATUS.PROCESSED,
+       processedAt: new Date(),
+       result
+     });
+
+     res.status(200).json({
+       success: true,
+       message: 'Email processed successfully',
+       data: result
+     });
+
+   } catch (error) {
+     logger.error('Error processing inbound email', error);
+     next(error);
+   }
+ }
+
+ async sendEmail(req, res, next) {
+   try {
+     const errors = validationResult(req);
+     if (!errors.isEmpty()) {
+       return res.status(400).json({ errors: errors.array() });
+     }
+
+     const { to, subject, body, templateId, templateData, repositoryId } = req.body;
+     const userId = req.user._id;
+
+     let recipients = Array.isArray(to) ? to : [to];
+
+     if (repositoryId) {
+       const repository = await repositoryService.findById(repositoryId);
+       if (!repository || repository.ownerId.toString() !== userId.toString()) {
+         throw new AppError('Repository not found or unauthorized', 403);
+       }
+       recipients = await repositoryService.getVerifiedEmails(repositoryId);
+     }
+
+     const emailData = {
+       from: `${req.user.username}@shadownews.community`,
+       to: recipients,
+       subject,
+       body,
+       templateId,
+       templateData,
+       userId
+     };
+
+     const result = await emailService.sendBulkEmail(emailData);
+
+     res.status(200).json({
+       success: true,
+       message: 'Email sent successfully',
+       data: {
+         sent: result.sent,
+         failed: result.failed,
+         total: recipients.length
+       }
+     });
+
+   } catch (error) {
+     logger.error('Error sending email', error);
+     next(error);
+   }
+ }
+
+ async getEmailHistory(req, res, next) {
+   try {
+     const userId = req.user._id;
+     const { page = 1, limit = 20, type, status } = req.query;
+
+     const filter = { userId };
+     if (type) filter.type = type;
+     if (status) filter.status = status;
+
+     const emails = await emailService.getEmailHistory(filter, {
+       page: parseInt(page),
+       limit: parseInt(limit),
+       sort: { createdAt: -1 }
+     });
+
+     res.status(200).json({
+       success: true,
+       data: emails
+     });
+
+   } catch (error) {
+     logger.error('Error fetching email history', error);
+     next(error);
+   }
+ }
+
+ async getEmailTemplate(req, res, next) {
+   try {
+     const { templateId } = req.params;
+     const template = await emailService.getTemplate(templateId);
+
+     if (!template) {
+       throw new AppError('Template not found', 404);
+     }
+
+     res.status(200).json({
+       success: true,
+       data: template
+     });
+
+   } catch (error) {
+     logger.error('Error fetching email template', error);
+     next(error);
+   }
+ }
+
+ async createEmailTemplate(req, res, next) {
+   try {
+     const errors = validationResult(req);
+     if (!errors.isEmpty()) {
+       return res.status(400).json({ errors: errors.array() });
+     }
+
+     const { name, subject, body, variables } = req.body;
+     const userId = req.user._id;
+
+     const template = await emailService.createTemplate({
+       name,
+       subject,
+       body,
+       variables,
+       createdBy: userId
+     });
+
+     res.status(201).json({
+       success: true,
+       message: 'Template created successfully',
+       data: template
+     });
+
+   } catch (error) {
+     logger.error('Error creating email template', error);
+     next(error);
+   }
+ }
+
+ async updateEmailPreferences(req, res, next) {
+   try {
+     const errors = validationResult(req);
+     if (!errors.isEmpty()) {
+       return res.status(400).json({ errors: errors.array() });
+     }
+
+     const userId = req.user._id;
+     const preferences = req.body;
+
+     const updated = await emailService.updateUserPreferences(userId, preferences);
+
+     res.status(200).json({
+       success: true,
+       message: 'Email preferences updated',
+       data: updated
+     });
+
+   } catch (error) {
+     logger.error('Error updating email preferences', error);
+     next(error);
+   }
+ }
+
+ async getEmailStats(req, res, next) {
+   try {
+     const userId = req.user._id;
+     const { startDate, endDate } = req.query;
+
+     const stats = await emailService.getUserEmailStats(userId, {
+       startDate: startDate ? new Date(startDate) : undefined,
+       endDate: endDate ? new Date(endDate) : undefined
+     });
+
+     res.status(200).json({
+       success: true,
+       data: stats
+     });
+
+   } catch (error) {
+     logger.error('Error fetching email stats', error);
+     next(error);
+   }
+ }
+
+ async _handlePostEmail(parsedEmail, user, attachments) {
+   const postData = {
+     title: parsedEmail.subject,
+     content: parsedEmail.content,
+     userId: user._id,
+     hashtags: parsedEmail.hashtags,
+     via: 'email'
+   };
+
+   if (attachments && attachments.length > 0) {
+     const csvAttachment = attachments.find(att => att.contentType === 'text/csv');
+     if (csvAttachment) {
+       const emails = await csvService.parseEmailsFromCSV(csvAttachment.content);
+       postData.attachedEmails = emails;
+     }
+   }
+
+   const post = await postService.create(postData);
+   return { type: 'post', postId: post._id };
+ }
+
+ async _handleCommentEmail(parsedEmail, user) {
+   const commentData = {
+     postId: parsedEmail.postId,
+     content: parsedEmail.content,
+     userId: user._id,
+     parentId: parsedEmail.parentCommentId,
+     via: 'email'
+   };
+
+   const comment = await postService.createComment(commentData);
+   return { type: 'comment', commentId: comment._id };
+ }
+
+ async _handleCommandEmail(parsedEmail, user) {
+   const { command, args } = parsedEmail;
+   
+   switch (command.toUpperCase()) {
+     case 'SUBSCRIBE':
+       return await userService.subscribeToHashtags(user._id, args);
+     
+     case 'UNSUBSCRIBE':
+       return await userService.unsubscribeFromHashtags(user._id, args);
+     
+     case 'STATS':
+       return await userService.getStats(user._id);
+     
+     case 'HELP':
+       return { type: 'help', message: await emailService.getHelpText() };
+     
+     default:
+       throw new AppError('Unknown command', 400);
+   }
+ }
+
+ async _handleRepositoryEmail(parsedEmail, user, attachments) {
+   const { repositoryId, action } = parsedEmail;
+   
+   if (action === 'add' && attachments) {
+     const csvAttachment = attachments.find(att => att.contentType === 'text/csv');
+     if (csvAttachment) {
+       const emails = await csvService.parseEmailsFromCSV(csvAttachment.content);
+       const result = await repositoryService.addEmails(repositoryId, emails, user._id);
+       return { type: 'repository', action: 'emails_added', result };
+     }
+   }
+
+   throw new AppError('Invalid repository email format', 400);
+ }
+}
+
+module.exports = new EmailController();
