@@ -299,8 +299,16 @@ export class EmailValidator {
    * @param username - Expected username portion
    * @returns EmailValidationResult for platform-specific validation
    */
-  static validateShadownewsEmail(email: string, username: string): EmailValidationResult {
-    const expectedEmail = `${username}@shadownews.community`;
+  /**
+   * Validates ShadowNews platform email format
+   * Ensures email matches the expected @artofdigitalshadow.org format
+   * 
+   * @param username - Username to validate
+   * @param email - Email address to validate
+   * @returns ValidationResult indicating if email format is correct
+   */
+  static validateShadowNewsEmail(username: string, email: string): ValidationResult {
+    const expectedEmail = `${username}@artofdigitalshadow.org`;
     const providedEmail = email.trim().toLowerCase();
 
     if (providedEmail !== expectedEmail) {
@@ -522,7 +530,7 @@ export class EmailValidator {
       .replace(/^-|-$/g, '')
       .substring(0, 30);
 
-    return `${sanitizedName}-${creatorUsername}@repos.shadownews.community`;
+    return `${sanitizedName}-${creatorUsername}@artofdigitalshadow.org`;
   }
 
   /**

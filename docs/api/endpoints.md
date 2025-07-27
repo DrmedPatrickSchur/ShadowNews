@@ -44,7 +44,7 @@ Version: 1.0.0
 
 ## Base URL
 ```
-Production: https://api.shadownews.community/v1
+Production: https://api.artofdigitalshadow.org/v1
 Development: http://localhost:3001/api/v1
 ```
 
@@ -79,7 +79,7 @@ Register a new user account.
       "id": "507f1f77bcf86cd799439011",
       "email": "user@example.com",
       "username": "johndoe",
-      "shadownewsEmail": "johndoe@shadownews.community",
+      "shadownewsEmail": "johndoe@artofdigitalshadow.org",
       "karma": 0,
       "createdAt": "2024-01-15T10:30:00Z"
     },
@@ -108,7 +108,7 @@ Authenticate a user.
       "id": "507f1f77bcf86cd799439011",
       "email": "user@example.com",
       "username": "johndoe",
-      "shadownewsEmail": "johndoe@shadownews.community",
+      "shadownewsEmail": "johndoe@artofdigitalshadow.org",
       "karma": 150
     },
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
@@ -222,7 +222,7 @@ Get current user profile.
     "id": "507f1f77bcf86cd799439011",
     "username": "johndoe",
     "email": "user@example.com",
-    "shadownewsEmail": "johndoe@shadownews.community",
+    "shadownewsEmail": "johndoe@artofdigitalshadow.org",
     "bio": "Tech enthusiast and AI researcher",
     "karma": 1250,
     "badges": ["early_adopter", "golden_curator"],
@@ -967,7 +967,7 @@ Create a post via email.
 **Request Body:**
 ```json
 {
-  "from": "johndoe@shadownews.community",
+  "from": "johndoe@artofdigitalshadow.org",
   "subject": "Interesting article about AI ethics",
   "body": "Check out this fascinating piece on AI ethics: https://example.com/ai-ethics",
   "attachments": []
@@ -993,11 +993,11 @@ Reply to a post via email.
 **Request Body:**
 ```json
 {
-  "from": "johndoe@shadownews.community",
-  "to": "post-507f1f77bcf86cd799439012@shadownews.community",
+  "from": "johndoe@artofdigitalshadow.org",
+  "to": "post-507f1f77bcf86cd799439012@artofdigitalshadow.org",
   "subject": "Re: Building a Better Hacker News",
   "body": "Great points! I especially liked the part about...",
-  "inReplyTo": "<post-507f1f77bcf86cd799439012@shadownews.community>"
+  "inReplyTo": "<post-507f1f77bcf86cd799439012@artofdigitalshadow.org>"
 }
 ```
 
@@ -1022,7 +1022,7 @@ Get email settings for user.
 {
   "success": true,
   "data": {
-    "shadownewsEmail": "johndoe@shadownews.community",
+    "shadownewsEmail": "johndoe@artofdigitalshadow.org",
     "digestFrequency": "daily",
     "digestTime": "09:00",
     "instantNotifications": {
@@ -1503,7 +1503,7 @@ Classify content into repository categories.
 
 ### Connection
 ```javascript
-const socket = io('wss://api.shadownews.community', {
+const socket = io('wss://api.artofdigitalshadow.org', {
   auth: {
     token: 'Bearer <token>'
   }
@@ -1609,7 +1609,7 @@ The API uses URL versioning. Current version: `v1`
 Deprecated endpoints will include:
 ```
 X-API-Deprecation-Date: 2024-12-31
-X-API-Deprecation-Info: https://docs.shadownews.community/api/deprecations
+X-API-Deprecation-Info: https://docs.artofdigitalshadow.org/api/deprecations
 ```
 
 ---
@@ -1617,8 +1617,8 @@ X-API-Deprecation-Info: https://docs.shadownews.community/api/deprecations
 ## CORS Policy
 
 Allowed origins:
-- `https://shadownews.community`
-- `https://app.shadownews.community`
+- `https://artofdigitalshadow.org`
+- `https://app.artofdigitalshadow.org`
 - `http://localhost:3000` (development)
 
 Allowed methods: `GET, POST, PUT, DELETE, OPTIONS`

@@ -81,7 +81,7 @@ MongoDB database with the following collections:
     type: String,
     unique: true,
     required: true,
-    // Format: username@shadownews.community
+        // Format: username@artofdigitalshadow.org
   },
   password: {
     type: String,

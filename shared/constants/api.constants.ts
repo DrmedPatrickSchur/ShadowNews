@@ -86,7 +86,7 @@ export const WS_BASE_URL = process.env.REACT_APP_WS_URL || 'ws://localhost:5000'
  * - Repository creation from email domains
  * - Community-driven content curation through emails
  */
-export const EMAIL_DOMAIN = process.env.REACT_APP_EMAIL_DOMAIN || '@shadownews.community';
+export const EMAIL_DOMAIN = process.env.REACT_APP_EMAIL_DOMAIN || '@artofdigitalshadow.org';
 
 // ============================================================================
 // Global API Configuration

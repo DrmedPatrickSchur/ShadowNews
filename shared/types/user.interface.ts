@@ -13,7 +13,7 @@
  * 
  * Authentication and Security:
  * - Email-based authentication with email verification
- * - Shadow email assignment (username@shadownews.community)
+ * - Shadow email assignment (username@artofdigitalshadow.org)
  * - Two-factor authentication support for enhanced security
  * - API key management for third-party integrations
  * - Session management with device tracking
@@ -128,7 +128,7 @@ export interface IUser {
   _id: string;                          // Unique user identifier
   username: string;                     // Unique username for identification
   email: string;                        // Primary email address for authentication
-  shadowEmail: string;                  // Platform email (username@shadownews.community)
+  shadowEmail: string;                  // Platform email (username@artofdigitalshadow.org)
   displayName: string;                  // Public display name for community interaction
   bio?: string;                         // Optional user biography and description
   avatar?: string;                      // Profile avatar image URL

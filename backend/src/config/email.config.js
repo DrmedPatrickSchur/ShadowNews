@@ -51,7 +51,7 @@ const config = {
     fromName: process.env.EMAIL_FROM_NAME || 'Shadownews',
     
     // Reply-to address for user responses
-    replyTo: process.env.EMAIL_REPLY_TO || 'support@shadownews.community'
+    replyTo: process.env.EMAIL_REPLY_TO || 'shadownews@artofdigitalshadow.org'
   },
 
   /**

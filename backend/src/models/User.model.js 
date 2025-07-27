@@ -7,7 +7,7 @@
  * 
  * Key Features:
  * - User authentication with secure password hashing
- * - Unique ShadowNews email address generation (@shadownews.community)
+ * - Unique ShadowNews email address generation (@artofdigitalshadow.org)
  * - Comprehensive user profile fields (bio, avatar, preferences)
  * - Karma/reputation system integration
  * - Email verification and password reset token management
@@ -17,7 +17,7 @@
  * Schema Fields:
  * - username: Unique identifier, URL-safe format
  * - email: Primary contact email for authentication
- * - shadownewsEmail: Auto-generated @shadownews.community address
+ * - shadownewsEmail: Auto-generated @artofdigitalshadow.org address
  * - password: Bcrypt-hashed password (excluded from queries by default)
  * - profile: Display name, bio, avatar, location
  * - karma: Reputation points from community interactions
@@ -93,7 +93,7 @@ const userSchema = new mongoose.Schema({
     match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email']
   },
   
-  // Auto-generated ShadowNews email address (username@shadownews.community)
+  // Auto-generated ShadowNews email address (username@artofdigitalshadow.org)
   shadownewsEmail: {
     type: String,
     unique: true, // Each user gets unique ShadowNews email
@@ -296,7 +296,7 @@ userSchema.virtual('karmaLevel').get(function() {
 userSchema.pre('save', async function(next) {
  // Generate Shadownews email
  if (!this.shadownewsEmail && this.username) {
-   this.shadownewsEmail = `${this.username}@shadownews.community`;
+   this.shadownewsEmail = `${this.username}@artofdigitalshadow.org`;
  }
  
  // Hash password

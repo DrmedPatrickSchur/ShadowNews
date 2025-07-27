@@ -81,11 +81,11 @@ JWT_REFRESH_EXPIRES_IN=30d
 # Email Configuration
 EMAIL_SERVICE=sendgrid
 SENDGRID_API_KEY=your-sendgrid-api-key
-EMAIL_FROM=noreply@shadownews.community
+EMAIL_FROM=noreply@artofdigitalshadow.org
 EMAIL_FROM_NAME=Shadownews
 
 # Inbound Email Configuration
-INBOUND_EMAIL_DOMAIN=inbound.shadownews.community
+INBOUND_EMAIL_DOMAIN=inbound.artofdigitalshadow.org
 INBOUND_EMAIL_WEBHOOK_SECRET=your-webhook-secret
 
 # AWS Configuration (for file uploads)
@@ -180,7 +180,7 @@ REACT_APP_ENABLE_EMAIL_COMPOSER=true
 NODE_ENV=production
 PORT=5000
 API_VERSION=v1
-CORS_ORIGIN=https://shadownews.community
+CORS_ORIGIN=https://artofdigitalshadow.org
 
 # Database Configuration
 MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/shadownews?retryWrites=true&w=majority
@@ -200,11 +200,11 @@ JWT_REFRESH_EXPIRES_IN=30d
 # Email Configuration
 EMAIL_SERVICE=sendgrid
 SENDGRID_API_KEY=SG.production-api-key
-EMAIL_FROM=hello@shadownews.community
+EMAIL_FROM=hello@artofdigitalshadow.org
 EMAIL_FROM_NAME=Shadownews
 
 # Inbound Email Configuration
-INBOUND_EMAIL_DOMAIN=inbound.shadownews.community
+INBOUND_EMAIL_DOMAIN=inbound.artofdigitalshadow.org
 INBOUND_EMAIL_WEBHOOK_SECRET=production-webhook-secret
 
 # AWS Configuration
@@ -250,8 +250,8 @@ ENCRYPTION_KEY=production-32-character-encryption-key
 
 ```bash
 # API Configuration
-REACT_APP_API_URL=https://api.shadownews.community/v1
-REACT_APP_WEBSOCKET_URL=wss://api.shadownews.community
+REACT_APP_API_URL=https://api.artofdigitalshadow.org/v1
+REACT_APP_WEBSOCKET_URL=wss://api.artofdigitalshadow.org
 
 # Environment
 REACT_APP_ENV=production
@@ -266,7 +266,7 @@ REACT_APP_GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
 REACT_APP_SENTRY_DSN=https://xxx@xxx.ingest.sentry.io/xxx
 
 # Public URLs
-REACT_APP_PUBLIC_URL=https://shadownews.community
+REACT_APP_PUBLIC_URL=https://artofdigitalshadow.org
 REACT_APP_BRAND_NAME=Shadownews
 
 # WebSocket Configuration

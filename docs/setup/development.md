@@ -111,9 +111,9 @@ SESSION_SECRET=your-session-secret
 # Email Configuration
 SENDGRID_API_KEY=your-sendgrid-api-key
 SENDGRID_WEBHOOK_SECRET=your-webhook-secret
-INBOUND_EMAIL_DOMAIN=dev.shadownews.community
-FROM_EMAIL=noreply@shadownews.community
-SUPPORT_EMAIL=support@shadownews.community
+INBOUND_EMAIL_DOMAIN=dev.artofdigitalshadow.org
+FROM_EMAIL=noreply@artofdigitalshadow.org
+SUPPORT_EMAIL=shadownews@artofdigitalshadow.org
 
 # Email Processing
 EMAIL_QUEUE_NAME=email-processing
@@ -167,7 +167,7 @@ REACT_APP_WS_URL=ws://localhost:5001
 # Application
 REACT_APP_NAME=Shadownews
 REACT_APP_TAGLINE=Where Ideas Snowball Into Communities
-REACT_APP_EMAIL_DOMAIN=dev.shadownews.community
+REACT_APP_EMAIL_DOMAIN=dev.artofdigitalshadow.org
 
 # Features
 REACT_APP_ENABLE_PWA=true
@@ -219,7 +219,7 @@ sudo systemctl start redis-server
 1. Log in to SendGrid Dashboard
 2. Navigate to Settings → Inbound Parse
 3. Add Host & URL:
-   - Host: `dev.shadownews.community`
+   - Host: `dev.artofdigitalshadow.org`
    - URL: `http://your-ngrok-url.ngrok.io/api/email/inbound`
 4. Check "POST the raw, full MIME message"
 5. Save
@@ -393,7 +393,7 @@ curl -X POST http://localhost:5000/api/email/test \
   -H "Content-Type: application/json" \
   -d '{
     "from": "test@example.com",
-    "to": "test@dev.shadownews.community",
+    "to": "test@dev.artofdigitalshadow.org",
     "subject": "Test Post via Email",
     "text": "This is a test post sent via email #test #email",
     "attachments": []

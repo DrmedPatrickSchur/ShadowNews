@@ -150,7 +150,7 @@ Create production environment files:
 # Server Configuration
 NODE_ENV=production
 PORT=5000
-API_URL=https://api.shadownews.com
+API_URL=https://api.artofdigitalshadow.org
 
 # Database
 MONGODB_URI=mongodb://localhost:27017/shadownews_prod
@@ -164,9 +164,9 @@ SESSION_SECRET=your-super-secure-session-secret-min-64-chars
 # Email Configuration
 EMAIL_SERVICE=sendgrid
 SENDGRID_API_KEY=your-sendgrid-api-key
-EMAIL_FROM=noreply@shadownews.com
-EMAIL_DOMAIN=shadownews.com
-INBOUND_EMAIL_WEBHOOK_URL=https://api.shadownews.com/api/email/inbound
+EMAIL_FROM=noreply@artofdigitalshadow.org
+EMAIL_DOMAIN=artofdigitalshadow.org
+INBOUND_EMAIL_WEBHOOK_URL=https://api.artofdigitalshadow.org/api/email/inbound
 
 # AWS Configuration (for file uploads)
 AWS_ACCESS_KEY_ID=your-aws-access-key
@@ -181,7 +181,7 @@ AI_MODEL=gpt-4-turbo-preview
 # Security
 RATE_LIMIT_WINDOW=15
 RATE_LIMIT_MAX=100
-CORS_ORIGIN=https://shadownews.com
+CORS_ORIGIN=https://artofdigitalshadow.org/shadownews/
 
 # Monitoring
 SENTRY_DSN=your-sentry-dsn
@@ -195,8 +195,8 @@ ENABLE_AI_FEATURES=true
 
 #### Frontend (.env.production)
 ```bash
-REACT_APP_API_URL=https://api.shadownews.com
-REACT_APP_WS_URL=wss://api.shadownews.com
+REACT_APP_API_URL=https://api.artofdigitalshadow.org
+REACT_APP_WS_URL=wss://api.artofdigitalshadow.org
 REACT_APP_ENVIRONMENT=production
 REACT_APP_VERSION=$npm_package_version
 REACT_APP_SENTRY_DSN=your-sentry-dsn
@@ -414,7 +414,7 @@ http {
     # Redirect HTTP to HTTPS
     server {
         listen 80;
-        server_name shadownews.com www.shadownews.com api.shadownews.com;
+        server_name artofdigitalshadow.org api.artofdigitalshadow.org;
         
         location /.well-known/acme-challenge/ {
             root /var/www/certbot;
@@ -428,17 +428,17 @@ http {
     # Main application
     server {
         listen 443 ssl http2;
-        server_name shadownews.com www.shadownews.com;
+        server_name artofdigitalshadow.org;
 
-        ssl_certificate /etc/letsencrypt/live/shadownews.com/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/shadownews.com/privkey.pem;
+        ssl_certificate /etc/letsencrypt/live/artofdigitalshadow.org/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/artofdigitalshadow.org/privkey.pem;
 
         # Security headers
         add_header X-Frame-Options "SAMEORIGIN" always;
         add_header X-Content-Type-Options "nosniff" always;
         add_header X-XSS-Protection "1; mode=block" always;
         add_header Referrer-Policy "strict-origin-when-cross-origin" always;
-        add_header Content-Security-Policy "default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.shadownews.com wss://api.shadownews.com" always;
+        add_header Content-Security-Policy "default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.artofdigitalshadow.org wss://api.artofdigitalshadow.org" always;
 
         location / {
             proxy_pass http://frontend;
@@ -456,10 +456,10 @@ http {
     # API subdomain
     server {
         listen 443 ssl http2;
-        server_name api.shadownews.com;
+        server_name api.artofdigitalshadow.org;
 
-        ssl_certificate /etc/letsencrypt/live/api.shadownews.com/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/api.shadownews.com/privkey.pem;
+        ssl_certificate /etc/letsencrypt/live/api.artofdigitalshadow.org/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/api.artofdigitalshadow.org/privkey.pem;
 
         # API rate limiting
         location /api/ {
@@ -476,7 +476,7 @@ http {
             proxy_set_header X-Forwarded-Proto $scheme;
 
             # CORS headers
-            add_header 'Access-Control-Allow-Origin' 'https://shadownews.com' always;
+            add_header 'Access-Control-Allow-Origin' 'https://artofdigitalshadow.org/shadownews/' always;
             add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
             add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization' always;
             add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range' always;
@@ -536,10 +536,9 @@ docker run -it --rm \
   -v $(pwd)/certbot/conf:/etc/letsencrypt \
   -v $(pwd)/certbot/www:/var/www/certbot \
   certbot/certbot certonly --standalone \
-  -d shadownews.com \
-  -d www.shadownews.com \
-  -d api.shadownews.com \
-  --email admin@shadownews.com \
+  -d artofdigitalshadow.org \
+  -d api.artofdigitalshadow.org \
+  --email shadownews@artofdigitalshadow.org \
   --agree-tos \
   --no-eff-email
 
@@ -824,7 +823,7 @@ sudo aideinit
 sudo cp /var/lib/aide/aide.db.new /var/lib/aide/aide.db
 
 # Schedule daily AIDE checks
-echo "0 5 * * * /usr/bin/aide --check | mail -s 'AIDE Report' admin@shadownews.com" | sudo crontab -
+echo "0 5 * * * /usr/bin/aide --check | mail -s 'AIDE Report' shadownews@artofdigitalshadow.org" | sudo crontab -
 ```
 
 ## Performance Optimization
@@ -1073,7 +1072,7 @@ docker-compose -f docker-compose.prod.yml logs worker | grep email
 curl -X POST https://api.sendgrid.com/v3/mail/send \
   -H "Authorization: Bearer $SENDGRID_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"personalizations":[{"to":[{"email":"test@example.com"}]}],"from":{"email":"noreply@shadownews.com"},"subject":"Test","content":[{"type":"text/plain","value":"Test"}]}'
+  -d '{"personalizations":[{"to":[{"email":"test@example.com"}]}],"from":{"email":"noreply@artofdigitalshadow.org"},"subject":"Test","content":[{"type":"text/plain","value":"Test"}]}'
 ```
 
 #### 4. Performance Issues
@@ -1127,11 +1126,11 @@ location ~* \.(jpg|jpeg|gif|png|css|js|ico|webp|svg)$ {
 
 ## Contact & Support
 
-- **System Admin**: admin@shadownews.com
+- **System Admin**: shadownews@artofdigitalshadow.org
 - **Emergency Contact**: +1-XXX-XXX-XXXX
-- **Status Page**: https://status.shadownews.com
-- **Documentation**: https://docs.shadownews.com
-- **Monitoring**: https://grafana.shadownews.com
+- **Status Page**: https://artofdigitalshadow.org/shadownews/status
+- **Documentation**: https://artofdigitalshadow.org/shadownews/docs
+- **Monitoring**: https://artofdigitalshadow.org/shadownews/grafana
 
 ## Version History
 

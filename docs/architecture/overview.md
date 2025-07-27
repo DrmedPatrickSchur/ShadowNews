@@ -239,7 +239,7 @@ sequenceDiagram
   email: String,
   username: String,
   password: String, // bcrypt hashed
-  shadownewsEmail: String, // username@shadownews.community
+    shadownewsEmail: String, // username@artofdigitalshadow.org
   karma: Number,
   badges: [String],
   preferences: {

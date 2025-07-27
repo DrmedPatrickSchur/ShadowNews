@@ -49,12 +49,12 @@ The Shadownews WebSocket API provides real-time updates for posts, comments, not
 
 ### Endpoint
 ```
-wss://api.shadownews.com/ws
+wss://api.artofdigitalshadow.org/shadownews/ws
 ```
 
 ### Authentication
 ```javascript
-const socket = io('wss://api.shadownews.com', {
+const socket = io('wss://api.artofdigitalshadow.org/shadownews', {
   auth: {
     token: 'Bearer YOUR_JWT_TOKEN'
   },
@@ -574,7 +574,7 @@ npm install socket.io-client
 
 ### Test Connection
 ```javascript
-const testSocket = io('wss://api.shadownews.com/ws', {
+const testSocket = io('wss://api.artofdigitalshadow.org/shadownews/ws', {
   auth: { token: 'test_token' }
 });
 
@@ -587,7 +587,7 @@ testSocket.on('connect', () => {
 
 ### Debug Mode
 ```javascript
-const socket = io('wss://api.shadownews.com/ws', {
+const socket = io('wss://api.artofdigitalshadow.org/shadownews/ws', {
   debug: true, // Enable debug logs
   auth: { token: 'Bearer YOUR_TOKEN' }
 });

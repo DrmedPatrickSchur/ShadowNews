@@ -114,7 +114,7 @@
  * domain settings, system email addresses, and inbound email processing.
  * 
  * Domain Strategy:
- * - Dedicated @shadownews.community domain for platform emails
+ * - Dedicated @artofdigitalshadow.org domain for platform emails
  * - Separate system addresses for different functions
  * - Consistent branding across all email communications
  * - Professional email handling for user trust
@@ -132,12 +132,12 @@
  */
 export const EMAIL_CONSTANTS = {
   // Primary email domain for all platform communications
-  DOMAIN: '@shadownews.community',
+  DOMAIN: '@artofdigitalshadow.org',
   
   // System email addresses for different communication types
-  SYSTEM_EMAIL: 'system@shadownews.community',      // Automated platform notifications
-  NOREPLY_EMAIL: 'noreply@shadownews.community',    // One-way communications
-  SUPPORT_EMAIL: 'support@shadownews.community',    // User support and assistance
+  SYSTEM_EMAIL: 'system@artofdigitalshadow.org',      // Automated platform notifications
+  NOREPLY_EMAIL: 'noreply@artofdigitalshadow.org',    // One-way communications
+  SUPPORT_EMAIL: 'support@artofdigitalshadow.org',    // User support and assistance
   
   // Inbound email address prefixes for different content types
   INBOUND: {

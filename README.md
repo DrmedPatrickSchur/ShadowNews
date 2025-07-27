@@ -21,7 +21,7 @@ through email, while the platform enables organic growth through viral CSV
 distribution - creating a "snowball effect" where communities naturally expand.
 
 📧 Email-First Philosophy:
-Every user receives a unique @shadownews.community email address, enabling
+Every user receives a unique @artofdigitalshadow.org email address, enabling
 seamless content creation and community interaction without traditional web
 interfaces. This approach bridges the gap between email workflows and modern
 social platforms.
@@ -67,7 +67,7 @@ Version: 1.0.0
 ## 🌟 Features
 
 ### 📧 Email-First Platform
-- **Unique Email Address**: Each user gets `username@shadownews.community`
+- **Unique Email Address**: Each user gets `username@artofdigitalshadow.org`
 - **Post via Email**: Send emails to create posts instantly
 - **Email Commands**: Manage repositories without visiting the site
 - **Reply to Comment**: Respond to notifications to add comments
@@ -432,7 +432,7 @@ We welcome contributions! Please follow these steps:
 
 ### Reporting Security Issues
 
-Please email security@shadownews.community for security concerns.
+Please email shadownews@artofdigitalshadow.org for security concerns.
 
 ### Security Features
 
@@ -497,7 +497,7 @@ lsof -i :3000
 - Check [documentation](./docs/)
 - Search [existing issues](https://github.com/DrmedPatrickSchur/ShadowNews/issues)
 - Join [Discord community](https://discord.gg/shadownews)
-- Email support@shadownews.community
+- Email shadownews@artofdigitalshadow.org
 
 ## 📈 Roadmap
 
@@ -556,8 +556,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **GitHub**: [ShadowNews Repository](https://github.com/DrmedPatrickSchur/ShadowNews)
 - **Discord**: [Join our server](https://discord.gg/shadownews)
 - **Twitter**: [@shadownews](https://twitter.com/shadownews)
-- **Email**: support@shadownews.community
-- **Documentation**: [docs.shadownews.community](https://docs.shadownews.community)
+- **Email**: shadownews@artofdigitalshadow.org
+- **Documentation**: [artofdigitalshadow.org/shadownews/docs](https://artofdigitalshadow.org/shadownews/docs)
 
 ## 🌟 Star History
 

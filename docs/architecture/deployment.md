@@ -431,7 +431,7 @@ server {
     add_header X-Content-Type-Options "nosniff" always;
     add_header X-XSS-Protection "1; mode=block" always;
     add_header Referrer-Policy "strict-origin-when-cross-origin" always;
-    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://api.shadownews.com wss://ws.shadownews.com; frame-ancestors 'none';" always;
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://api.artofdigitalshadow.org/shadownews wss://ws.artofdigitalshadow.org/shadownews; frame-ancestors 'none';" always;
     
     # Compression
     gzip on;
@@ -765,8 +765,8 @@ kubectl scale deployment shadownews-workers --replicas=2 -n production
 ### 3. Data Verification
 ```bash
 # Run health checks
-curl -f https://api.shadownews.com/health
-curl -f https://shadownews.com/
+curl -f https://api.artofdigitalshadow.org/shadownews/health
+curl -f https://artofdigitalshadow.org/shadownews/
 
 # Verify critical functions
 npm run test:production
@@ -782,7 +782,7 @@ npm run test:production
 module.exports = {
   distribution: {
     origins: [{
-      domainName: 'shadownews.com',
+      domainName: 'artofdigitalshadow.org/shadownews',
       originId: 'shadownews-alb',
       customOriginConfig: {
         HTTPPort: 80,
@@ -949,8 +949,8 @@ horizontalPodAutoscaler:
 
 ### Escalation Path
 1. On-call Engineer: +1-XXX-XXX-XXXX
-2. DevOps Lead: devops@shadownews.com
-3. CTO: cto@shadownews.com
+2. DevOps Lead: shadownews@artofdigitalshadow.org
+3. CTO: shadownews@artofdigitalshadow.org
 
 ### External Vendors
 - AWS Support: Enterprise Support Plan

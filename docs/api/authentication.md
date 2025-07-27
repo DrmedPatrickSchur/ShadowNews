@@ -40,7 +40,7 @@ Shadownews uses JWT-based authentication with refresh tokens. All authenticated 
 ## Base URL
 
 ```
-https://api.shadownews.com/v1
+https://api.artofdigitalshadow.org/shadownews/v1
 ```
 
 ## Authentication Flow
@@ -95,7 +95,7 @@ Content-Type: application/json
     "userId": "507f1f77bcf86cd799439011",
     "email": "user@example.com",
     "username": "johndoe",
-    "shadownewsEmail": "johndoe@shadownews.community"
+    "shadownewsEmail": "johndoe@artofdigitalshadow.org"
   }
 }
 ```
@@ -147,7 +147,7 @@ Content-Type: application/json
       "id": "507f1f77bcf86cd799439011",
       "email": "user@example.com",
       "username": "johndoe",
-      "shadownewsEmail": "johndoe@shadownews.community",
+      "shadownewsEmail": "johndoe@artofdigitalshadow.org",
       "karma": 150,
       "role": "user",
       "verified": true
@@ -273,7 +273,7 @@ Authorization: Bearer <access_token>
     "id": "507f1f77bcf86cd799439011",
     "email": "user@example.com",
     "username": "johndoe",
-    "shadownewsEmail": "johndoe@shadownews.community",
+    "shadownewsEmail": "johndoe@artofdigitalshadow.org",
     "karma": 150,
     "role": "user",
     "verified": true,
@@ -472,7 +472,7 @@ All error responses follow this format:
 4. **CORS Configuration**:
    ```javascript
    {
-     origin: ['https://shadownews.com'],
+     origin: ['https://artofdigitalshadow.org/shadownews'],
      credentials: true,
      methods: ['GET', 'POST', 'PUT', 'DELETE'],
      allowedHeaders: ['Content-Type', 'Authorization']
@@ -486,7 +486,7 @@ All error responses follow this format:
 ```javascript
 // Login request
 const login = async (email, password) => {
-  const response = await fetch('https://api.shadownews.com/v1/auth/login', {
+  const response = await fetch('https://api.artofdigitalshadow.org/shadownews/v1/auth/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -509,7 +509,7 @@ const login = async (email, password) => {
 const fetchPosts = async () => {
   const token = localStorage.getItem('accessToken');
   
-  const response = await fetch('https://api.shadownews.com/v1/posts', {
+  const response = await fetch('https://api.artofdigitalshadow.org/shadownews/v1/posts', {
     headers: {
       'Authorization': `Bearer ${token}`
     }
