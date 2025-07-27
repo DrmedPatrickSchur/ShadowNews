@@ -1,21 +1,4 @@
-/**
- * @fileoverview production.md
- * 
- * Implementation file for production.md
- * 
- * Key Features:
- * - Core functionality
- * - Error handling
- * - Performance optimization
- * 
- * Dependencies:
- *  * - No external dependencies
- * 
- * @author ShadowNews Team
- * @version 1.0.0
- * @since 2024-01-01
- * @lastModified 2025-07-27
- */\n\n<!--
+<!--
 ============================================================================
 ShadowNews - Production Deployment Guide
 ============================================================================
@@ -153,9 +136,9 @@ sudo systemctl enable nginx
 ### 1. Clone Repository
 ```bash
 cd /opt
-sudo git clone https://github.com/yourusername/shadownews.git
-sudo chown -R $USER:$USER shadownews
-cd shadownews
+sudo git clone https://github.com/DrmedPatrickSchur/ShadowNews.git
+sudo chown -R $USER:$USER ShadowNews
+cd ShadowNews
 ```
 
 ### 2. Environment Configuration

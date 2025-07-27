@@ -1,21 +1,4 @@
-/**
- * @fileoverview overview.md
- * 
- * Implementation file for overview.md
- * 
- * Key Features:
- * - Core functionality
- * - Error handling
- * - Performance optimization
- * 
- * Dependencies:
- *  * - No external dependencies
- * 
- * @author ShadowNews Team
- * @version 1.0.0
- * @since 2024-01-01
- * @lastModified 2025-07-27
- */\n\n<!--
+<!--
 ============================================================================
 ShadowNews - System Architecture Overview Documentation
 ============================================================================

@@ -1,21 +1,4 @@
-/**
- * @fileoverview development.md
- * 
- * Implementation file for development.md
- * 
- * Key Features:
- * - Core functionality
- * - Error handling
- * - Performance optimization
- * 
- * Dependencies:
- *  * - No external dependencies
- * 
- * @author ShadowNews Team
- * @version 1.0.0
- * @since 2024-01-01
- * @lastModified 2025-07-27
- */\n\n<!--
+<!--
 ============================================================================
 ShadowNews - Development Environment Setup Guide
 ============================================================================
@@ -79,7 +62,7 @@ Version: 1.0.0
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/shadownews.git
+git clone https://github.com/DrmedPatrickSchur/ShadowNews.git
 cd shadownews
 
 # Install dependencies
