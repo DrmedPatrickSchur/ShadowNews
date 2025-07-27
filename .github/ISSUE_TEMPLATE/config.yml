@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📧 Email Support
+    url: mailto:shadownews@artofdigitalshadow.org
+    about: Contact us directly via email for sensitive issues or private support
+  - name: 🌐 Website
+    url: https://artofdigitalshadow.org/shadownews/
+    about: Visit the ShadowNews main website
+  - name: 📚 Documentation
+    url: https://artofdigitalshadow.org/shadownews/docs
+    about: Browse the complete documentation
+  - name: 💬 Discord Community
+    url: https://discord.gg/shadownews
+    about: Join our Discord server for real-time discussions and community support
