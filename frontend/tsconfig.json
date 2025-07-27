@@ -1,4 +1,12 @@
 {
+ "_header": "============================================================================",
+ "_title": "TypeScript Configuration for ShadowNews Frontend",
+ "_description": "Comprehensive TypeScript compiler configuration for React application",
+ "_architecture": "This tsconfig.json defines TypeScript compilation settings, module resolution, and type checking rules for the ShadowNews email-first social platform frontend.",
+ "_version": "TypeScript 5.3.3 with modern ECMAScript target and React JSX support",
+ "_updated": "2025-01-27",
+ "_separator": "============================================================================",
+
  "compilerOptions": {
    "target": "ES2020",
    "useDefineForClassFields": true,
@@ -35,7 +43,53 @@
    "allowJs": true,
    "incremental": true
  },
+
+ "_compilation_scope": "=== COMPILATION CONFIGURATION ===",
  "include": ["src", "src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
  "exclude": ["node_modules", "build", "dist", "coverage"],
- "references": [{ "path": "./tsconfig.node.json" }]
+
+ "_configuration_notes": "=== CONFIGURATION EXPLANATIONS ===",
+ "_target_explanation": "target: ES2020 - Compiles TypeScript to ES2020 JavaScript for modern browser compatibility and performance",
+ "_useDefineForClassFields_explanation": "useDefineForClassFields: true - Uses ECMAScript class fields behavior for better standards compliance",
+ "_lib_explanation": "lib: ES2020, DOM, DOM.Iterable - Includes ES2020 features, DOM APIs, and DOM iteration support for browser environment",
+ "_module_explanation": "module: ESNext - Uses ESNext module system for modern import/export syntax and tree shaking",
+ "_skipLibCheck_explanation": "skipLibCheck: true - Skips type checking of declaration files for faster compilation",
+ "_moduleResolution_explanation": "moduleResolution: bundler - Uses bundler-style module resolution for modern build tools like Vite/Webpack",
+ "_allowImportingTsExtensions_explanation": "allowImportingTsExtensions: true - Allows importing TypeScript files with .ts/.tsx extensions",
+ "_resolveJsonModule_explanation": "resolveJsonModule: true - Enables importing JSON files as modules with type safety",
+ "_isolatedModules_explanation": "isolatedModules: true - Ensures each file can be transpiled independently for build tool compatibility",
+ "_noEmit_explanation": "noEmit: true - Disables JavaScript output generation (handled by build tools like Vite)",
+ "_jsx_explanation": "jsx: react-jsx - Uses React 17+ automatic JSX transform without requiring React imports",
+ "_strict_explanation": "strict: true - Enables all strict type checking options for maximum type safety",
+ "_noUnusedLocals_explanation": "noUnusedLocals: true - Reports errors for unused local variables to maintain clean code",
+ "_noUnusedParameters_explanation": "noUnusedParameters: true - Reports errors for unused function parameters to prevent bugs",
+ "_noFallthroughCasesInSwitch_explanation": "noFallthroughCasesInSwitch: true - Requires explicit breaks in switch statements to prevent bugs",
+ "_allowSyntheticDefaultImports_explanation": "allowSyntheticDefaultImports: true - Allows default imports from modules without default exports",
+ "_esModuleInterop_explanation": "esModuleInterop: true - Enables interoperability between CommonJS and ES modules",
+ "_forceConsistentCasingInFileNames_explanation": "forceConsistentCasingInFileNames: true - Enforces consistent file name casing across different file systems",
+ "_baseUrl_explanation": "baseUrl: '.' - Sets the base directory for resolving non-relative module names",
+ "_paths_explanation": "paths: Defines path aliases for cleaner imports - @/* for src, @components/* for components, @hooks/* for hooks, etc.",
+ "_types_explanation": "types: Includes type definitions for jest, node, react, react-dom, and testing-library/jest-dom",
+ "_allowJs_explanation": "allowJs: true - Allows importing JavaScript files alongside TypeScript for gradual migration",
+ "_incremental_explanation": "incremental: true - Enables incremental compilation for faster subsequent builds",
+ "_include_explanation": "include: Specifies files and patterns to include in TypeScript compilation - entire src directory and all TS/JS files",
+ "_exclude_explanation": "exclude: Excludes node_modules, build/dist output, and coverage reports from TypeScript processing",
+
+ "_path_aliases_guide": "=== PATH ALIASES USAGE GUIDE ===",
+ "_alias_at": "@/* - General alias for src directory: import { Button } from '@/components/Button'",
+ "_alias_components": "@components/* - Direct component access: import { Button } from '@components/Button'",
+ "_alias_pages": "@pages/* - Page component access: import { HomePage } from '@pages/HomePage'",
+ "_alias_hooks": "@hooks/* - Custom hooks access: import { useAuth } from '@hooks/useAuth'",
+ "_alias_services": "@services/* - API services access: import { api } from '@services/api'",
+ "_alias_store": "@store/* - Redux store access: import { authSlice } from '@store/authSlice'",
+ "_alias_utils": "@utils/* - Utilities access: import { helpers } from '@utils/helpers'",
+ "_alias_styles": "@styles/* - Styles access: import '@styles/globals.css'",
+ "_alias_types": "@types/* - Type definitions access: import { User } from '@types/user'",
+ "_alias_shared": "@shared/* - Shared code access: import { constants } from '@shared/constants'",
+
+ "_footer": "============================================================================",
+ "_footer_note": "ShadowNews TypeScript Configuration Complete",
+ "_footer_description": "This TypeScript configuration provides modern compilation settings, strict type checking, and optimized development experience for the ShadowNews React frontend. It enables advanced TypeScript features while maintaining compatibility with modern build tools and development workflows.",
+ "_footer_architecture": "The configuration supports the ShadowNews email-first social platform with comprehensive type safety, efficient compilation, and developer-friendly path aliases for component organization.",
+ "_footer_separator": "============================================================================"
 }

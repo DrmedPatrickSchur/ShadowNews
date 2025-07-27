@@ -1,3 +1,61 @@
+/**
+ * @fileoverview websocket.md
+ * 
+ * Implementation file for websocket.md
+ * 
+ * Key Features:
+ * - Core functionality
+ * - Error handling
+ * - Performance optimization
+ * 
+ * Dependencies:
+ *  * - No external dependencies
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */\n\n<!--
+============================================================================
+ShadowNews - WebSocket Real-Time API Documentation
+============================================================================
+
+Comprehensive documentation for ShadowNews real-time WebSocket API, covering
+live updates, event handling, and real-time collaboration features.
+
+Purpose:
+- Define WebSocket connection protocols and authentication
+- Document real-time event types and message formats
+- Provide integration patterns for live updates
+- Establish best practices for connection management
+
+Target Audience:
+- Frontend developers implementing real-time features
+- Backend developers maintaining WebSocket services
+- Mobile developers building live update functionality
+- System architects designing real-time systems
+
+Coverage:
+- WebSocket connection establishment and authentication
+- Real-time post updates and comment notifications
+- Live repository monitoring and email processing events
+- User presence and activity tracking
+- System notifications and broadcast messages
+- Error handling and reconnection strategies
+
+Technical Features:
+- Socket.io-based WebSocket implementation
+- JWT-based authentication for secure connections
+- Event-driven architecture with typed message formats
+- Automatic reconnection and error recovery
+- Room-based event broadcasting and user targeting
+- Rate limiting and connection management
+
+Last Updated: 2025-07-27
+Version: 1.0.0
+============================================================================
+-->
+
 # WebSocket API Documentation
 
 ## Overview

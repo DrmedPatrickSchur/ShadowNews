@@ -1,3 +1,109 @@
+/**
+ * Universal Search Bar Component
+ * 
+ * Comprehensive search interface providing real-time search across multiple content
+ * types including posts, repositories, users, and hashtags. Features intelligent
+ * search suggestions, keyboard navigation, debounced API calls, and accessible
+ * dropdown interface with categorized results and performance optimizations.
+ * 
+ * Core Features:
+ * - Universal Search: Searches across posts, repositories, users, and hashtags simultaneously
+ * - Real-Time Suggestions: Live search results with debounced API calls for performance
+ * - Keyboard Navigation: Full keyboard support with arrow keys, Enter, and Escape
+ * - Intelligent Parsing: Automatic hashtag extraction and user mention detection
+ * - Category Organization: Grouped results with clear visual hierarchy and icons
+ * - Responsive Design: Mobile-optimized interface with touch-friendly interactions
+ * 
+ * Search Categories:
+ * - Posts: Article titles with engagement metrics (points, comments)
+ * - Repositories: Email repositories with topic and email count information
+ * - Users: User profiles with karma scores and repository counts
+ * - Hashtags: Extracted hashtags from search query with trending indicators
+ * 
+ * User Experience:
+ * - Auto-Focus: Optional automatic focus for improved accessibility
+ * - Clear Functionality: One-click search query clearing with visual feedback
+ * - Loading States: Visual loading indicators during search operations
+ * - Empty States: Informative no-results messaging with suggestions
+ * - Quick Actions: Direct navigation to detailed search results page
+ * 
+ * Performance Optimizations:
+ * - Debounced Search: 300ms debounce to reduce API calls and improve performance
+ * - Request Batching: Parallel API calls for different content types
+ * - Result Limiting: Limited results per category to prevent interface overflow
+ * - Efficient Rendering: Optimized React rendering with proper key usage
+ * - Memory Management: Proper cleanup of event listeners and API calls
+ * 
+ * Keyboard Navigation:
+ * - Arrow Keys: Navigate through search results with visual selection
+ * - Enter Key: Activate selected result or perform general search
+ * - Escape Key: Close dropdown and remove focus from search input
+ * - Tab Key: Navigate away from search component with proper focus management
+ * 
+ * Search Intelligence:
+ * - Query Processing: Intelligent parsing of search terms and special characters
+ * - Hashtag Detection: Automatic extraction and suggestion of hashtags
+ * - User Mention Support: @ symbol recognition for user searches
+ * - Context Awareness: Search results prioritized by user preferences and history
+ * 
+ * Accessibility Features:
+ * - Screen Reader Support: Proper ARIA labels and live regions for result updates
+ * - Keyboard Navigation: Complete keyboard accessibility with logical tab order
+ * - Focus Management: Proper focus handling for dropdown interactions
+ * - High Contrast: Sufficient color contrast for all interactive elements
+ * - Touch Accessibility: Adequate touch targets for mobile devices
+ * 
+ * Visual Design:
+ * - Modern Interface: Clean design with consistent spacing and typography
+ * - Category Icons: Visual indicators for different content types
+ * - Interactive States: Hover and selection states with smooth transitions
+ * - Loading Animation: Subtle spinner animation during search operations
+ * - Responsive Layout: Adaptive design for various screen sizes
+ * 
+ * State Management:
+ * - Search Query: Real-time search input with debounced processing
+ * - Results State: Categorized search results with loading and error states
+ * - Selection State: Keyboard navigation selection with visual feedback
+ * - Dropdown State: Show/hide logic with click-outside detection
+ * - Loading State: Visual feedback during API operations
+ * 
+ * API Integration:
+ * - Multiple Endpoints: Parallel calls to posts, repositories, and users APIs
+ * - Error Handling: Graceful error handling with fallback states
+ * - Response Processing: Data transformation and filtering for display
+ * - Authentication: Respect for user authentication state and permissions
+ * 
+ * Mobile Optimization:
+ * - Touch Events: Optimized touch handling for mobile interactions
+ * - Viewport Adaptation: Responsive design for various screen sizes
+ * - Performance: Optimized rendering for mobile device constraints
+ * - Gesture Support: Touch-friendly navigation and selection
+ * 
+ * Navigation Integration:
+ * - React Router: Seamless navigation to search results and content pages
+ * - URL Management: Proper URL encoding for search queries and parameters
+ * - History Handling: Browser history integration for search navigation
+ * - Deep Linking: Support for direct links to search results
+ * 
+ * Error Handling:
+ * - API Failures: Graceful handling of search API failures
+ * - Network Issues: Fallback behavior for network connectivity problems
+ * - Invalid Queries: Proper handling of malformed search inputs
+ * - Rate Limiting: Respectful API usage with appropriate debouncing
+ * 
+ * Dependencies:
+ * - React: Component framework with hooks for state and lifecycle management
+ * - React Router: Navigation and routing for search result pages
+ * - Redux: State management for authentication and global search state
+ * - Lucide React: Icon library for search interface elements
+ * - Custom Hooks: useDebounce for search optimization
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';

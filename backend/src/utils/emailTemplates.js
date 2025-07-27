@@ -1,64 +1,163 @@
+/**
+ * @fileoverview Email Templates and Rendering Utility
+ * 
+ * Comprehensive email template system for ShadowNews platform communications.
+ * Provides responsive HTML and plain text email templates for user engagement,
+ * notifications, community building, and platform interactions.
+ * 
+ * Key Features:
+ * - Responsive HTML email templates with modern design
+ * - Plain text fallbacks for all email types
+ * - Dynamic content rendering with user personalization
+ * - Community invitation and repository management emails
+ * - Daily digest and notification systems
+ * - Email verification and authentication workflows
+ * - Snowball distribution and growth tracking communications
+ * - Comprehensive email metadata and tracking integration
+ * 
+ * Template Categories:
+ * - Welcome and onboarding emails for new users
+ * - Daily/weekly digest emails with curated content
+ * - Repository invitations and community building
+ * - Post and comment notifications for engagement
+ * - Email verification and password reset workflows
+ * - Karma milestone and achievement notifications
+ * - Snowball effect tracking and analytics emails
+ * - Administrative and system notifications
+ * 
+ * Design Features:
+ * - Consistent branding with ShadowNews visual identity
+ * - Mobile-responsive design for all email clients
+ * - Accessibility compliance with semantic HTML
+ * - Cross-client compatibility testing
+ * - Modern CSS styling with fallbacks
+ * - Interactive elements and call-to-action buttons
+ * - Comprehensive email tracking and analytics
+ * 
+ * Security Features:
+ * - Template injection prevention with data sanitization
+ * - Secure token handling for email verification
+ * - Unsubscribe link generation and management
+ * - Privacy-compliant email tracking
+ * - Safe URL encoding for email parameters
+ * 
+ * Dependencies:
+ * - date-fns: Date formatting and localization
+ * - process.env: Environment configuration for URLs and settings
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
+// Date formatting utility for email content
 const { format } = require('date-fns');
 
+/**
+ * Email Templates Collection
+ * 
+ * Comprehensive collection of email templates for all ShadowNews platform
+ * communications. Each template function returns both HTML and plain text
+ * versions with dynamic content rendering and personalization.
+ * 
+ * Template Structure:
+ * - Each template is a function that accepts data parameters
+ * - Returns object with subject, html, and text properties
+ * - Includes responsive HTML with inline CSS for compatibility
+ * - Provides accessible plain text alternative
+ * - Integrates platform branding and visual identity
+ * 
+ * @constant {Object} emailTemplates
+ * @since 1.0.0
+ */
 const emailTemplates = {
- // Welcome email when user joins
- welcome: (user) => ({
-   subject: '🚀 Welcome to Shadownews - Your unique email is ready!',
-   html: `
-     <!DOCTYPE html>
-     <html>
-       <head>
-         <style>
-           body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
-           .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-           .header { background: #000; color: #fff; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-           .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
-           .button { display: inline-block; padding: 12px 30px; background: #ff6600; color: #fff; text-decoration: none; border-radius: 5px; margin: 20px 0; }
-           .feature { background: #fff; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #ff6600; }
-           .email-box { background: #fff; padding: 20px; border: 2px dashed #ff6600; border-radius: 5px; margin: 20px 0; text-align: center; }
-           .footer { text-align: center; padding: 20px; color: #666; font-size: 14px; }
-         </style>
-       </head>
-       <body>
-         <div class="container">
-           <div class="header">
-             <h1>Welcome to Shadownews!</h1>
-             <p>Where Ideas Snowball Into Communities</p>
-           </div>
-           <div class="content">
-             <h2>Hi ${user.username}! 👋</h2>
-             <p>Your account is ready and you're all set to start building your topic communities.</p>
-             
-             <div class="email-box">
-               <h3>Your Unique Posting Email:</h3>
-               <code style="font-size: 18px; color: #ff6600;">${user.username}@shadownews.community</code>
-               <p style="margin-top: 10px; font-size: 14px;">Send emails here to create posts instantly!</p>
-             </div>
+  /**
+   * Welcome Email Template
+   * 
+   * Onboarding email sent to new users upon registration completion.
+   * Introduces platform features, provides unique posting email, and
+   * guides users through initial setup and community engagement.
+   * 
+   * Features:
+   * - Personalized greeting with username
+   * - Unique ShadowNews email address highlight
+   * - Quick start guide with actionable steps
+   * - Dashboard link for immediate engagement
+   * - Karma system introduction and motivation
+   * - Responsive design with modern styling
+   * 
+   * @param {Object} user - User object with registration details
+   * @param {string} user.username - User's chosen username
+   * @param {string} user.email - User's primary email address
+   * @returns {Object} Email template with subject, html, and text content
+   * 
+   * @example
+   * // Generate welcome email for new user
+   * const welcomeEmail = emailTemplates.welcome({
+   *   username: 'johndoe',
+   *   email: 'john@example.com'
+   * });
+   * 
+   * @since 1.0.0
+   */
+  welcome: (user) => ({
+    subject: '🚀 Welcome to Shadownews - Your unique email is ready!',
+    html: `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <style>
+            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: #000; color: #fff; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+            .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
+            .button { display: inline-block; padding: 12px 30px; background: #ff6600; color: #fff; text-decoration: none; border-radius: 5px; margin: 20px 0; }
+            .feature { background: #fff; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #ff6600; }
+            .email-box { background: #fff; padding: 20px; border: 2px dashed #ff6600; border-radius: 5px; margin: 20px 0; text-align: center; }
+            .footer { text-align: center; padding: 20px; color: #666; font-size: 14px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>Welcome to Shadownews!</h1>
+              <p>Where Ideas Snowball Into Communities</p>
+            </div>
+            <div class="content">
+              <h2>Hi ${user.username}! 👋</h2>
+              <p>Your account is ready and you're all set to start building your topic communities.</p>
+              
+              <div class="email-box">
+                <h3>Your Unique Posting Email:</h3>
+                <code style="font-size: 18px; color: #ff6600;">${user.username}@shadownews.community</code>
+                <p style="margin-top: 10px; font-size: 14px;">Send emails here to create posts instantly!</p>
+              </div>
 
-             <h3>🎯 Quick Start Guide:</h3>
-             <div class="feature">
-               <strong>1. Post via Email:</strong> Send to ${user.username}@shadownews.community
-             </div>
-             <div class="feature">
-               <strong>2. Create a Repository:</strong> Upload a CSV with emails to build your community
-             </div>
-             <div class="feature">
-               <strong>3. Watch it Snowball:</strong> Your community grows as members share with their networks
-             </div>
+              <h3>🎯 Quick Start Guide:</h3>
+              <div class="feature">
+                <strong>1. Post via Email:</strong> Send to ${user.username}@shadownews.community
+              </div>
+              <div class="feature">
+                <strong>2. Create a Repository:</strong> Upload a CSV with emails to build your community
+              </div>
+              <div class="feature">
+                <strong>3. Watch it Snowball:</strong> Your community grows as members share with their networks
+              </div>
 
-             <a href="${process.env.FRONTEND_URL}/dashboard" class="button">Go to Dashboard</a>
+              <a href="${process.env.FRONTEND_URL}/dashboard" class="button">Go to Dashboard</a>
 
-             <p><strong>Pro tip:</strong> Your first post earns you 50 karma points! 🎉</p>
-           </div>
-           <div class="footer">
-             <p>Questions? Reply to this email or visit our <a href="${process.env.FRONTEND_URL}/help">help center</a></p>
-             <p><a href="${process.env.FRONTEND_URL}/settings/notifications">Manage email preferences</a> | <a href="${process.env.FRONTEND_URL}/privacy">Privacy Policy</a></p>
-           </div>
-         </div>
-       </body>
-     </html>
-   `,
-   text: `
+              <p><strong>Pro tip:</strong> Your first post earns you 50 karma points! 🎉</p>
+            </div>
+            <div class="footer">
+              <p>Questions? Reply to this email or visit our <a href="${process.env.FRONTEND_URL}/help">help center</a></p>
+              <p><a href="${process.env.FRONTEND_URL}/settings/notifications">Manage email preferences</a> | <a href="${process.env.FRONTEND_URL}/privacy">Privacy Policy</a></p>
+            </div>
+          </div>
+        </body>
+      </html>
+    `,
+    text: `
 Welcome to Shadownews, ${user.username}!
 
 Your unique posting email: ${user.username}@shadownews.community
@@ -71,98 +170,168 @@ Quick Start:
 Go to your dashboard: ${process.env.FRONTEND_URL}/dashboard
 
 Questions? Reply to this email.
-   `
- }),
+    `
+  }),
 
- // Daily digest email
- dailyDigest: (user, posts, stats) => ({
-   subject: `🌟 Your ${format(new Date(), 'EEEE')} Shadownews digest: ${posts.length} must-read posts`,
-   html: `
-     <!DOCTYPE html>
-     <html>
-       <head>
-         <style>
-           body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
-           .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-           .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-           .stats { display: flex; justify-content: space-around; margin: 20px 0; }
-           .stat { text-align: center; }
-           .stat-number { font-size: 24px; font-weight: bold; }
-           .post { background: #fff; padding: 20px; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-           .post-title { color: #000; text-decoration: none; font-size: 18px; font-weight: 600; }
-           .post-meta { color: #666; font-size: 14px; margin: 10px 0; }
-           .hashtag { background: #e2e8f0; padding: 2px 8px; border-radius: 12px; font-size: 12px; margin-right: 5px; }
-           .repository-badge { background: #ff6600; color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 12px; }
-           .action-buttons { margin: 15px 0; }
-           .button { display: inline-block; padding: 8px 16px; margin-right: 10px; text-decoration: none; border-radius: 4px; font-size: 14px; }
-           .button-primary { background: #ff6600; color: #fff; }
-           .button-secondary { background: #e2e8f0; color: #333; }
-           .footer { text-align: center; padding: 20px; color: #666; font-size: 14px; margin-top: 40px; }
-         </style>
-       </head>
-       <body>
-         <div class="container">
-           <div class="header">
-             <h1>Your Daily Shadownews Digest</h1>
-             <p>${format(new Date(), 'EEEE, MMMM d, yyyy')}</p>
-           </div>
-           
-           <div class="stats">
-             <div class="stat">
-               <div class="stat-number">${stats.totalPosts}</div>
-               <div>New Posts</div>
-             </div>
-             <div class="stat">
-               <div class="stat-number">${stats.activeDiscussions}</div>
-               <div>Active Discussions</div>
-             </div>
-             <div class="stat">
-               <div class="stat-number">+${stats.karmaGained}</div>
-               <div>Karma Today</div>
-             </div>
-           </div>
+  /**
+   * Daily Digest Email Template
+   * 
+   * Curated daily summary of trending posts, community activity, and
+   * personalized content recommendations based on user interests and karma.
+   * 
+   * Features:
+   * - Personalized greeting with current date
+   * - Activity statistics dashboard
+   * - Trending posts with engagement metrics
+   * - Repository highlights and growth metrics
+   * - Karma progress and achievements
+   * - Community recommendations
+   * - Interactive buttons for engagement
+   * 
+   * @param {Object} user - User receiving the digest
+   * @param {Array<Object>} posts - Curated posts for the digest
+   * @param {Object} stats - Daily activity and engagement statistics
+   * @param {number} stats.totalPosts - Total new posts today
+   * @param {number} stats.activeDiscussions - Active discussion count
+   * @param {number} stats.karmaGained - User's karma gained today
+   * @returns {Object} Email template with personalized digest content
+   * 
+   * @example
+   * // Generate daily digest email
+   * const digestEmail = emailTemplates.dailyDigest(user, trendingPosts, {
+   *   totalPosts: 15,
+   *   activeDiscussions: 8,
+   *   karmaGained: 25
+   * });
+   * 
+   * @since 1.0.0
+   */
+  dailyDigest: (user, posts, stats) => ({
+    subject: `🌟 Your ${format(new Date(), 'EEEE')} Shadownews digest: ${posts.length} must-read posts`,
+    html: `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <style>
+            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+            .stats { display: flex; justify-content: space-around; margin: 20px 0; }
+            .stat { text-align: center; }
+            .stat-number { font-size: 24px; font-weight: bold; }
+            .post { background: #fff; padding: 20px; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+            .post-title { color: #000; text-decoration: none; font-size: 18px; font-weight: 600; }
+            .post-meta { color: #666; font-size: 14px; margin: 10px 0; }
+            .hashtag { background: #e2e8f0; padding: 2px 8px; border-radius: 12px; font-size: 12px; margin-right: 5px; }
+            .repository-badge { background: #ff6600; color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 12px; }
+            .action-buttons { margin: 15px 0; }
+            .button { display: inline-block; padding: 8px 16px; margin-right: 10px; text-decoration: none; border-radius: 4px; font-size: 14px; }
+            .button-primary { background: #ff6600; color: #fff; }
+            .button-secondary { background: #e2e8f0; color: #333; }
+            .footer { text-align: center; padding: 20px; color: #666; font-size: 14px; margin-top: 40px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>Your Daily Shadownews Digest</h1>
+              <p>${format(new Date(), 'EEEE, MMMM d, yyyy')}</p>
+            </div>
+            
+            <div class="stats">
+              <div class="stat">
+                <div class="stat-number">${stats.totalPosts}</div>
+                <div>New Posts</div>
+              </div>
+              <div class="stat">
+                <div class="stat-number">${stats.activeDiscussions}</div>
+                <div>Active Discussions</div>
+              </div>
+              <div class="stat">
+                <div class="stat-number">+${stats.karmaGained}</div>
+                <div>Karma Today</div>
+              </div>
+            </div>
 
-           <h2>📈 Trending in Your Topics</h2>
-           ${posts.map(post => `
-             <div class="post">
-               <a href="${process.env.FRONTEND_URL}/post/${post._id}" class="post-title">${post.title}</a>
-               <div class="post-meta">
-                 ${post.points} points • ${post.commentCount} comments • by ${post.author.username}
-                 ${post.repository ? `<span class="repository-badge">📧 ${post.repository.emailCount} emails</span>` : ''}
-               </div>
-               <div>
-                 ${post.hashtags.map(tag => `<span class="hashtag">#${tag}</span>`).join('')}
-               </div>
-               <div class="action-buttons">
-                 <a href="${process.env.FRONTEND_URL}/post/${post._id}" class="button button-primary">Read & Discuss</a>
-                 <a href="mailto:${user.username}@shadownews.community?subject=Re: ${encodeURIComponent(post.title)}" class="button button-secondary">Reply via Email</a>
-               </div>
-             </div>
-           `).join('')}
+            <h2>📈 Trending in Your Topics</h2>
+            ${posts.map(post => `
+              <div class="post">
+                <a href="${process.env.FRONTEND_URL}/post/${post._id}" class="post-title">${post.title}</a>
+                <div class="post-meta">
+                  ${post.points} points • ${post.commentCount} comments • by ${post.author.username}
+                  ${post.repository ? `<span class="repository-badge">📧 ${post.repository.emailCount} emails</span>` : ''}
+                </div>
+                <div>
+                  ${post.hashtags.map(tag => `<span class="hashtag">#${tag}</span>`).join('')}
+                </div>
+                <div class="action-buttons">
+                  <a href="${process.env.FRONTEND_URL}/post/${post._id}" class="button button-primary">Read & Discuss</a>
+                  <a href="mailto:${user.username}@shadownews.community?subject=Re: ${encodeURIComponent(post.title)}" class="button button-secondary">Reply via Email</a>
+                </div>
+              </div>
+            `).join('')}
 
-           <div style="text-align: center; margin: 30px 0;">
-             <a href="${process.env.FRONTEND_URL}" class="button button-primary">View All Posts</a>
-           </div>
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${process.env.FRONTEND_URL}" class="button button-primary">View All Posts</a>
+            </div>
 
-           <div class="footer">
-             <p>💡 Tip: Reply to any digest email to comment on the top post!</p>
-             <p><a href="${process.env.FRONTEND_URL}/settings/digest">Customize digest</a> | <a href="%unsubscribe_url%">Unsubscribe</a></p>
-           </div>
-         </div>
-       </body>
-     </html>
-   `,
-   text: posts.map(post => `
-${post.title}
-${post.points} points • ${post.commentCount} comments • by ${post.author.username}
-${post.hashtags.map(tag => `#${tag}`).join(' ')}
-Read more: ${process.env.FRONTEND_URL}/post/${post._id}
+            <div class="footer">
+              <p>💡 Tip: Reply to any digest email to comment on the top post!</p>
+              <p><a href="${process.env.FRONTEND_URL}/settings/digest">Customize digest</a> | <a href="%unsubscribe_url%">Unsubscribe</a></p>
+            </div>
+          </div>
+        </body>
+      </html>
+    `,
+    text: `Your Daily Shadownews Digest - ${format(new Date(), 'EEEE, MMMM d, yyyy')}
 
-`).join('\n---\n')
- }),
+Activity Today:
+- ${stats.totalPosts} new posts
+- ${stats.activeDiscussions} active discussions  
+- +${stats.karmaGained} karma gained
+
+Trending Posts:
+${posts.map(post => `• ${post.title} (${post.points} points, ${post.commentCount} comments)`).join('\n')}
+
+View full digest: ${process.env.FRONTEND_URL}/digest
+Manage preferences: ${process.env.FRONTEND_URL}/settings/notifications`
+  }),
 
  // Repository invitation email
- repositoryInvite: (inviter, repository, recipientEmail) => ({
+ }),
+
+  /**
+   * Repository Invitation Email Template
+   * 
+   * Invitation email sent to potential community members when existing users
+   * want to grow their topic repositories through snowball distribution.
+   * 
+   * Features:
+   * - Personalized invitation from existing member
+   * - Repository overview with statistics and growth metrics
+   * - Clear value proposition and community benefits
+   * - One-click acceptance with secure token validation
+   * - Privacy-compliant unsubscribe options
+   * - Expiration notice and urgency elements
+   * 
+   * @param {Object} inviter - User sending the invitation
+   * @param {string} inviter.username - Inviter's username
+   * @param {Object} repository - Repository being shared
+   * @param {string} repository.name - Repository name
+   * @param {string} repository.description - Repository description
+   * @param {number} repository.emailCount - Current member count
+   * @param {number} repository.growthRate - Weekly growth percentage
+   * @param {string} repository.digestFrequency - Digest frequency setting
+   * @param {string} recipientEmail - Email address of invitation recipient
+   * @returns {Object} Email template with invitation content
+   * 
+   * @example
+   * // Send repository invitation
+   * const inviteEmail = emailTemplates.repositoryInvite(inviter, repo, 'user@example.com');
+   * 
+   * @since 1.0.0
+   */
+  repositoryInvite: (inviter, repository, recipientEmail) => ({
    subject: `🌐 You're invited to join "${repository.name}" community on Shadownews`,
    html: `
      <!DOCTYPE html>
@@ -244,8 +413,39 @@ This invitation expires in 7 days.
    `
  }),
 
- // Post notification email
- postReply: (user, post, comment) => ({
+  /**
+   * Post Reply Notification Email Template
+   * 
+   * Real-time notification email sent when someone replies to a user's post.
+   * Enables immediate engagement and conversation continuity through email.
+   * 
+   * Features:
+   * - Instant notification with comment content preview
+   * - Quick reply functionality via email response
+   * - Direct link to full discussion thread
+   * - Post engagement statistics and metrics
+   * - Contextual information for conversation flow
+   * - Notification preferences management
+   * 
+   * @param {Object} user - Post author receiving the notification
+   * @param {Object} post - Original post that received the reply
+   * @param {string} post.title - Post title
+   * @param {string} post._id - Post unique identifier
+   * @param {number} post.commentCount - Total number of comments
+   * @param {number} post.points - Post karma points
+   * @param {Object} comment - New comment triggering the notification
+   * @param {Object} comment.author - Comment author information
+   * @param {string} comment.content - Comment text content
+   * @param {Date} comment.createdAt - Comment creation timestamp
+   * @returns {Object} Email template with reply notification content
+   * 
+   * @example
+   * // Send post reply notification
+   * const replyEmail = emailTemplates.postReply(postAuthor, post, newComment);
+   * 
+   * @since 1.0.0
+   */
+  postReply: (user, post, comment) => ({
    subject: `💬 New reply to your post: "${post.title}"`,
    html: `
      <!DOCTYPE html>

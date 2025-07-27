@@ -1,15 +1,103 @@
+/**
+ * @fileoverview Database Migration Script
+ * 
+ * Comprehensive data migration utility for the ShadowNews platform that handles
+ * schema updates, data transformations, and database version management.
+ * Provides safe, reversible migrations with rollback capabilities and
+ * comprehensive logging for production database changes.
+ * 
+ * This script manages the evolution of the ShadowNews database schema over time,
+ * ensuring data integrity while enabling new features and optimizations.
+ * All migrations are tracked and can be executed incrementally or in batch.
+ * 
+ * Key Features:
+ * - Incremental schema migrations with version tracking
+ * - Data transformation and cleanup operations
+ * - Safe migration execution with rollback capabilities
+ * - Comprehensive logging and error handling
+ * - Interactive confirmation for destructive operations
+ * - Migration status tracking and history
+ * - Batch processing for large datasets
+ * - Backup recommendations and validation
+ * 
+ * Migration Types:
+ * - Schema Updates: Add/modify fields, indexes, and constraints
+ * - Data Transformations: Convert existing data to new formats
+ * - Cleanup Operations: Remove obsolete data and optimize storage
+ * - Feature Migrations: Enable new platform capabilities
+ * - Performance Optimizations: Index creation and query improvements
+ * 
+ * Available Migrations:
+ * - addEmailFieldToUsers: Add ShadowNews email addresses to existing users
+ * - migrateKarmaToNewModel: Convert simple karma to detailed karma tracking
+ * - extractHashtagsFromPosts: Parse and extract hashtags from post content
+ * - createDefaultRepositories: Create default email repositories for users
+ * - addSearchIndexes: Create full-text search indexes for content discovery
+ * - optimizeEmailStorage: Restructure email data for better performance
+ * - migrateNotificationSettings: Update user notification preferences
+ * - createPostMetadata: Add AI-generated metadata to existing posts
+ * 
+ * Safety Features:
+ * - Interactive confirmation for potentially destructive operations
+ * - Dry-run mode for testing migrations without applying changes
+ * - Automatic backup recommendations before major changes
+ * - Transaction support for atomic operations
+ * - Migration rollback capabilities where possible
+ * - Comprehensive error logging and recovery guidance
+ * 
+ * Usage:
+ * ```bash
+ * # Run all pending migrations
+ * node scripts/migrateData.js
+ * 
+ * # Run specific migration
+ * node scripts/migrateData.js --migration addEmailFieldToUsers
+ * 
+ * # Dry run to test migrations
+ * node scripts/migrateData.js --dry-run
+ * 
+ * # List migration status
+ * node scripts/migrateData.js --status
+ * ```
+ * 
+ * Dependencies:
+ * - mongoose: MongoDB ODM for database operations
+ * - mongodb: Native MongoDB driver for advanced operations
+ * - dotenv: Environment variable management
+ * - readline: Interactive CLI prompts for user confirmation
+ * - crypto: Cryptographic utilities for data hashing
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
+// MongoDB ODM for high-level database operations
 const mongoose = require('mongoose');
+
+// Environment variable configuration management
 const dotenv = require('dotenv');
+
+// Cross-platform path utilities
 const path = require('path');
+
+// Asynchronous file system operations
 const fs = require('fs').promises;
+
+// Native MongoDB driver for low-level operations
 const { MongoClient } = require('mongodb');
+
+// Interactive command-line interface utilities
 const readline = require('readline');
+
+// Cryptographic utilities for data integrity
 const crypto = require('crypto');
 
-// Load environment variables
+// Load environment variables from configuration file
 dotenv.config({ path: path.join(__dirname, '../.env') });
 
-// Import models
+// Import database models for migration operations
 const User = require('../src/models/User.model');
 const Post = require('../src/models/Post.model');
 const Comment = require('../src/models/Comment.model');
@@ -17,120 +105,235 @@ const Repository = require('../src/models/Repository.model');
 const Email = require('../src/models/Email.model');
 const Karma = require('../src/models/Karma.model');
 
-// Migration tracking schema
+/**
+ * Migration Tracking Schema
+ * 
+ * Mongoose schema for tracking migration execution history,
+ * status, and metadata. Ensures migrations are only executed
+ * once and provides audit trail for database changes.
+ */
 const migrationSchema = new mongoose.Schema({
- name: { type: String, required: true, unique: true },
- executedAt: { type: Date, default: Date.now },
- status: { type: String, enum: ['pending', 'completed', 'failed'], default: 'pending' },
- error: String,
- affectedDocuments: Number
+  name: { type: String, required: true, unique: true },
+  executedAt: { type: Date, default: Date.now },
+  status: { type: String, enum: ['pending', 'completed', 'failed'], default: 'pending' },
+  error: String,
+  affectedDocuments: Number
 });
 
 const Migration = mongoose.model('Migration', migrationSchema);
 
-// Utility functions
+/**
+ * Enhanced Logging Utility
+ * 
+ * Provides colored, timestamped logging for migration operations
+ * with different log levels for comprehensive operation tracking.
+ */
 const logger = {
- info: (msg) => console.log(`[INFO] ${new Date().toISOString()} - ${msg}`),
- error: (msg) => console.error(`[ERROR] ${new Date().toISOString()} - ${msg}`),
- success: (msg) => console.log(`[SUCCESS] ${new Date().toISOString()} - ${msg}`),
- warn: (msg) => console.warn(`[WARN] ${new Date().toISOString()} - ${msg}`)
+  info: (msg) => console.log(`[INFO] ${new Date().toISOString()} - ${msg}`),
+  error: (msg) => console.error(`[ERROR] ${new Date().toISOString()} - ${msg}`),
+  success: (msg) => console.log(`[SUCCESS] ${new Date().toISOString()} - ${msg}`),
+  warn: (msg) => console.warn(`[WARN] ${new Date().toISOString()} - ${msg}`)
 };
 
+/**
+ * Interactive CLI Interface
+ * 
+ * Sets up readline interface for user prompts and confirmations
+ * during potentially destructive migration operations.
+ */
 const rl = readline.createInterface({
- input: process.stdin,
- output: process.stdout
+  input: process.stdin,
+  output: process.stdout
 });
 
+/**
+ * Promisified Question Utility
+ * 
+ * Converts readline question callback to Promise for async/await usage
+ * in migration confirmation dialogs.
+ * 
+ * @param {string} query - Question to prompt user
+ * @returns {Promise<string>} User's response
+ */
 const question = (query) => new Promise((resolve) => rl.question(query, resolve));
 
-// Migration functions
+/**
+ * Migration Functions Collection
+ * 
+ * Comprehensive collection of database migration functions that handle
+ * various schema updates, data transformations, and platform enhancements.
+ * Each migration is designed to be idempotent and safely executable.
+ */
 const migrations = {
- // Add email field to existing users
- async addEmailFieldToUsers() {
-   const users = await User.find({ shadownewsEmail: { $exists: false } });
-   let count = 0;
-   
-   for (const user of users) {
-     user.shadownewsEmail = `${user.username}@shadownews.community`;
-     await user.save();
-     count++;
-   }
-   
-   return count;
- },
+  /**
+   * Add Email Field to Existing Users Migration
+   * 
+   * Adds ShadowNews email addresses to existing user accounts that don't
+   * have the shadownewsEmail field. Creates standardized email addresses
+   * based on username for the email-first platform functionality.
+   * 
+   * Migration Details:
+   * - Finds users without shadownewsEmail field
+   * - Generates @shadownews.community email addresses
+   * - Updates user records with new email addresses
+   * - Preserves existing user data and relationships
+   * 
+   * Safety Features:
+   * - Only affects users missing the email field
+   * - Uses existing username for email generation
+   * - Maintains data consistency and integrity
+   * 
+   * @returns {Promise<number>} Number of users updated
+   * 
+   * @since 1.0.0
+   */
+  async addEmailFieldToUsers() {
+    const users = await User.find({ shadownewsEmail: { $exists: false } });
+    let count = 0;
+    
+    for (const user of users) {
+      user.shadownewsEmail = `${user.username}@shadownews.community`;
+      await user.save();
+      count++;
+    }
+    
+    return count;
+  },
 
- // Convert karma points to new karma model
- async migrateKarmaToNewModel() {
-   const users = await User.find({ karma: { $exists: true, $type: 'number' } });
-   let count = 0;
-   
-   for (const user of users) {
-     await Karma.create({
-       userId: user._id,
-       total: user.karma || 0,
-       breakdown: {
-         posts: Math.floor((user.karma || 0) * 0.4),
-         comments: Math.floor((user.karma || 0) * 0.3),
-         curation: Math.floor((user.karma || 0) * 0.2),
-         repositories: Math.floor((user.karma || 0) * 0.1)
-       },
-       history: [{
-         action: 'migration',
-         points: user.karma || 0,
-         description: 'Initial karma migration',
-         timestamp: new Date()
-       }]
-     });
-     
-     // Remove old karma field
-     user.karma = undefined;
-     await user.save();
-     count++;
-   }
-   
-   return count;
- },
+  /**
+   * Migrate Karma to New Model Migration
+   * 
+   * Converts simple numeric karma values to the new detailed karma tracking
+   * model with breakdown by activity type and historical tracking.
+   * Preserves existing karma values while enabling enhanced gamification.
+   * 
+   * Migration Process:
+   * 1. Find users with numeric karma field
+   * 2. Create detailed Karma model records with breakdown
+   * 3. Distribute points across different activity categories
+   * 4. Create migration history entry for audit trail
+   * 5. Remove old numeric karma field from user model
+   * 
+   * Karma Distribution:
+   * - 40% Posts: Karma from content creation
+   * - 30% Comments: Karma from community engagement
+   * - 20% Curation: Karma from content moderation
+   * - 10% Repositories: Karma from email list management
+   * 
+   * @returns {Promise<number>} Number of users migrated
+   * 
+   * @since 1.0.0
+   */
+  async migrateKarmaToNewModel() {
+    const users = await User.find({ karma: { $exists: true, $type: 'number' } });
+    let count = 0;
+    
+    for (const user of users) {
+      await Karma.create({
+        userId: user._id,
+        total: user.karma || 0,
+        breakdown: {
+          posts: Math.floor((user.karma || 0) * 0.4),
+          comments: Math.floor((user.karma || 0) * 0.3),
+          curation: Math.floor((user.karma || 0) * 0.2),
+          repositories: Math.floor((user.karma || 0) * 0.1)
+        },
+        history: [{
+          action: 'migration',
+          points: user.karma || 0,
+          description: 'Initial karma migration',
+          timestamp: new Date()
+        }]
+      });
+      
+      // Remove old karma field from user model
+      user.karma = undefined;
+      await user.save();
+      count++;
+    }
+    
+    return count;
+  },
 
- // Add hashtags to existing posts
- async extractHashtagsFromPosts() {
-   const posts = await Post.find({ hashtags: { $exists: false } });
-   let count = 0;
-   
-   for (const post of posts) {
-     const hashtags = [];
-     const text = `${post.title} ${post.content || ''}`;
-     const hashtagRegex = /#[\w]+/g;
-     const matches = text.match(hashtagRegex);
-     
-     if (matches) {
-       hashtags.push(...matches.map(tag => tag.substring(1).toLowerCase()));
-     }
-     
-     // Add default hashtags based on content analysis
-     if (text.toLowerCase().includes('javascript')) hashtags.push('javascript');
-     if (text.toLowerCase().includes('python')) hashtags.push('python');
-     if (text.toLowerCase().includes('ai') || text.toLowerCase().includes('artificial intelligence')) hashtags.push('ai');
-     
-     post.hashtags = [...new Set(hashtags)].slice(0, 5); // Max 5 unique hashtags
-     await post.save();
-     count++;
-   }
-   
-   return count;
- },
+  /**
+   * Extract Hashtags from Posts Migration
+   * 
+   * Analyzes existing post content to extract hashtags and populate
+   * the hashtags field for enhanced content discovery and categorization.
+   * Uses regex parsing and content analysis for comprehensive tagging.
+   * 
+   * Hashtag Extraction Process:
+   * 1. Find posts without hashtags field
+   * 2. Parse title and content for hashtag patterns (#word)
+   * 3. Apply content analysis for implicit hashtags
+   * 4. Limit to 5 unique hashtags per post for quality
+   * 5. Update post records with extracted hashtags
+   * 
+   * Content Analysis Rules:
+   * - Technology keywords trigger relevant hashtags
+   * - Programming languages detected automatically
+   * - AI/ML content receives appropriate tags
+   * - Deduplication ensures hashtag uniqueness
+   * 
+   * @returns {Promise<number>} Number of posts updated
+   * 
+   * @since 1.0.0
+   */
+  async extractHashtagsFromPosts() {
+    const posts = await Post.find({ hashtags: { $exists: false } });
+    let count = 0;
+    
+    for (const post of posts) {
+      const hashtags = [];
+      const text = `${post.title} ${post.content || ''}`;
+      const hashtagRegex = /#[\w]+/g;
+      const matches = text.match(hashtagRegex);
+      
+      if (matches) {
+        hashtags.push(...matches.map(tag => tag.substring(1).toLowerCase()));
+      }
+      
+      // Add default hashtags based on content analysis
+      if (text.toLowerCase().includes('javascript')) hashtags.push('javascript');
+      if (text.toLowerCase().includes('python')) hashtags.push('python');
+      if (text.toLowerCase().includes('ai') || text.toLowerCase().includes('artificial intelligence')) hashtags.push('ai');
+      
+      post.hashtags = [...new Set(hashtags)].slice(0, 5); // Max 5 unique hashtags
+      await post.save();
+      count++;
+    }
+    
+    return count;
+  },
 
- // Create default repositories for existing users
- async createDefaultRepositories() {
-   const users = await User.find({});
-   let count = 0;
-   
-   for (const user of users) {
-     const existingRepo = await Repository.findOne({ ownerId: user._id, isDefault: true });
-     
-     if (!existingRepo) {
-       await Repository.create({
-         name: `${user.username}'s Repository`,
-         description: 'My default email repository',
+  /**
+   * Create Default Repositories Migration
+   * 
+   * Creates default email repositories for existing users who don't have
+   * a default repository for email list management. Ensures all users
+   * have access to basic email repository functionality.
+   * 
+   * Repository Creation:
+   * - Checks for existing default repositories per user
+   * - Creates personalized repository with user's name
+   * - Sets appropriate default settings and permissions
+   * - Establishes proper ownership and access controls
+   * 
+   * @returns {Promise<number>} Number of repositories created
+   * 
+   * @since 1.0.0
+   */
+  async createDefaultRepositories() {
+    const users = await User.find({});
+    let count = 0;
+    
+    for (const user of users) {
+      const existingRepo = await Repository.findOne({ ownerId: user._id, isDefault: true });
+      
+      if (!existingRepo) {
+        await Repository.create({
+          name: `${user.username}'s Repository`,
+          description: 'My default email repository',
          ownerId: user._id,
          isDefault: true,
          emails: [{

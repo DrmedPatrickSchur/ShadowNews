@@ -1,3 +1,72 @@
+/**
+ * Button Component Test Suite
+ * 
+ * Comprehensive test coverage for the Button component ensuring reliability,
+ * accessibility, and proper behavior across all variants, states, and
+ * user interactions. Tests are organized by feature area with detailed
+ * assertions for visual, functional, and accessibility requirements.
+ * 
+ * Test Categories:
+ * - Rendering Tests: Component output and DOM structure validation
+ * - Interaction Tests: Click handling, keyboard navigation, and event firing
+ * - Accessibility Tests: ARIA attributes, keyboard support, and screen reader
+ * - Variant Tests: Visual appearance and styling for all button variants
+ * - State Tests: Loading, disabled, and interactive state management
+ * - Props Tests: Prop validation and conditional rendering logic
+ * 
+ * Testing Strategy:
+ * - Unit Testing: Isolated component behavior and prop handling
+ * - Integration Testing: Theme provider and styling system integration
+ * - User Event Testing: Realistic user interaction simulation
+ * - Accessibility Testing: Screen reader and keyboard navigation validation
+ * - Visual Regression: Style consistency across variants and states
+ * 
+ * Accessibility Coverage:
+ * - ARIA Roles: Proper button role and semantic markup
+ * - Keyboard Navigation: Tab order and activation with Enter/Space
+ * - Screen Reader: Accessible labels and state announcements
+ * - Focus Management: Visible focus indicators and proper tab stops
+ * - Loading States: Accessible loading announcements for assistive technology
+ * 
+ * Visual Testing:
+ * - Variant Rendering: All button variants display correctly
+ * - Size Options: Small, medium, large, and icon sizes render properly
+ * - Interactive States: Hover, focus, active, and disabled visual feedback
+ * - Icon Integration: Left and right icon positioning and spacing
+ * - Loading Animation: Spinner display and content replacement
+ * 
+ * Interaction Testing:
+ * - Click Events: Proper event firing and handler execution
+ * - Keyboard Events: Enter and Space key activation
+ * - Disabled State: Event prevention when button is disabled
+ * - Loading State: Interaction prevention during loading
+ * - Form Integration: Proper form submission and validation
+ * 
+ * Edge Cases:
+ * - Empty Content: Buttons with no text or children
+ * - Complex Children: Nested elements and React nodes
+ * - Invalid Props: Type safety and error handling
+ * - Theme Changes: Dynamic theme switching and style updates
+ * - Performance: Render optimization and re-render prevention
+ * 
+ * Test Utilities:
+ * - Theme Provider: Styled-components theme context for styling tests
+ * - User Event: Realistic user interaction simulation
+ * - Screen Queries: Accessibility-focused element selection
+ * - Custom Matchers: Button-specific assertion helpers
+ * 
+ * Dependencies:
+ * - React Testing Library for component testing and user simulation
+ * - Jest for test framework and assertion utilities
+ * - User Event for realistic interaction testing
+ * - Styled Components for theme provider testing
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

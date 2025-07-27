@@ -1,31 +1,111 @@
+# ============================================================================
+# ShadowNews Node.js CI/CD Pipeline
+# ============================================================================
+#
+# Continuous Integration workflow for ShadowNews Node.js application.
+# Automatically builds, tests, and validates code quality across multiple
+# Node.js versions when changes are pushed or pull requests are created.
+#
+# Key Features:
+# - Multi-version Node.js testing for compatibility assurance
+# - Automated dependency installation with npm caching
+# - Build verification for both frontend and backend components
+# - Comprehensive test suite execution
+# - Pull request validation before merge
+#
+# Supported Node.js Versions:
+# - 18.x (LTS) - Current production version
+# - 20.x (LTS) - Future migration target
+# - 22.x (Current) - Latest features testing
+#
+# Test Coverage:
+# - Unit tests for backend services and models
+# - Component tests for React frontend
+# - Integration tests for API endpoints
+# - E2E tests for critical user workflows
+#
+# Author: ShadowNews Team
+# Version: 1.0.0
+# Last Modified: 2025-07-27
+# ============================================================================
+
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
+# ShadowNews Continuous Integration Pipeline
 name: Node.js CI
 
+# ============================================================================
+# Workflow Triggers
+# ============================================================================
+# Run CI pipeline on:
+# - Push to main branch (validate production-bound changes)
+# - Pull requests to main branch (validate contributions before merge)
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
+# ============================================================================
+# Build and Test Job Matrix
+# ============================================================================
 jobs:
   build:
-
+    name: Build and Test ShadowNews
     runs-on: ubuntu-latest
 
+    # ========================================================================
+    # Node.js Version Matrix
+    # ========================================================================
+    # Test across multiple Node.js versions for compatibility
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        # Node.js Release Schedule:
+        # 18.x - Current LTS (Long Term Support) - Production ready
+        # 20.x - Active LTS - Future migration target
+        # 22.x - Current release - Latest features testing
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
+    # ========================================================================
+    # Source Code Checkout
+    # ========================================================================
+    # Retrieve source code from repository
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      
+    # ========================================================================
+    # Node.js Environment Setup
+    # ========================================================================
+    # Configure Node.js environment with version matrix and npm caching
+    - name: Setup Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+        # Enable npm caching for faster subsequent builds
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+        
+    # ========================================================================
+    # Dependency Installation
+    # ========================================================================
+    # Clean install of dependencies for reproducible builds
+    # Uses npm ci for faster, reliable, reproducible builds
+    - name: Install Dependencies
+      run: npm ci
+      
+    # ========================================================================
+    # Application Build
+    # ========================================================================
+    # Build frontend and backend components if build script exists
+    # Validates TypeScript compilation and asset bundling
+    - name: Build Application
+      run: npm run build --if-present
+      
+    # ========================================================================
+    # Test Suite Execution
+    # ========================================================================
+    # Run comprehensive test suite including unit, integration, and E2E tests
+    # Validates code quality and functionality across ShadowNews features
+    - name: Run Test Suite
+      run: npm test

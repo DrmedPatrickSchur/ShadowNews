@@ -1,3 +1,119 @@
+/**
+ * Home Page Component Test Suite
+ * 
+ * Comprehensive test coverage for the Home page component ensuring proper
+ * functionality across different user states, content loading scenarios,
+ * interactive filtering, and responsive behavior. Tests include authentication
+ * flows, real-time updates, infinite scrolling, and accessibility compliance.
+ * 
+ * Test Categories:
+ * - Rendering Tests: Component output and layout verification for different states
+ * - Authentication Tests: User session handling and conditional content display
+ * - Content Loading Tests: Data fetching, loading states, and error handling
+ * - Filtering Tests: Post filter functionality and state management
+ * - Interaction Tests: User interactions, navigation, and event handling
+ * - Real-Time Tests: WebSocket integration and live update functionality
+ * - Accessibility Tests: Screen reader support and keyboard navigation
+ * 
+ * Testing Strategy:
+ * - Unit Testing: Isolated component behavior and state management
+ * - Integration Testing: Redux store integration and service layer interaction
+ * - User Journey Testing: Complete user workflows from landing to engagement
+ * - Performance Testing: Infinite scroll behavior and render optimization
+ * - Accessibility Testing: WCAG compliance and assistive technology support
+ * 
+ * User State Coverage:
+ * - Guest Users: Hero section display, registration prompts, limited functionality
+ * - Authenticated Users: Quick actions, personalized content, full feature access
+ * - Loading States: Skeleton screens, progressive loading, and error recovery
+ * - Empty States: No content scenarios with appropriate call-to-action elements
+ * 
+ * Content Management Testing:
+ * - Post Feed: Content display, sorting, and pagination functionality
+ * - Filter System: Hot, New, Top, and Best filtering with visual feedback
+ * - Repository Showcase: Trending repository display and navigation
+ * - Statistics Display: Real-time metrics and community engagement data
+ * 
+ * Interactive Feature Testing:
+ * - Filter Switching: Tab navigation and active state management
+ * - Infinite Scroll: Progressive content loading and performance validation
+ * - Quick Actions: Post submission shortcuts for authenticated users
+ * - Navigation: Link functionality and proper routing behavior
+ * 
+ * Real-Time Functionality:
+ * - WebSocket Integration: Live statistics updates and connection management
+ * - Statistics Ticker: Animated real-time community metrics display
+ * - Content Updates: New post notifications and dynamic content refresh
+ * - Connection States: Online/offline status and reconnection handling
+ * 
+ * Responsive Design Testing:
+ * - Mobile Layout: Single-column layout and touch interaction validation
+ * - Tablet Layout: Adaptive grid system and content reflow
+ * - Desktop Layout: Full sidebar and two-column presentation
+ * - Breakpoint Behavior: Smooth transitions between layout modes
+ * 
+ * Accessibility Validation:
+ * - Screen Reader: Proper semantic markup and ARIA attribute verification
+ * - Keyboard Navigation: Tab order and keyboard-only interaction support
+ * - Focus Management: Visible focus indicators and logical focus flow
+ * - Color Contrast: Sufficient contrast ratios for all text elements
+ * - Alternative Content: Image alt text and descriptive content
+ * 
+ * Error Handling Testing:
+ * - API Failures: Network error handling and fallback content display
+ * - Loading Errors: Service unavailability and retry mechanisms
+ * - Authentication Errors: Session expiration and re-authentication flows
+ * - Data Validation: Invalid content handling and user feedback
+ * 
+ * Performance Testing:
+ * - Render Performance: Component mounting and update efficiency
+ * - Memory Usage: Event listener cleanup and memory leak prevention
+ * - Infinite Scroll: Large dataset handling and virtual scrolling
+ * - Animation Performance: Smooth transitions and frame rate validation
+ * 
+ * Mock Data Strategy:
+ * - Realistic Data: Representative post and repository content
+ * - Edge Cases: Empty content, long titles, special characters
+ * - User Variants: Different user types and permission levels
+ * - Statistics Data: Various metrics and engagement scenarios
+ * 
+ * Test Utilities:
+ * - Redux Provider: Store configuration with mock data and reducers
+ * - Router Provider: Navigation context for link and routing tests
+ * - Theme Provider: Design system context for styled component testing
+ * - Custom Render: Centralized test setup with all necessary providers
+ * 
+ * Visual Testing:
+ * - Layout Validation: Component positioning and spacing verification
+ * - State Indicators: Visual feedback for interactive elements
+ * - Animation Testing: Transition effects and loading animations
+ * - Brand Consistency: Color, typography, and spacing adherence
+ * 
+ * Interaction Testing:
+ * - Click Events: Button presses and link navigation
+ * - Form Interactions: Input handling and submission workflows
+ * - Hover States: Mouse interaction feedback and tooltip display
+ * - Touch Events: Mobile gesture handling and touch feedback
+ * 
+ * Edge Case Coverage:
+ * - Network Conditions: Slow connections and intermittent connectivity
+ * - Browser Compatibility: Cross-browser functionality and polyfills
+ * - Device Constraints: Low-memory devices and performance limitations
+ * - User Permissions: Feature access based on authentication status
+ * 
+ * Dependencies:
+ * - React Testing Library for component testing and user simulation
+ * - Jest for test framework and assertion utilities
+ * - User Event for realistic user interaction simulation
+ * - Redux for state management testing
+ * - React Router for navigation testing
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 import React from 'react';
 import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

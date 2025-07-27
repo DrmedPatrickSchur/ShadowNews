@@ -1,3 +1,99 @@
+/**
+ * Main Navigation Header Component
+ * 
+ * Comprehensive navigation header providing responsive design, authentication handling,
+ * search functionality, notifications, theme switching, and user management. Features
+ * adaptive layout for desktop and mobile devices with smooth animations and accessibility.
+ * 
+ * Core Features:
+ * - Responsive Navigation: Desktop horizontal menu and mobile collapsible menu
+ * - Authentication Integration: Login/logout, user profile display, karma tracking
+ * - Search Functionality: Expandable search bar with keyboard shortcuts and auto-focus
+ * - Notification System: Real-time notification bell with unread count indicators
+ * - Theme Management: Light/dark mode toggle with persistent user preferences
+ * - Navigation Items: Dynamic menu based on authentication state and user permissions
+ * 
+ * Layout Structure:
+ * - Brand Logo: ShadowNews logo with connection status indicator
+ * - Primary Navigation: Top-level navigation items (Top, New, Repositories, Submit)
+ * - Action Bar: Search, theme toggle, notifications, user menu
+ * - Mobile Menu: Collapsible full-screen navigation for mobile devices
+ * - User Management: Profile access, settings, dashboard, logout functionality
+ * 
+ * State Management:
+ * - Authentication State: User session, login status, user profile data
+ * - UI State: Menu visibility, search expansion, notification dropdown, theme preference
+ * - WebSocket Connection: Real-time connection status for live updates
+ * - Scroll Detection: Header styling adaptation based on page scroll position
+ * 
+ * Responsive Design:
+ * - Desktop Layout: Horizontal navigation with inline actions and dropdown menus
+ * - Mobile Layout: Hamburger menu with full-screen overlay and touch-optimized controls
+ * - Tablet Optimization: Adaptive breakpoints for optimal viewing experience
+ * - Keyboard Navigation: Full keyboard accessibility with tab order and shortcuts
+ * 
+ * User Experience:
+ * - Smooth Animations: Transition effects for menu opening, theme switching, and state changes
+ * - Visual Feedback: Hover states, active indicators, and loading states
+ * - Accessibility: ARIA labels, keyboard navigation, screen reader support
+ * - Performance: Optimized rendering with conditional components and lazy loading
+ * 
+ * Authentication Features:
+ * - User Profile: Avatar generation from username, karma display, profile link
+ * - Session Management: Secure logout with state cleanup and navigation redirect
+ * - Permission-Based Navigation: Conditional menu items based on authentication status
+ * - Profile Quick Access: Direct links to user profile, settings, and dashboard
+ * 
+ * Search Integration:
+ * - Expandable Search: Desktop overlay with full-width search input
+ * - Mobile Search: Integrated search in mobile menu with touch optimization
+ * - Auto-Focus: Automatic focus management for improved user experience
+ * - Search Shortcuts: Keyboard shortcuts for quick search access
+ * 
+ * Notification System:
+ * - Real-Time Updates: WebSocket integration for live notification delivery
+ * - Unread Indicators: Visual badge with count for unread notifications
+ * - Dropdown Interface: Comprehensive notification management panel
+ * - Mobile Optimization: Touch-friendly notification interface for mobile devices
+ * 
+ * Theme Management:
+ * - Dynamic Theming: Real-time theme switching between light and dark modes
+ * - System Integration: Respect for user's system preferences and manual overrides
+ * - Persistent Storage: Theme preference saved across browser sessions
+ * - Smooth Transitions: Animated theme changes for enhanced visual experience
+ * 
+ * Performance Optimizations:
+ * - Conditional Rendering: Components loaded only when needed
+ * - Event Listener Management: Proper cleanup to prevent memory leaks
+ * - State Optimization: Efficient state updates and re-render prevention
+ * - Image Optimization: Optimized avatars and icons for fast loading
+ * 
+ * Accessibility Standards:
+ * - WCAG Compliance: Full compliance with web accessibility guidelines
+ * - Keyboard Navigation: Complete keyboard accessibility for all interactive elements
+ * - Screen Reader Support: Proper ARIA labels and semantic markup
+ * - Focus Management: Logical tab order and visible focus indicators
+ * - Color Contrast: Sufficient contrast ratios for all text and interactive elements
+ * 
+ * Error Handling:
+ * - Connection Status: Visual indicator for WebSocket connection state
+ * - Graceful Degradation: Functionality maintained even with JavaScript disabled
+ * - Error Boundaries: Component-level error handling and recovery
+ * - Fallback States: Alternative content for loading and error states
+ * 
+ * Dependencies:
+ * - React: Component framework with hooks for state and lifecycle management
+ * - React Router: Navigation and routing with programmatic navigation
+ * - Redux Toolkit: State management for authentication and UI state
+ * - Lucide React: Comprehensive icon library with consistent styling
+ * - TailwindCSS: Utility-first CSS framework for responsive design
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';

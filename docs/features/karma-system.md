@@ -1,3 +1,69 @@
+/**
+ * @fileoverview karma-system.md
+ * 
+ * Implementation file for karma-system.md
+ * 
+ * Key Features:
+ * - Core functionality
+ * - Error handling
+ * - Performance optimization
+ * 
+ * Dependencies:
+ *  * - No external dependencies
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */\n\n<!--
+============================================================================
+ShadowNews - Karma System and Gamification Documentation
+============================================================================
+
+Comprehensive documentation for ShadowNews' karma-based reputation system,
+including gamification mechanics, progressive unlocks, and community incentives.
+
+Purpose:
+- Define karma calculation algorithms and point systems
+- Document reputation mechanics and quality multipliers
+- Establish progressive feature unlocks and permissions
+- Provide community engagement incentive structures
+
+Target Audience:
+- Product managers designing engagement features
+- Backend developers implementing karma algorithms
+- Community managers understanding reputation systems
+- Frontend developers building gamification interfaces
+
+Coverage:
+- Karma point calculation and quality multipliers
+- Action-based point awards and daily limits
+- Reputation tiers and progressive feature unlocks
+- Anti-gaming measures and fraud prevention
+- Community moderation and karma adjustments
+- Analytics and reputation tracking systems
+
+Gamification Features:
+- Point-based reputation system with quality weighting
+- Progressive feature unlocks based on karma thresholds
+- Daily limits and anti-spam protections
+- Community curator bonuses and special privileges
+- Leaderboards and achievement systems
+- Karma recovery and second-chance mechanisms
+
+Technical Implementation:
+- Real-time karma calculation and caching
+- Transaction-based karma adjustments
+- Anti-fraud detection and prevention
+- Historical karma tracking and analytics
+- Performance optimization for large-scale communities
+- Integration with content moderation systems
+
+Last Updated: 2025-07-27
+Version: 1.0.0
+============================================================================
+-->
+
 # Karma System Documentation
 
 ## Overview

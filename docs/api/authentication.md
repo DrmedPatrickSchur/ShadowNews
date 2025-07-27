@@ -1,4 +1,37 @@
-# Authentication API Documentation
+<!--
+============================================================================
+ShadowNews - Authentication API Documentation
+============================================================================
+
+Comprehensive documentation for ShadowNews authentication system, covering
+JWT-based authentication, token management, and secure user verification.
+
+Purpose:
+- Define authentication endpoints and security protocols
+- Document JWT token lifecycle and refresh mechanisms
+- Provide integration examples for frontend developers
+- Establish security best practices and error handling
+
+Target Audience:
+- Frontend developers implementing authentication
+- Backend developers maintaining auth services
+- Security auditors reviewing authentication flows
+- DevOps engineers configuring authentication systems
+
+Coverage:
+- User registration and email verification
+- Login/logout flows with JWT tokens
+- Token refresh and rotation strategies
+- Password reset and recovery mechanisms
+- Email-based authentication workflows
+- Security considerations and best practices
+
+Last Updated: 2025-07-27
+Version: 1.0.0
+============================================================================
+-->
+
+# Authentication API Documentation\n\n# Authentication API Documentation
 
 ## Overview
 

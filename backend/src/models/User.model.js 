@@ -1,53 +1,132 @@
+/**
+ * @fileoverview User Database Model
+ * 
+ * Mongoose schema definition for user documents in the MongoDB database.
+ * Defines the complete user data structure, validation rules, and database interactions
+ * for the ShadowNews platform user system.
+ * 
+ * Key Features:
+ * - User authentication with secure password hashing
+ * - Unique ShadowNews email address generation (@shadownews.community)
+ * - Comprehensive user profile fields (bio, avatar, preferences)
+ * - Karma/reputation system integration
+ * - Email verification and password reset token management
+ * - Repository ownership and membership tracking
+ * - Security features (account status, verification flags)
+ * 
+ * Schema Fields:
+ * - username: Unique identifier, URL-safe format
+ * - email: Primary contact email for authentication
+ * - shadownewsEmail: Auto-generated @shadownews.community address
+ * - password: Bcrypt-hashed password (excluded from queries by default)
+ * - profile: Display name, bio, avatar, location
+ * - karma: Reputation points from community interactions
+ * - preferences: User settings and notification preferences
+ * - verification: Email verification and account status
+ * - repositories: Owned and member repositories
+ * - tokens: Password reset and email verification tokens
+ * 
+ * Relationships:
+ * - One-to-many with Posts (user creates posts)
+ * - One-to-many with Comments (user creates comments)
+ * - Many-to-many with Repositories (user owns/members)
+ * - One-to-one with Karma tracking
+ * 
+ * Indexes:
+ * - username: Unique index for fast user lookup
+ * - email: Unique index for authentication
+ * - shadownewsEmail: Sparse unique index for email routing
+ * - karma.total: Index for reputation-based queries
+ * 
+ * Security Features:
+ * - Password auto-hashing on save
+ * - Email verification workflow
+ * - Password reset token generation
+ * - Account status tracking (active/suspended/deleted)
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-01-27
+ */
+
+// Mongoose ODM for MongoDB schema definition and model creation
 const mongoose = require('mongoose');
+
+// Bcrypt library for secure password hashing
 const bcrypt = require('bcryptjs');
+
+// Node.js crypto module for token generation
 const crypto = require('crypto');
 
+/**
+ * User Schema Definition
+ * Comprehensive schema for user documents with validation, indexes, and middleware
+ */
 const userSchema = new mongoose.Schema({
- username: {
-   type: String,
-   required: [true, 'Username is required'],
-   unique: true,
-   trim: true,
-   lowercase: true,
-   minlength: [3, 'Username must be at least 3 characters'],
-   maxlength: [30, 'Username cannot exceed 30 characters'],
-   match: [/^[a-z0-9_-]+$/, 'Username can only contain lowercase letters, numbers, underscores, and hyphens']
- },
- 
- email: {
-   type: String,
-   required: [true, 'Email is required'],
-   unique: true,
-   lowercase: true,
-   trim: true,
-   match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email']
- },
- 
- shadownewsEmail: {
-   type: String,
-   unique: true,
-   sparse: true,
-   lowercase: true,
-   immutable: true
- },
- 
- password: {
-   type: String,
-   required: [true, 'Password is required'],
-   minlength: [8, 'Password must be at least 8 characters'],
-   select: false
- },
- 
- displayName: {
-   type: String,
-   trim: true,
-   maxlength: [50, 'Display name cannot exceed 50 characters']
- },
- 
- bio: {
-   type: String,
-   maxlength: [500, 'Bio cannot exceed 500 characters']
- },
+  /**
+   * Core Identity Fields
+   * Essential fields for user identification and authentication
+   */
+  
+  // Unique username for user identification and URL generation
+  username: {
+    type: String,
+    required: [true, 'Username is required'],
+    unique: true, // Enforces uniqueness at database level
+    trim: true, // Remove leading/trailing whitespace
+    lowercase: true, // Convert to lowercase for consistency
+    minlength: [3, 'Username must be at least 3 characters'],
+    maxlength: [30, 'Username cannot exceed 30 characters'],
+    // URL-safe format: lowercase letters, numbers, underscores, hyphens only
+    match: [/^[a-z0-9_-]+$/, 'Username can only contain lowercase letters, numbers, underscores, and hyphens']
+  },
+  
+  // Primary email address for authentication and notifications
+  email: {
+    type: String,
+    required: [true, 'Email is required'],
+    unique: true, // One account per email address
+    lowercase: true, // Normalize email format
+    trim: true, // Remove whitespace
+    // Standard email validation regex
+    match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email']
+  },
+  
+  // Auto-generated ShadowNews email address (username@shadownews.community)
+  shadownewsEmail: {
+    type: String,
+    unique: true, // Each user gets unique ShadowNews email
+    sparse: true, // Allow null values while maintaining uniqueness for non-null
+    lowercase: true, // Consistent format
+    immutable: true // Cannot be changed after creation
+  },
+  
+  // Hashed password for authentication
+  password: {
+    type: String,
+    required: [true, 'Password is required'],
+    minlength: [8, 'Password must be at least 8 characters'],
+    select: false // Exclude from queries by default for security
+  },
+  
+  /**
+   * Profile Information Fields
+   * Optional fields for user profile customization
+   */
+  
+  // Display name shown to other users (can differ from username)
+  displayName: {
+    type: String,
+    trim: true,
+    maxlength: [50, 'Display name cannot exceed 50 characters']
+  },
+  
+  // User biography/description for profile page
+  bio: {
+    type: String,
+    maxlength: [500, 'Bio cannot exceed 500 characters']
+  },
  
  avatar: {
    type: String,

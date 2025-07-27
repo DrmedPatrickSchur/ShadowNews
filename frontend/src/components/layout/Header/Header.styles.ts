@@ -1,3 +1,105 @@
+/**
+ * Header Component Styled Components
+ * 
+ * Comprehensive styling system for the main navigation header component,
+ * providing responsive design, theme integration, and interactive states.
+ * Implements a modern design system with fluid animations, accessibility
+ * features, and performance optimizations for all header elements.
+ * 
+ * Component Architecture:
+ * - HeaderWrapper: Main container with sticky positioning and backdrop blur
+ * - HeaderContainer: Central layout container with responsive breakpoints
+ * - LogoSection: Brand identity area with logo and beta badge
+ * - NavSection: Primary navigation with active state indicators
+ * - SearchSection: Expandable search functionality with focus states
+ * - UserSection: User management area with avatars and dropdown menus
+ * 
+ * Design System Features:
+ * - Theme Integration: Comprehensive theme variable usage for colors and spacing
+ * - Responsive Breakpoints: Mobile-first design with adaptive layouts
+ * - Interactive States: Hover, focus, and active states with smooth transitions
+ * - Accessibility: Focus management, keyboard navigation, and screen reader support
+ * - Animation System: Consistent easing and timing for all interactive elements
+ * 
+ * Layout Structure:
+ * - Sticky Header: Fixed positioning with backdrop blur for modern glass effect
+ * - Flexible Container: Maximum width constraints with responsive padding
+ * - Navigation Grid: Balanced layout with logo, navigation, search, and user areas
+ * - Mobile Adaptation: Collapsible navigation with hamburger menu integration
+ * 
+ * Visual Design:
+ * - Modern Aesthetics: Clean lines, consistent spacing, and subtle shadows
+ * - Brand Integration: Primary color usage and consistent visual hierarchy
+ * - Interactive Feedback: Visual responses to user interactions and state changes
+ * - Performance Focus: Optimized rendering with minimal layout thrashing
+ * 
+ * Component Styling:
+ * - Logo: Brand presentation with hover effects and responsive sizing
+ * - Navigation Links: Active state indicators with underline animations
+ * - Search Input: Focus states with border highlighting and shadow effects
+ * - User Avatar: Circular design with hover scaling and border animations
+ * - Dropdown Menus: Contextual overlays with smooth entrance animations
+ * 
+ * Responsive Design:
+ * - Desktop Layout: Full horizontal navigation with all features visible
+ * - Tablet Layout: Condensed navigation with preserved core functionality
+ * - Mobile Layout: Hamburger menu with touch-optimized interactions
+ * - Accessibility: Proper focus management across all screen sizes
+ * 
+ * Interactive Elements:
+ * - Icon Buttons: Consistent sizing with hover states and notification badges
+ * - Navigation Links: Smooth transitions with active state visual feedback
+ * - Dropdown Triggers: Context-aware positioning with entrance animations
+ * - Search Interface: Expandable design with focus management and keyboard support
+ * 
+ * Theme System Integration:
+ * - Color Variables: Dynamic theming with light and dark mode support
+ * - Spacing Scale: Consistent spacing using theme-based scale values
+ * - Typography: Font sizing and weight hierarchy following design system
+ * - Shadow System: Layered shadow effects for depth and visual hierarchy
+ * 
+ * Performance Optimizations:
+ * - Efficient Selectors: Minimal specificity with optimized CSS generation
+ * - Animation Performance: Hardware-accelerated transforms and opacity changes
+ * - Rendering Optimization: Minimal reflow triggers and paint operations
+ * - Memory Management: Efficient styled-component instantiation and cleanup
+ * 
+ * Accessibility Features:
+ * - Focus Indicators: Visible focus states for keyboard navigation
+ * - Color Contrast: WCAG compliant contrast ratios for all text elements
+ * - Touch Targets: Minimum 44px touch targets for mobile interactions
+ * - Screen Reader Support: Semantic markup with proper ARIA attributes
+ * 
+ * Animation System:
+ * - Consistent Timing: Standardized duration and easing for all animations
+ * - Entrance Effects: Smooth transitions for dropdown menus and overlays
+ * - Hover States: Subtle feedback animations for interactive elements
+ * - Loading States: Visual feedback for asynchronous operations
+ * 
+ * Component States:
+ * - Default State: Base styling with theme integration
+ * - Hover State: Interactive feedback with color and transform changes
+ * - Active State: Visual indication of current page or selected element
+ * - Focus State: Keyboard navigation support with visible focus indicators
+ * - Disabled State: Reduced opacity and interaction prevention
+ * 
+ * Mobile Optimizations:
+ * - Touch-Friendly: Adequate touch target sizes for mobile interactions
+ * - Gesture Support: Swipe-friendly interfaces and touch feedback
+ * - Performance Focus: Optimized rendering for mobile devices
+ * - Battery Efficiency: Minimal animation overhead and optimized transitions
+ * 
+ * Dependencies:
+ * - styled-components: CSS-in-JS library for component styling
+ * - React Router: Link components for navigation integration
+ * - Theme System: Design tokens and color variables
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 

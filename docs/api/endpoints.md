@@ -1,4 +1,63 @@
-# Shadownews API Endpoints Documentation
+/**
+ * @fileoverview endpoints.md
+ * 
+ * Implementation file for endpoints.md
+ * 
+ * Key Features:
+ * - Core functionality
+ * - Error handling
+ * - Performance optimization
+ * 
+ * Dependencies:
+ *  * - No external dependencies
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */\n\n<!--
+============================================================================
+ShadowNews - Complete API Endpoints Documentation
+============================================================================
+
+Comprehensive reference for all ShadowNews RESTful API endpoints, including
+request/response formats, authentication requirements, and integration examples.
+
+Purpose:
+- Complete API endpoint reference with detailed specifications
+- Request/response schemas with validation rules
+- Error handling patterns and HTTP status codes
+- Rate limiting and pagination documentation
+- Integration examples for common use cases
+
+Target Audience:
+- Frontend developers building client applications
+- Backend developers maintaining API services
+- Mobile developers implementing native apps
+- Third-party integrators using the ShadowNews API
+- QA engineers writing API tests
+
+Coverage:
+- Authentication and user management endpoints
+- Posts and content management APIs
+- Repository and email processing endpoints
+- Real-time WebSocket event specifications
+- Karma system and community features
+- Administrative and moderation tools
+
+Technical Details:
+- RESTful design principles and conventions
+- JSON request/response format specifications
+- OAuth 2.0 and JWT authentication standards
+- HTTP status code usage and error responses
+- API versioning and backward compatibility
+
+Last Updated: 2025-07-27
+Version: 1.0.0
+============================================================================
+-->
+
+# ShadowNews API Endpoints Documentation
 
 ## Base URL
 ```

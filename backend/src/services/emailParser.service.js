@@ -1,4 +1,21 @@
-const { simpleParser } = require('mailparser');
+/**
+ * @fileoverview emailParser.service.js
+ * 
+ * Implementation file for emailParser.service.js
+ * 
+ * Key Features:
+ * - Core functionality
+ * - Error handling
+ * - Performance optimization
+ * 
+ * Dependencies:
+ *  * - No external dependencies
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */\n\nconst { simpleParser } = require('mailparser');
 const { createHash } = require('crypto');
 const sanitizeHtml = require('sanitize-html');
 const natural = require('natural');

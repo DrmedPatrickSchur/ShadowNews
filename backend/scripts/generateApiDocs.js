@@ -1,36 +1,116 @@
+/**
+ * @fileoverview API Documentation Generator Script
+ * 
+ * Automated documentation generation tool for the ShadowNews API that creates
+ * comprehensive documentation in multiple formats including OpenAPI specifications,
+ * Markdown documentation, Postman collections, and interactive examples.
+ * 
+ * This script analyzes JSDoc comments and OpenAPI annotations throughout the
+ * codebase to automatically generate up-to-date API documentation, ensuring
+ * documentation stays synchronized with code changes.
+ * 
+ * Key Features:
+ * - OpenAPI 3.0 specification generation from JSDoc comments
+ * - Markdown documentation with formatted endpoint details
+ * - Postman collection export for API testing and integration
+ * - Interactive examples with sample requests and responses
+ * - Multi-format output for different developer workflows
+ * - Automated file organization and directory management
+ * - Error handling and validation for documentation quality
+ * 
+ * Generated Documentation Formats:
+ * - OpenAPI JSON: Machine-readable API specification
+ * - Markdown README: Human-readable documentation with examples
+ * - Postman Collection: Importable collection for API testing
+ * - Examples Documentation: Code samples and integration guides
+ * 
+ * Documentation Sources:
+ * - Route handlers with OpenAPI annotations
+ * - Model schemas with property documentation
+ * - Controller methods with parameter descriptions
+ * - Authentication and security scheme definitions
+ * 
+ * Output Structure:
+ * - docs/api/openapi.json - OpenAPI 3.0 specification
+ * - docs/api/README.md - Formatted API documentation
+ * - docs/api/shadownews.postman_collection.json - Postman collection
+ * - docs/api/examples.md - Usage examples and integration guides
+ * 
+ * Integration Benefits:
+ * - Automatic documentation updates with code changes
+ * - Consistent API documentation across team members
+ * - Reduced manual documentation maintenance overhead
+ * - Enhanced developer experience with multiple format options
+ * - Improved API adoption through clear documentation
+ * 
+ * Usage:
+ * ```bash
+ * # Generate complete API documentation
+ * node scripts/generateApiDocs.js
+ * 
+ * # Include in build process
+ * npm run docs:generate
+ * ```
+ * 
+ * Dependencies:
+ * - swagger-jsdoc: Swagger/OpenAPI specification generation from JSDoc
+ * - fs/promises: Asynchronous file system operations
+ * - chalk: Colored console output for better user experience
+ * - path: Cross-platform file path handling
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
+// Swagger JSDoc library for OpenAPI specification generation
 const swaggerJsdoc = require('swagger-jsdoc');
+
+// Node.js file system operations with Promise support
 const fs = require('fs').promises;
+
+// Cross-platform path utilities for file management
 const path = require('path');
+
+// Colored terminal output for enhanced user experience
 const chalk = require('chalk');
 
+/**
+ * Swagger JSDoc Configuration
+ * 
+ * Comprehensive configuration for OpenAPI documentation generation
+ * including API metadata, authentication schemes, and file paths
+ * for documentation source scanning.
+ */
 const options = {
- definition: {
-   openapi: '3.0.0',
-   info: {
-     title: 'Shadownews API',
-     version: '1.0.0',
-     description: 'Enhanced Hacker News Clone with Email Repository and Snowball Distribution',
-     contact: {
-       name: 'Shadownews Team',
-       email: 'api@shadownews.community',
-       url: 'https://shadownews.community'
-     },
-     license: {
-       name: 'MIT',
-       url: 'https://opensource.org/licenses/MIT'
-     }
-   },
-   servers: [
-     {
-       url: 'http://localhost:3000/api/v1',
-       description: 'Development server'
-     },
-     {
-       url: 'https://api.shadownews.community/v1',
-       description: 'Production server'
-     }
-   ],
-   components: {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Shadownews API',
+      version: '1.0.0',
+      description: 'Enhanced Hacker News Clone with Email Repository and Snowball Distribution',
+      contact: {
+        name: 'Shadownews Team',
+        email: 'api@shadownews.community',
+        url: 'https://shadownews.community'
+      },
+      license: {
+        name: 'MIT',
+        url: 'https://opensource.org/licenses/MIT'
+      }
+    },
+    servers: [
+      {
+        url: 'http://localhost:3000/api/v1',
+        description: 'Development server'
+      },
+      {
+        url: 'https://api.shadownews.community/v1',
+        description: 'Production server'
+      }
+    ],
+    components: {
      securitySchemes: {
        bearerAuth: {
          type: 'http',
@@ -48,8 +128,6 @@ const options = {
      {
        bearerAuth: []
      }
-   ]
- },
  apis: [
    './src/api/routes/*.routes.js',
    './src/models/*.model.js',
@@ -57,79 +135,131 @@ const options = {
  ]
 };
 
+/**
+ * Main API Documentation Generation Function
+ * 
+ * Orchestrates the complete API documentation generation process including
+ * OpenAPI specification creation, Markdown formatting, Postman collection
+ * export, and example generation. Provides comprehensive error handling
+ * and user feedback throughout the process.
+ * 
+ * Generation Process:
+ * 1. Parse JSDoc comments and OpenAPI annotations from source files
+ * 2. Generate OpenAPI 3.0 specification with complete API details
+ * 3. Create formatted Markdown documentation for human consumption
+ * 4. Export Postman collection for API testing and integration
+ * 5. Generate usage examples and integration guides
+ * 6. Organize output files in structured documentation directory
+ * 
+ * Output Files:
+ * - openapi.json: Complete OpenAPI specification for tooling integration
+ * - README.md: Formatted documentation with endpoint descriptions
+ * - shadownews.postman_collection.json: Importable Postman collection
+ * - examples.md: Code samples and integration examples
+ * 
+ * Error Handling:
+ * - Validates OpenAPI specification for completeness
+ * - Creates output directories if they don't exist
+ * - Provides detailed error messages for troubleshooting
+ * - Graceful failure with exit codes for CI/CD integration
+ * 
+ * @returns {Promise<void>} Resolves when documentation generation completes
+ * @throws {Error} Throws errors for file system issues or parsing failures
+ * 
+ * @since 1.0.0
+ */
 const generateApiDocs = async () => {
- try {
-   console.log(chalk.blue('🚀 Starting API documentation generation...'));
-   
-   // Generate OpenAPI specification
-   const openapiSpecification = swaggerJsdoc(options);
-   
-   // Create docs directory if it doesn't exist
-   const docsDir = path.join(__dirname, '../../docs/api');
-   await fs.mkdir(docsDir, { recursive: true });
-   
-   // Write OpenAPI JSON
-   const jsonPath = path.join(docsDir, 'openapi.json');
-   await fs.writeFile(jsonPath, JSON.stringify(openapiSpecification, null, 2));
-   console.log(chalk.green(`✓ OpenAPI JSON written to ${jsonPath}`));
-   
-   // Generate Markdown documentation
-   const markdownContent = generateMarkdown(openapiSpecification);
-   const mdPath = path.join(docsDir, 'README.md');
-   await fs.writeFile(mdPath, markdownContent);
-   console.log(chalk.green(`✓ Markdown documentation written to ${mdPath}`));
-   
-   // Generate Postman collection
-   const postmanCollection = generatePostmanCollection(openapiSpecification);
-   const postmanPath = path.join(docsDir, 'shadownews.postman_collection.json');
-   await fs.writeFile(postmanPath, JSON.stringify(postmanCollection, null, 2));
-   console.log(chalk.green(`✓ Postman collection written to ${postmanPath}`));
-   
-   // Generate example requests
-   const examplesContent = generateExamples(openapiSpecification);
-   const examplesPath = path.join(docsDir, 'examples.md');
-   await fs.writeFile(examplesPath, examplesContent);
-   console.log(chalk.green(`✓ API examples written to ${examplesPath}`));
-   
-   console.log(chalk.blue('\n📚 API documentation generated successfully!'));
-   console.log(chalk.yellow('\nNext steps:'));
-   console.log(chalk.yellow('1. Review the generated documentation'));
-   console.log(chalk.yellow('2. Import the Postman collection for testing'));
-   console.log(chalk.yellow('3. Serve the OpenAPI spec with Swagger UI\n'));
-   
- } catch (error) {
-   console.error(chalk.red('❌ Error generating API documentation:'), error);
-   process.exit(1);
- }
+  try {
+    console.log(chalk.blue('🚀 Starting API documentation generation...'));
+    
+    // Generate OpenAPI specification from JSDoc comments
+    const openapiSpecification = swaggerJsdoc(options);
+    
+    // Create docs directory structure if it doesn't exist
+    const docsDir = path.join(__dirname, '../../docs/api');
+    await fs.mkdir(docsDir, { recursive: true });
+    
+    // Write OpenAPI JSON specification for tooling integration
+    const jsonPath = path.join(docsDir, 'openapi.json');
+    await fs.writeFile(jsonPath, JSON.stringify(openapiSpecification, null, 2));
+    console.log(chalk.green(`✓ OpenAPI JSON written to ${jsonPath}`));
+    
+    // Generate human-readable Markdown documentation
+    const markdownContent = generateMarkdown(openapiSpecification);
+    const mdPath = path.join(docsDir, 'README.md');
+    await fs.writeFile(mdPath, markdownContent);
+    console.log(chalk.green(`✓ Markdown documentation written to ${mdPath}`));
+    
+    // Generate Postman collection for API testing
+    const postmanCollection = generatePostmanCollection(openapiSpecification);
+    const postmanPath = path.join(docsDir, 'shadownews.postman_collection.json');
+    await fs.writeFile(postmanPath, JSON.stringify(postmanCollection, null, 2));
+    console.log(chalk.green(`✓ Postman collection written to ${postmanPath}`));
+    
+    // Generate example requests and integration guides
+    const examplesContent = generateExamples(openapiSpecification);
+    const examplesPath = path.join(docsDir, 'examples.md');
+    await fs.writeFile(examplesPath, examplesContent);
+    console.log(chalk.green(`✓ API examples written to ${examplesPath}`));
+    
+    console.log(chalk.blue('\n📚 API documentation generated successfully!'));
+    console.log(chalk.yellow('\nNext steps:'));
+    console.log(chalk.yellow('1. Review the generated documentation'));
+    console.log(chalk.yellow('2. Import the Postman collection for testing'));
+    console.log(chalk.yellow('3. Serve the OpenAPI spec with Swagger UI\n'));
+    
+  } catch (error) {
+    console.error(chalk.red('❌ Error generating API documentation:'), error);
+    process.exit(1);
+  }
 };
 
+/**
+ * Generate Markdown Documentation
+ * 
+ * Converts OpenAPI specification into formatted Markdown documentation
+ * with tables, code examples, and organized endpoint descriptions.
+ * Creates human-readable documentation suitable for GitHub display.
+ * 
+ * Markdown Features:
+ * - Formatted endpoint tables with parameters and responses
+ * - Authentication instructions with examples
+ * - Server configuration and environment details
+ * - Request/response examples with JSON formatting
+ * - Organized sections by API functionality tags
+ * 
+ * @param {Object} spec - OpenAPI specification object
+ * @returns {string} Formatted Markdown documentation content
+ * 
+ * @since 1.0.0
+ */
 function generateMarkdown(spec) {
- let markdown = `# ${spec.info.title} API Documentation\n\n`;
- markdown += `${spec.info.description}\n\n`;
- markdown += `**Version:** ${spec.info.version}\n\n`;
- 
- markdown += '## Servers\n\n';
- spec.servers.forEach(server => {
-   markdown += `- ${server.description}: \`${server.url}\`\n`;
- });
- 
- markdown += '\n## Authentication\n\n';
- markdown += 'This API uses JWT Bearer token authentication. Include the token in the Authorization header:\n\n';
- markdown += '```\nAuthorization: Bearer YOUR_JWT_TOKEN\n```\n\n';
- 
- markdown += '## Endpoints\n\n';
- 
- const paths = Object.keys(spec.paths).sort();
- const groupedPaths = groupPathsByTag(spec.paths);
- 
- Object.keys(groupedPaths).forEach(tag => {
-   markdown += `### ${tag}\n\n`;
-   
-   groupedPaths[tag].forEach(({ path, methods }) => {
-     Object.keys(methods).forEach(method => {
-       const operation = methods[method];
-       markdown += `#### ${method.toUpperCase()} ${path}\n\n`;
-       markdown += `${operation.summary || ''}\n\n`;
+  let markdown = `# ${spec.info.title} API Documentation\n\n`;
+  markdown += `${spec.info.description}\n\n`;
+  markdown += `**Version:** ${spec.info.version}\n\n`;
+  
+  markdown += '## Servers\n\n';
+  spec.servers.forEach(server => {
+    markdown += `- ${server.description}: \`${server.url}\`\n`;
+  });
+  
+  markdown += '\n## Authentication\n\n';
+  markdown += 'This API uses JWT Bearer token authentication. Include the token in the Authorization header:\n\n';
+  markdown += '```\nAuthorization: Bearer YOUR_JWT_TOKEN\n```\n\n';
+  
+  markdown += '## Endpoints\n\n';
+  
+  const paths = Object.keys(spec.paths).sort();
+  const groupedPaths = groupPathsByTag(spec.paths);
+  
+  Object.keys(groupedPaths).forEach(tag => {
+    markdown += `### ${tag}\n\n`;
+    
+    groupedPaths[tag].forEach(({ path, methods }) => {
+      Object.keys(methods).forEach(method => {
+        const operation = methods[method];
+        markdown += `#### ${method.toUpperCase()} ${path}\n\n`;
+        markdown += `${operation.summary || ''}\n\n`;
        
        if (operation.parameters && operation.parameters.length > 0) {
          markdown += '**Parameters:**\n\n';

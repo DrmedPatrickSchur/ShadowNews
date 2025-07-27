@@ -1,35 +1,171 @@
+/**
+ * User Types and Interfaces - User Management and Authentication System
+ * 
+ * Comprehensive type definitions for the ShadowNews user management system.
+ * This file contains all interfaces and types related to user profiles,
+ * authentication, preferences, gamification, and social features.
+ * 
+ * User System Features:
+ * - Authentication: Secure login and session management
+ * - Profile Management: Comprehensive user profiles with customization
+ * - Karma System: Reputation tracking and gamification
+ * - Preferences: Granular user setting and notification control
+ * - Social Features: Following, blocking, and interaction management
+ * - Badge System: Achievement tracking and recognition
+ * - Email Integration: ShadowNews email addresses and digest management
+ * 
+ * Authentication and Security:
+ * - JWT-based Authentication: Secure token-based session management
+ * - Email Verification: Multi-step email validation process
+ * - Role-based Access: Hierarchical permission system
+ * - Privacy Controls: Granular data sharing and visibility settings
+ * - Account Security: Password management and security features
+ * - Session Management: Multi-device session tracking and control
+ * 
+ * Gamification and Engagement:
+ * - Karma System: Community-driven reputation scoring
+ * - Badge System: Achievement recognition and progression
+ * - Milestone Tracking: Progress towards reputation goals
+ * - Activity Monitoring: User engagement and contribution tracking
+ * - Leaderboards: Community recognition and competition
+ * - Reward System: Incentives for quality contributions
+ * 
+ * Social and Communication:
+ * - Follow System: Tag-based interest tracking
+ * - Blocking: User interaction control and harassment prevention
+ * - Notification Management: Granular notification preferences
+ * - Email Digests: Automated content curation and delivery
+ * - Repository Management: Email repository ownership and collaboration
+ * - Community Features: User interaction and engagement tools
+ * 
+ * @author ShadowNews Team
+ * @version 2.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
+/* =============================================================================
+   Core User Types
+   Primary user structure and management
+   ============================================================================= */
+
+/**
+ * User Interface
+ * Complete user profile with all features and metadata
+ * 
+ * @interface User
+ * @description Core user entity with profile, preferences, and social features
+ * 
+ * Features:
+ * - Profile Management: Complete user profile with customization
+ * - Authentication: Secure identity and session management
+ * - Karma System: Reputation tracking and community standing
+ * - Social Features: Following, blocking, and interaction management
+ * - Email Integration: ShadowNews email and digest management
+ * - Gamification: Badge system and achievement tracking
+ * - Privacy: Granular privacy and visibility controls
+ */
 export interface User {
+ /** Unique user identifier */
  id: string;
+ 
+ /** Unique username for platform identification */
  username: string;
+ 
+ /** User's primary email address */
  email: string;
+ 
+ /** Auto-generated ShadowNews email for platform features */
  shadownewsEmail: string;
+ 
+ /** Optional avatar URL for profile display */
  avatar?: string;
+ 
+ /** Optional user biography and description */
  bio?: string;
+ 
+ /** User karma points reflecting community standing */
  karma: number;
+ 
+ /** Account creation timestamp */
  createdAt: string;
+ 
+ /** Last profile update timestamp */
  updatedAt: string;
+ 
+ /** Last activity timestamp for presence tracking */
  lastActiveAt: string;
+ 
+ /** Whether user's email address has been verified */
  isEmailVerified: boolean;
+ 
+ /** Whether user account is currently active */
  isActive: boolean;
+ 
+ /** User's role determining platform permissions */
  role: UserRole;
+ 
+ /** User preferences and settings */
  preferences: UserPreferences;
+ 
+ /** Array of earned badges and achievements */
  badges: Badge[];
+ 
+ /** Array of repository IDs owned by user */
  repositories: string[];
+ 
+ /** Array of hashtags user follows for personalization */
  followedTags: string[];
+ 
+ /** Array of user IDs that have been blocked */
  blockedUsers: string[];
 }
 
+/**
+ * User Role Enumeration
+ * Hierarchical permission levels for platform access
+ * 
+ * @enum UserRole
+ * @description Different user roles with varying permissions
+ */
 export enum UserRole {
+ /** Standard user with basic platform access */
  USER = 'user',
+ 
+ /** Moderator with content management permissions */
  MODERATOR = 'moderator',
+ 
+ /** Administrator with full platform control */
  ADMIN = 'admin',
+ 
+ /** Curator with specialized content curation permissions */
  CURATOR = 'curator'
 }
 
+/**
+ * User Preferences Interface
+ * Comprehensive user setting and preference management
+ * 
+ * @interface UserPreferences
+ * @description User-configurable settings and preferences
+ * 
+ * Features:
+ * - Theme Selection: UI appearance customization
+ * - Email Preferences: Digest and notification settings
+ * - Privacy Controls: Data sharing and visibility settings
+ * - Notification Management: Granular notification preferences
+ */
 export interface UserPreferences {
+ /** UI theme preference */
  theme: 'light' | 'dark' | 'auto';
+ 
+ /** Frequency for email digest delivery */
  emailDigestFrequency: DigestFrequency;
+ 
+ /** Detailed notification preferences */
  notificationSettings: NotificationSettings;
+ 
+ /** Privacy and data sharing controls */
  privacySettings: PrivacySettings;
  displaySettings: DisplaySettings;
 }

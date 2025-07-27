@@ -1,36 +1,196 @@
+/**
+ * @fileoverview ShadowNews Service Worker
+ * 
+ * Progressive Web App service worker providing offline functionality, caching
+ * strategies, background synchronization, and push notifications for the
+ * ShadowNews email-first social platform.
+ * 
+ * ## Architecture Overview
+ * 
+ * This service worker implements a comprehensive offline-first strategy that
+ * enables ShadowNews to function seamlessly even without network connectivity.
+ * It manages multiple cache strategies optimized for different types of content
+ * and provides background functionality for real-time features.
+ * 
+ * ## Key Features
+ * 
+ * ### 🔄 Multi-Layer Caching Strategy
+ * - **Static Assets**: Long-term caching for app shell and resources
+ * - **API Responses**: Time-based caching with intelligent expiration
+ * - **Offline Fallbacks**: Graceful degradation when network unavailable
+ * - **Cache Versioning**: Automatic cleanup of outdated cache entries
+ * 
+ * ### 📱 Offline-First Experience
+ * - App shell caching for instant loading
+ * - API response caching for offline browsing
+ * - Background synchronization for pending actions
+ * - Offline page fallback for unreachable content
+ * 
+ * ### 🔔 Real-Time Notifications
+ * - Push notification handling and display
+ * - Background feed updates and notifications
+ * - Interactive notification actions
+ * - Periodic sync for fresh content updates
+ * 
+ * ### 📧 Email Platform Integration
+ * - Email repository synchronization
+ * - Snowball distribution background processing
+ * - Digest generation offline support
+ * - Email-to-post conversion caching
+ * 
+ * ## Caching Strategy
+ * 
+ * ### Static Assets (Cache First)
+ * Critical app resources cached indefinitely with version-based invalidation
+ * 
+ * ### API Responses (Network First with Fallback)
+ * Fresh data when online, cached fallback when offline
+ * 
+ * ### User Content (Background Sync)
+ * Offline actions queued and synchronized when connection restored
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-01-27
+ */
+
+/* =============================================================================
+   Cache Configuration and Constants
+   Cache names, versioning, and expiration settings
+   ============================================================================= */
+
+/**
+ * Primary Cache Name
+ * Static assets cache with version identifier for cache busting
+ * 
+ * @const {string} CACHE_NAME
+ * @description Main cache for app shell, CSS, JavaScript, and static resources
+ * 
+ * Versioning Strategy:
+ * - Increment version (v1 -> v2) when deploying breaking changes
+ * - Forces cache refresh and ensures users get latest app version
+ * - Old caches automatically cleaned up during activation
+ */
 const CACHE_NAME = 'shadownews-v1';
+
+/**
+ * Static Resources to Cache
+ * Critical files needed for offline app shell functionality
+ * 
+ * @const {string[]} urlsToCache
+ * @description Core files cached during service worker installation
+ * 
+ * Cache Contents:
+ * - App shell HTML and entry points
+ * - Critical CSS for initial render
+ * - Core JavaScript bundles
+ * - PWA manifest and branding assets
+ * - Offline fallback pages
+ */
 const urlsToCache = [
- '/',
- '/index.html',
- '/static/css/main.css',
- '/static/js/main.js',
- '/manifest.json',
- '/favicon.ico',
- '/offline.html'
+ '/',                    // Main app entry point
+ '/index.html',          // Explicit HTML shell
+ '/static/css/main.css', // Critical styles
+ '/static/js/main.js',   // Core JavaScript
+ '/manifest.json',       // PWA configuration
+ '/favicon.ico',         // Branding assets
+ '/offline.html'         // Offline fallback page
 ];
 
-const API_CACHE = 'shadownews-api-v1';
-const API_CACHE_EXPIRY = 5 * 60 * 1000; // 5 minutes
+/**
+ * API Cache Configuration
+ * Dynamic content caching with time-based expiration
+ */
 
+/** API responses cache name */
+const API_CACHE = 'shadownews-api-v1';
+
+/** API cache expiration time in milliseconds (5 minutes) */
+const API_CACHE_EXPIRY = 5 * 60 * 1000;
+
+/* =============================================================================
+   Service Worker Installation
+   Cache population and service worker activation
+   ============================================================================= */
+
+/**
+ * Service Worker Install Event
+ * Handles initial cache population and service worker setup
+ * 
+ * @event install
+ * @description Triggered when service worker is first installed or updated
+ * 
+ * Installation Process:
+ * 1. Open primary cache
+ * 2. Add all static resources to cache
+ * 3. Skip waiting to activate immediately
+ * 4. Ensure offline functionality from first visit
+ * 
+ * Error Handling:
+ * - Installation fails if any critical resource can't be cached
+ * - Ensures complete offline functionality before activation
+ */
 self.addEventListener('install', event => {
+ // Wait for cache population to complete before finishing installation
  event.waitUntil(
+   // Open the primary cache for static assets
    caches.open(CACHE_NAME)
-     .then(cache => cache.addAll(urlsToCache))
-     .then(() => self.skipWaiting())
+     .then(cache => {
+       // Add all critical resources to cache in parallel
+       return cache.addAll(urlsToCache);
+     })
+     .then(() => {
+       // Skip waiting phase to activate immediately
+       // Ensures users get new service worker without page reload
+       return self.skipWaiting();
+     })
  );
 });
 
+/* =============================================================================
+   Service Worker Activation
+   Cache cleanup and service worker claiming
+   ============================================================================= */
+
+/**
+ * Service Worker Activate Event
+ * Handles cache cleanup and service worker claiming of clients
+ * 
+ * @event activate
+ * @description Triggered when new service worker becomes active
+ * 
+ * Activation Process:
+ * 1. Identify outdated caches
+ * 2. Delete old cache versions
+ * 3. Claim control of all clients
+ * 4. Ensure immediate service worker functionality
+ * 
+ * Cache Management:
+ * - Preserves current cache versions
+ * - Removes outdated caches to free storage
+ * - Maintains API cache separately from static cache
+ */
 self.addEventListener('activate', event => {
+ // Wait for cache cleanup and client claiming to complete
  event.waitUntil(
+   // Get all existing cache names
    caches.keys().then(cacheNames => {
+     // Delete outdated caches in parallel
      return Promise.all(
        cacheNames.map(cacheName => {
+         // Keep current static and API caches, delete others
          if (cacheName !== CACHE_NAME && cacheName !== API_CACHE) {
+           console.log('Deleting old cache:', cacheName);
            return caches.delete(cacheName);
          }
        })
      );
-   }).then(() => self.clients.claim())
+   }).then(() => {
+     // Take control of all clients immediately
+     // Ensures new service worker handles all requests without page reload
+     return self.clients.claim();
+   })
  );
 });
 

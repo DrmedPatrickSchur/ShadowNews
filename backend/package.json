@@ -1,79 +1,228 @@
 {
- "name": "shadownews-backend",
- "version": "1.0.0",
- "description": "Backend API for Shadownews - Enhanced Hacker News Clone",
- "main": "src/server.js",
- "scripts": {
-   "start": "node src/server.js",
-   "dev": "nodemon src/server.js",
-   "test": "jest",
-   "test:watch": "jest --watch",
-   "test:coverage": "jest --coverage",
-   "lint": "eslint src/",
-   "lint:fix": "eslint src/ --fix",
-   "format": "prettier --write \"src/**/*.js\"",
-   "seed": "node scripts/seedDatabase.js",
-   "migrate": "node scripts/migrateData.js",
-   "docs": "node scripts/generateApiDocs.js"
- },
- "keywords": [
-   "hacker-news",
-   "api",
-   "nodejs",
-   "express",
-   "mongodb"
- ],
- "author": "Shadownews Team",
- "license": "MIT",
- "dependencies": {
-   "express": "^4.18.2",
-   "mongoose": "^7.6.3",
-   "dotenv": "^16.3.1",
-   "cors": "^2.8.5",
-   "helmet": "^7.1.0",
-   "compression": "^1.7.4",
-   "express-rate-limit": "^7.1.5",
-   "bcryptjs": "^2.4.3",
-   "jsonwebtoken": "^9.0.2",
-   "express-validator": "^7.0.1",
-   "multer": "^1.4.5-lts.1",
-   "csv-parser": "^3.0.0",
-   "fast-csv": "^4.3.6",
-   "nodemailer": "^6.9.7",
-   "nodemailer-express-handlebars": "^6.1.0",
-   "@sendgrid/mail": "^8.1.0",
-   "mailparser": "^3.6.5",
-   "bull": "^4.11.5",
-   "redis": "^4.6.11",
-   "socket.io": "^4.6.0",
-   "winston": "^3.11.0",
-   "morgan": "^1.10.0",
-   "axios": "^1.6.2",
-   "openai": "^4.20.1",
-   "natural": "^6.10.0",
-   "node-cron": "^3.0.3",
-   "sanitize-html": "^2.11.0",
-   "marked": "^11.1.0",
-   "slugify": "^1.6.6",
-   "uuid": "^9.0.1",
-   "lodash": "^4.17.21",
-   "moment": "^2.29.4",
-   "joi": "^17.11.0"
- },
- "devDependencies": {
-   "nodemon": "^3.0.2",
-   "jest": "^29.7.0",
-   "supertest": "^6.3.3",
-   "@types/jest": "^29.5.10",
-   "eslint": "^8.55.0",
-   "eslint-config-airbnb-base": "^15.0.0",
-   "eslint-plugin-import": "^2.29.0",
-   "prettier": "^3.1.0",
-   "mongodb-memory-server": "^9.1.3",
-   "faker": "^5.5.3"
- },
- "engines": {
-   "node": ">=18.0.0",
-   "npm": ">=9.0.0"
- }
+  "_comment": "ShadowNews Backend Package Configuration",
+  "_description": "This package.json defines the backend Node.js application for ShadowNews - an email-first Hacker News clone with snowball distribution. Contains all dependencies, scripts, and configuration needed for the Express.js API server with MongoDB, Redis, WebSocket support, and background job processing.",
+  
+  "name": "shadownews-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Shadownews - Enhanced Hacker News Clone with Email-First Architecture and Snowball Distribution",
+  "main": "src/server.js",
+  
+  "_scripts_comment": "Development and Build Scripts",
+  "_scripts_description": "Production: start | Development: dev | Testing: test/test:watch/test:coverage | Code Quality: lint/lint:fix/format | Database: seed/migrate | Documentation: docs",
+  "scripts": {
+    "start": "node src/server.js",
+    "_start_comment": "Production server startup - runs the main server without file watching",
+    
+    "dev": "nodemon src/server.js", 
+    "_dev_comment": "Development server with auto-reload on file changes using nodemon",
+    
+    "test": "jest",
+    "_test_comment": "Run all unit and integration tests using Jest testing framework",
+    
+    "test:watch": "jest --watch",
+    "_test_watch_comment": "Run tests in watch mode - automatically re-runs tests when files change",
+    
+    "test:coverage": "jest --coverage",
+    "_test_coverage_comment": "Run tests with code coverage reporting to identify untested code",
+    
+    "lint": "eslint src/",
+    "_lint_comment": "Check code for style and potential error issues using ESLint",
+    
+    "lint:fix": "eslint src/ --fix",
+    "_lint_fix_comment": "Automatically fix ESLint issues where possible",
+    
+    "format": "prettier --write \"src/**/*.js\"",
+    "_format_comment": "Format all JavaScript files using Prettier for consistent code style",
+    
+    "seed": "node scripts/seedDatabase.js",
+    "_seed_comment": "Populate database with sample data for development and testing",
+    
+    "migrate": "node scripts/migrateData.js",
+    "_migrate_comment": "Run database migrations to update schema or transform data",
+    
+    "docs": "node scripts/generateApiDocs.js"
+    "_docs_comment": "Generate API documentation from code comments and route definitions"
+  },
+  
+  "_keywords_comment": "Search keywords for npm registry and project identification",
+  "keywords": [
+    "hacker-news",     
+    "api",             
+    "nodejs",          
+    "express",         
+    "mongodb",         
+    "email-first",     
+    "snowball-distribution",
+    "real-time",
+    "websocket",
+    "background-jobs"
+  ],
+  
+  "author": "Shadownews Team",
+  "license": "MIT",
+  
+  "_dependencies_comment": "Production Dependencies - Required for application runtime",
+  "_dependencies_description": "Core: express/mongoose/dotenv | Security: cors/helmet/bcryptjs/jsonwebtoken | Performance: compression/redis | Real-time: socket.io | Email: nodemailer/@sendgrid/mail | Jobs: bull/node-cron | AI: openai/natural | Utils: lodash/moment/uuid",
+  "dependencies": {
+    "_core_framework": "Core application framework and database",
+    "express": "^4.18.2",
+    "_express_comment": "Fast, unopinionated web framework for Node.js - handles HTTP routing, middleware, and API endpoints",
+    
+    "mongoose": "^7.6.3",
+    "_mongoose_comment": "MongoDB object modeling library with schema validation, middleware, and query building",
+    
+    "dotenv": "^16.3.1",
+    "_dotenv_comment": "Loads environment variables from .env file for configuration management",
+    
+    "_security_middleware": "Security and authentication libraries",
+    "cors": "^2.8.5",
+    "_cors_comment": "Cross-Origin Resource Sharing middleware for handling frontend requests",
+    
+    "helmet": "^7.1.0", 
+    "_helmet_comment": "Security middleware that sets various HTTP headers to protect against common vulnerabilities",
+    
+    "compression": "^1.7.4",
+    "_compression_comment": "Gzip compression middleware to reduce response sizes and improve performance",
+    
+    "express-rate-limit": "^7.1.5",
+    "_rate_limit_comment": "Rate limiting middleware to prevent abuse and DDoS attacks",
+    
+    "bcryptjs": "^2.4.3",
+    "_bcryptjs_comment": "Password hashing library for secure user authentication",
+    
+    "jsonwebtoken": "^9.0.2",
+    "_jwt_comment": "JSON Web Token implementation for stateless authentication",
+    
+    "_validation_middleware": "Input validation and sanitization",
+    "express-validator": "^7.0.1",
+    "_express_validator_comment": "Middleware for validating and sanitizing user input",
+    
+    "_file_handling": "File upload and processing libraries",
+    "multer": "^1.4.5-lts.1",
+    "_multer_comment": "Middleware for handling multipart/form-data file uploads",
+    
+    "_csv_processing": "CSV file parsing and generation",
+    "csv-parser": "^3.0.0",
+    "_csv_parser_comment": "Fast CSV parser for processing repository email imports",
+    
+    "fast-csv": "^4.3.6",
+    "_fast_csv_comment": "Fast CSV reading and writing library for data export/import",
+    
+    "_email_services": "Email sending and parsing capabilities", 
+    "nodemailer": "^6.9.7",
+    "_nodemailer_comment": "Email sending library supporting SMTP and various email services",
+    
+    "nodemailer-express-handlebars": "^6.1.0",
+    "_nodemailer_handlebars_comment": "Handlebars template engine integration for rich email templates",
+    
+    "@sendgrid/mail": "^8.1.0",
+    "_sendgrid_comment": "SendGrid email service integration for reliable email delivery",
+    
+    "mailparser": "^3.6.5",
+    "_mailparser_comment": "Email parsing library for processing incoming emails",
+    
+    "_background_jobs": "Job queue and scheduling",
+    "bull": "^4.11.5",
+    "_bull_comment": "Redis-based job queue for background tasks like email processing and digest generation",
+    
+    "redis": "^4.6.11",
+    "_redis_comment": "Redis client for caching, session storage, and job queue backend",
+    
+    "_real_time": "WebSocket and real-time communication",
+    "socket.io": "^4.6.0",
+    "_socketio_comment": "Real-time bidirectional communication for live updates and notifications",
+    
+    "_logging": "Logging and monitoring utilities",
+    "winston": "^3.11.0",
+    "_winston_comment": "Flexible logging library with multiple transports and log levels",
+    
+    "morgan": "^1.10.0",
+    "_morgan_comment": "HTTP request logger middleware for debugging and monitoring",
+    
+    "_external_apis": "External service integrations",
+    "axios": "^1.6.2",
+    "_axios_comment": "Promise-based HTTP client for external API requests",
+    
+    "_ai_services": "AI and natural language processing",
+    "openai": "^4.20.1",
+    "_openai_comment": "OpenAI API client for AI-powered features like content summarization",
+    
+    "natural": "^6.10.0",
+    "_natural_comment": "Natural language processing library for text analysis and processing",
+    
+    "_scheduling": "Cron jobs and task scheduling",
+    "node-cron": "^3.0.3",
+    "_node_cron_comment": "Cron job scheduler for periodic tasks like cleanup and digest generation",
+    
+    "_content_processing": "Text processing and sanitization",
+    "sanitize-html": "^2.11.0",
+    "_sanitize_html_comment": "HTML sanitization library to prevent XSS attacks in user content",
+    
+    "marked": "^11.1.0",
+    "_marked_comment": "Markdown parser for rendering user content and documentation",
+    
+    "_utilities": "General utility libraries",
+    "slugify": "^1.6.6",
+    "_slugify_comment": "URL-friendly slug generation for posts and repositories",
+    
+    "uuid": "^9.0.1",
+    "_uuid_comment": "UUID generation for unique identifiers",
+    
+    "lodash": "^4.17.21",
+    "_lodash_comment": "Utility library providing helpful functions for data manipulation",
+    
+    "moment": "^2.29.4",
+    "_moment_comment": "Date and time manipulation library for formatting and calculations",
+    
+    "_schema_validation": "Data validation and schema definition",
+    "joi": "^17.11.0"
+    "_joi_comment": "Object schema validation library for API input validation"
+  },
+  
+  "_devDependencies_comment": "Development Dependencies - Only needed during development and testing",
+  "_devDependencies_description": "Development: nodemon | Testing: jest/supertest/mongodb-memory-server/faker | Code Quality: eslint/prettier | Types: @types/jest",
+  "devDependencies": {
+    "_development_tools": "Development workflow tools",
+    "nodemon": "^3.0.2",
+    "_nodemon_comment": "Development server that automatically restarts when files change",
+    
+    "_testing_framework": "Testing libraries and utilities",
+    "jest": "^29.7.0",
+    "_jest_comment": "JavaScript testing framework with built-in assertions, mocking, and coverage",
+    
+    "supertest": "^6.3.3",
+    "_supertest_comment": "HTTP integration testing library for testing API endpoints",
+    
+    "@types/jest": "^29.5.10",
+    "_types_jest_comment": "TypeScript type definitions for Jest testing framework",
+    
+    "mongodb-memory-server": "^9.1.3",
+    "_mongodb_memory_comment": "In-memory MongoDB server for testing without external database",
+    
+    "faker": "^5.5.3",
+    "_faker_comment": "Library for generating fake data for testing and database seeding",
+    
+    "_code_quality": "Code quality and formatting tools",
+    "eslint": "^8.55.0",
+    "_eslint_comment": "Linting tool for identifying and fixing JavaScript code issues",
+    
+    "eslint-config-airbnb-base": "^15.0.0",
+    "_eslint_airbnb_comment": "Airbnb's ESLint configuration for consistent code style",
+    
+    "eslint-plugin-import": "^2.29.0",
+    "_eslint_import_comment": "ESLint plugin for validating import/export statements",
+    
+    "prettier": "^3.1.0"
+    "_prettier_comment": "Code formatting tool for consistent code style across the project"
+  },
+  
+  "_engines_comment": "Minimum required versions for Node.js and npm",
+  "_engines_description": "Ensures compatibility and prevents issues with older Node.js versions that lack required features",
+  "engines": {
+    "node": ">=18.0.0",
+    "_node_comment": "Requires Node.js 18+ for modern JavaScript features and performance improvements",
+    
+    "npm": ">=9.0.0"
+    "_npm_comment": "Requires npm 9+ for improved package resolution and security features"
+  }
 }

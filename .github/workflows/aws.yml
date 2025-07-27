@@ -1,3 +1,41 @@
+# ============================================================================
+# ShadowNews AWS Deployment Workflow
+# ============================================================================
+#
+# Automated CI/CD pipeline for deploying ShadowNews to Amazon Web Services.
+# This workflow builds Docker containers, pushes to ECR, and deploys to ECS
+# when changes are pushed to the main branch.
+#
+# Key Features:
+# - Automated Docker image building and pushing to Amazon ECR
+# - ECS task definition updates with new container images
+# - Zero-downtime deployments with service stability verification
+# - Secure credential management via GitHub Secrets
+# - Integration with AWS IAM for proper access control
+#
+# Prerequisites:
+# 1. ECR repository for container images
+# 2. ECS cluster, service, and task definition
+# 3. IAM user with appropriate ECR/ECS permissions
+# 4. GitHub Secrets configured for AWS credentials
+#
+# Environment Variables (Configure for your deployment):
+# - AWS_REGION: Target AWS region (e.g., us-east-1)
+# - ECR_REPOSITORY: Amazon ECR repository name
+# - ECS_SERVICE: Amazon ECS service name
+# - ECS_CLUSTER: Amazon ECS cluster name
+# - ECS_TASK_DEFINITION: Path to task definition JSON file
+# - CONTAINER_NAME: Container name in task definition
+#
+# Required GitHub Secrets:
+# - AWS_ACCESS_KEY_ID: IAM user access key
+# - AWS_SECRET_ACCESS_KEY: IAM user secret key
+#
+# Author: ShadowNews Team
+# Version: 1.0.0
+# Last Modified: 2025-07-27
+# ============================================================================
+
 # This workflow will build and push a new container image to Amazon ECR,
 # and then will deploy a new task definition to Amazon ECS, when there is a push to the "main" branch.
 #
@@ -24,60 +62,114 @@
 #    See the documentation for each action used below for the recommended IAM policies for this IAM user,
 #    and best practices on handling the access key credentials.
 
+# ShadowNews AWS Deployment Pipeline
 name: Deploy to Amazon ECS
 
+# ============================================================================
+# Workflow Triggers
+# ============================================================================
+# Automatically deploy when changes are pushed to main branch
+# Ensures production stays synchronized with latest stable code
 on:
   push:
     branches: [ "main" ]
 
+# ============================================================================
+# Environment Configuration
+# ============================================================================
+# AWS deployment configuration variables
+# These must be configured for your specific AWS environment
 env:
-  AWS_REGION: MY_AWS_REGION                   # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: MY_ECR_REPOSITORY           # set this to your Amazon ECR repository name
-  ECS_SERVICE: MY_ECS_SERVICE                 # set this to your Amazon ECS service name
-  ECS_CLUSTER: MY_ECS_CLUSTER                 # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: MY_ECS_TASK_DEFINITION # set this to the path to your Amazon ECS task definition
-                                               # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: MY_CONTAINER_NAME           # set this to the name of the container in the
-                                               # containerDefinitions section of your task definition
+  # AWS region for deployment (e.g., us-east-1, us-west-2)
+  AWS_REGION: MY_AWS_REGION
+  
+  # Amazon ECR repository name for ShadowNews container images
+  ECR_REPOSITORY: MY_ECR_REPOSITORY
+  
+  # Amazon ECS service name running ShadowNews application
+  ECS_SERVICE: MY_ECS_SERVICE
+  
+  # Amazon ECS cluster name hosting the service
+  ECS_CLUSTER: MY_ECS_CLUSTER
+  
+  # Path to ECS task definition file (JSON format)
+  # Example: .aws/task-definition.json
+  ECS_TASK_DEFINITION: MY_ECS_TASK_DEFINITION
+  
+  # Container name in the task definition containerDefinitions section
+  CONTAINER_NAME: MY_CONTAINER_NAME
 
+# ============================================================================
+# Workflow Permissions
+# ============================================================================
+# Minimal permissions for security best practices
 permissions:
-  contents: read
+  contents: read  # Read access to repository contents for checkout
 
+# ============================================================================
+# Deployment Job Definition
+# ============================================================================
 jobs:
   deploy:
-    name: Deploy
+    name: Deploy ShadowNews to AWS ECS
     runs-on: ubuntu-latest
-    environment: production
+    environment: production  # Use GitHub environment for additional protection
 
     steps:
-    - name: Checkout
+    # ========================================================================
+    # Source Code Checkout
+    # ========================================================================
+    # Retrieve the latest source code from the repository
+    - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Configure AWS credentials
+    # ========================================================================
+    # AWS Authentication
+    # ========================================================================
+    # Configure AWS credentials for ECR and ECS access
+    # Uses GitHub Secrets for secure credential management
+    - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ env.AWS_REGION }}
 
+    # ========================================================================
+    # Amazon ECR Authentication
+    # ========================================================================
+    # Login to Amazon Elastic Container Registry for image push operations
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Build, tag, and push image to Amazon ECR
+    # ========================================================================
+    # Docker Build and Push
+    # ========================================================================
+    # Build ShadowNews Docker image and push to ECR
+    # Uses Git SHA as image tag for unique versioning
+    - name: Build, Tag, and Push ShadowNews Image to ECR
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        # Build a docker container and
-        # push it to ECR so that it can
-        # be deployed to ECS.
+        # Build ShadowNews Docker container with multi-stage build
+        # Tag with Git SHA for immutable versioning
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        
+        # Push container image to Amazon ECR
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        
+        # Output full image URI for subsequent steps
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
-    - name: Fill in the new image ID in the Amazon ECS task definition
+    # ========================================================================
+    # ECS Task Definition Update
+    # ========================================================================
+    # Update task definition with new container image URI
+    # Prepares deployment configuration with latest ShadowNews image
+    - name: Update ECS Task Definition with New Image
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
@@ -85,10 +177,17 @@ jobs:
         container-name: ${{ env.CONTAINER_NAME }}
         image: ${{ steps.build-image.outputs.image }}
 
-    - name: Deploy Amazon ECS task definition
+    # ========================================================================
+    # ECS Service Deployment
+    # ========================================================================
+    # Deploy updated task definition to ECS service
+    # Performs rolling deployment with zero downtime
+    - name: Deploy ShadowNews to Amazon ECS
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
         service: ${{ env.ECS_SERVICE }}
         cluster: ${{ env.ECS_CLUSTER }}
+        # Wait for deployment to complete and service to become stable
+        # Ensures successful deployment before marking workflow as complete
         wait-for-service-stability: true

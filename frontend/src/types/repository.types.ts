@@ -1,35 +1,164 @@
+/**
+ * Repository Types and Interfaces - Email Repository Management System
+ * 
+ * Comprehensive type definitions for the ShadowNews email repository system.
+ * This file contains all interfaces and types related to email repositories,
+ * CSV management, snowball analytics, and collaborative email curation.
+ * 
+ * Repository System Features:
+ * - Email Collection: Organized email address storage and management
+ * - CSV Processing: Bulk email import and export capabilities
+ * - Snowball Analytics: Viral growth tracking and optimization
+ * - Collaboration: Multi-user repository management and permissions
+ * - Privacy Controls: Granular access control and data protection
+ * - Analytics: Comprehensive repository performance metrics
+ * - Quality Management: Email verification and curation tools
+ * 
+ * Email Management:
+ * - Email Storage: Structured email address organization
+ * - Verification: Email validation and deliverability checking
+ * - Deduplication: Automatic duplicate email detection and removal
+ * - Tagging: Custom categorization and organization systems
+ * - Import/Export: CSV-based bulk operations with progress tracking
+ * - Quality Scoring: Algorithmic email quality assessment
+ * 
+ * Collaboration Features:
+ * - Multi-user Access: Shared repository management
+ * - Permission System: Role-based access control
+ * - Activity Tracking: User contribution monitoring
+ * - Invitation System: Repository sharing and collaboration
+ * - Audit Logs: Complete change history and accountability
+ * - Member Management: User role and permission administration
+ * 
+ * Analytics and Insights:
+ * - Growth Metrics: Repository expansion tracking
+ * - Engagement Analysis: Email interaction monitoring
+ * - Snowball Tracking: Viral growth pattern analysis
+ * - Performance Metrics: Repository effectiveness measurement
+ * - Trend Analysis: Historical data and pattern recognition
+ * - Export Analytics: Data usage and download statistics
+ * 
+ * @author ShadowNews Team
+ * @version 2.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
+/* =============================================================================
+   Core Repository Types
+   Primary repository structure and management
+   ============================================================================= */
+
+/**
+ * Repository Interface
+ * Complete email repository with full feature set
+ * 
+ * @interface Repository
+ * @description Core repository entity with email management and collaboration
+ * 
+ * Features:
+ * - Email Management: Organized email collection and curation
+ * - Collaboration: Multi-user access and permissions
+ * - Analytics: Performance metrics and growth tracking
+ * - Privacy: Granular access control and data protection
+ * - CSV Integration: Bulk email import and export
+ * - Snowball Analytics: Viral growth optimization
+ */
 export interface Repository {
+  /** Unique repository identifier */
   id: string;
+  
+  /** Repository name for display and branding */
   name: string;
+  
+  /** URL-friendly repository slug */
   slug: string;
+  
+  /** Repository description and purpose */
   description: string;
+  
+  /** Owner user ID */
   ownerId: string;
+  
+  /** Complete owner information */
   owner: RepositoryOwner;
+  
+  /** Repository topic for categorization */
   topic: string;
+  
+  /** Array of hashtags for discovery */
   hashtags: string[];
+  
+  /** Total number of email addresses */
   emailCount: number;
+  
+  /** Number of verified email addresses */
   verifiedEmailCount: number;
+  
+  /** Number of unverified email addresses */
   unverifiedEmailCount: number;
+  
+  /** Array of repository members and collaborators */
   members: RepositoryMember[];
+  
+  /** Array of CSV files associated with repository */
   csvFiles: CSVFile[];
+  
+  /** Whether snowball analytics are enabled */
   snowballEnabled: boolean;
+  
+  /** Snowball analytics configuration */
   snowballSettings: SnowballSettings;
+  
+  /** Privacy and access control settings */
   privacySettings: PrivacySettings;
+  
+  /** Repository performance and usage statistics */
   stats: RepositoryStats;
+  
+  /** Repository creation timestamp */
   createdAt: Date;
+  
+  /** Last repository update timestamp */
   updatedAt: Date;
+  
+  /** Last activity timestamp in repository */
   lastActivityAt: Date;
+  
+  /** Whether repository is currently active */
   isActive: boolean;
+  
+  /** Whether repository has premium features */
   isPremium: boolean;
+  
+  /** Additional repository metadata */
   metadata: RepositoryMetadata;
 }
 
+/**
+ * Repository Owner Interface
+ * Owner information and credentials
+ * 
+ * @interface RepositoryOwner
+ * @description Repository owner with management permissions
+ */
 export interface RepositoryOwner {
+  /** Owner user ID */
   id: string;
+  
+  /** Owner username */
   username: string;
+  
+  /** Owner email address */
   email: string;
+  
+  /** Optional avatar URL */
   avatarUrl?: string;
+  
+  /** Owner karma points */
   karma: number;
+  
+  /** Whether owner account is verified */
   isVerified: boolean;
 }
 

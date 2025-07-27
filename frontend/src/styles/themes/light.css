@@ -1,245 +1,613 @@
-/* Light Theme Variables */
+/**
+ * Light Theme Configuration - Professional Light Mode Styling System
+ * 
+ * Comprehensive light theme implementation for the ShadowNews email-first
+ * social platform. Provides clean, readable, and professional styling with
+ * careful attention to typography, accessibility, and content hierarchy.
+ * 
+ * Design Philosophy:
+ * - Content Clarity: High contrast and clean typography for optimal readability
+ * - Professional Aesthetics: Clean, minimal design suitable for business environments
+ * - Email Focus: Typography and layout optimized for email content consumption
+ * - Accessibility First: WCAG AA+ compliance with excellent contrast ratios
+ * - Visual Hierarchy: Clear information architecture through color and spacing
+ * - Hacker News Inspiration: Familiar design patterns adapted for email platform
+ * 
+ * Color Strategy:
+ * - High Contrast: Sharp text contrast for optimal readability
+ * - Semantic Colors: Meaningful color assignments for different content types
+ * - Email Optimization: Colors that enhance email reading and repository browsing
+ * - Status Indicators: Clear visual feedback using established color conventions
+ * - Brand Integration: ShadowNews orange as primary brand color
+ * - System Integration: Respects OS-level light mode preferences
+ * 
+ * Typography System:
+ * - Readable Fonts: System font stack optimized for cross-platform consistency
+ * - Scale Hierarchy: Modular scale for consistent typography sizing
+ * - Line Height: Optimized line heights for different content types
+ * - Font Weights: Semantic font weight system for visual hierarchy
+ * - Email Text: Special considerations for email content readability
+ * - Code Display: Monospace fonts optimized for code and technical content
+ * 
+ * Layout and Spacing:
+ * - Consistent Spacing: Modular spacing system based on design tokens
+ * - Content Layout: Email-first layout patterns and grid systems
+ * - Responsive Design: Mobile-first approach with progressive enhancement
+ * - Component Spacing: Predictable spacing patterns for UI components
+ * - Reading Experience: Optimal line lengths and spacing for email content
+ * - Visual Rhythm: Consistent vertical rhythm throughout the interface
+ * 
+ * Accessibility Features:
+ * - Contrast Ratios: Exceeds WCAG AAA standards where possible
+ * - Focus Management: High-visibility focus indicators for keyboard navigation
+ * - Color Independence: Information conveyed through multiple visual cues
+ * - Font Scaling: Support for user font size preferences
+ * - Motion Preferences: Respect for reduced motion user preferences
+ * - Screen Reader Support: Color choices optimized for assistive technology
+ * 
+ * Email Platform Optimizations:
+ * - Repository Cards: Clean card designs for email repository visualization
+ * - Email Threading: Clear visual hierarchy for email conversation threads
+ * - Karma Display: Professional reputation visualization system
+ * - Snowball Analytics: Clean data visualization for viral content tracking
+ * - Content Types: Distinct styling for different email content categories
+ * - Professional UI: Minimal interface chrome to focus on email content
+ * 
+ * Performance Considerations:
+ * - CSS Variables: Efficient theming with minimal runtime computation
+ * - Render Performance: Colors optimized for fast browser rendering
+ * - Caching Strategy: Variable structure optimized for browser caching
+ * - Bundle Optimization: Minimal color definitions for efficient CSS payload
+ * - GPU Acceleration: Colors chosen for optimal hardware acceleration
+ * - Memory Efficiency: Efficient color space utilization
+ * 
+ * Technical Implementation:
+ * - CSS Custom Properties: Dynamic theming with comprehensive variable system
+ * - Shadow System: Layered shadows for depth and visual hierarchy
+ * - Border System: Consistent border patterns for component definition
+ * - Component Variables: Specialized variables for component-specific styling
+ * - Responsive Values: Adaptive values for different screen sizes
+ * - Print Optimization: Print-friendly color adaptations
+ * 
+ * Light Mode Benefits:
+ * - Content Readability: Optimal contrast for extended reading sessions
+ * - Professional Environment: Suitable for bright office environments
+ * - Email Consumption: Ideal for business email reading and analysis
+ * - Data Visualization: Clear charts and analytics visualization
+ * - Traditional Familiarity: Familiar patterns for traditional web users
+ * - Print Compatibility: Excellent print rendering and compatibility
+ * 
+ * Browser Support:
+ * - Modern Browsers: Full support for CSS custom properties and features
+ * - Legacy Support: Graceful degradation for older browser versions
+ * - Mobile Optimization: Touch-friendly and mobile-optimized styling
+ * - High DPI: Optimized for high-density and retina displays
+ * - Print Media: Excellent print stylesheet optimization
+ * - Accessibility Tools: Optimized for screen readers and assistive technology
+ * 
+ * Maintenance Guidelines:
+ * - Color Consistency: Regular audits for consistent color usage
+ * - Accessibility Testing: Ongoing contrast and accessibility validation
+ * - Performance Monitoring: Regular performance impact assessment
+ * - User Feedback: Integration of user feedback for continuous improvement
+ * - Design Evolution: Flexibility for future design system updates
+ * - Browser Compatibility: Monitoring for new CSS features and capabilities
+ * 
+ * Dependencies:
+ * - CSS Custom Properties: Modern browser support for CSS variables
+ * - System Fonts: Optimal system font stack for cross-platform consistency
+ * - Modern CSS: Support for modern layout and styling features
+ * - Media Queries: Browser support for responsive design queries
+ * 
+ * @author ShadowNews Team
+ * @version 2.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
+/* =============================================================================
+   Light Theme CSS Variables
+   Comprehensive color and design system for professional light mode experience
+   ============================================================================= */
+
+/**
+ * Light Theme Root Variables
+ * Primary light theme definitions with semantic naming and accessibility focus
+ */
 :root {
- /* Primary Colors */
- --color-primary: #ff6600;
- --color-primary-hover: #e55a00;
- --color-primary-light: #ff8533;
- --color-primary-dark: #cc5200;
- --color-primary-bg: #fff5f0;
+ 
+ /* =============================================================================
+    Primary Brand Colors
+    Core ShadowNews brand identity colors for light theme
+    ============================================================================= */
+ 
+ /**
+  * Primary Brand Color Palette
+  * ShadowNews orange optimized for light backgrounds with accessibility compliance
+  */
+ --color-primary: #ff6600;              /* Primary orange brand color */
+ --color-primary-hover: #e55a00;        /* Darker orange for hover states */
+ --color-primary-light: #ff8533;        /* Lighter orange for subtle accents */
+ --color-primary-dark: #cc5200;         /* Darkest orange for active states */
+ --color-primary-bg: #fff5f0;           /* Light orange background tint */
+ --color-primary-border: #ffb366;       /* Orange border color */
 
- /* Secondary Colors */
- --color-secondary: #1a73e8;
- --color-secondary-hover: #1557b0;
- --color-secondary-light: #4285f4;
- --color-secondary-dark: #0d47a1;
+ /* =============================================================================
+    Secondary Color System
+    Supporting colors for interface elements and alternative actions
+    ============================================================================= */
 
- /* Neutral Colors */
- --color-background: #ffffff;
- --color-background-secondary: #f6f6ef;
- --color-background-tertiary: #fafafa;
- --color-surface: #ffffff;
- --color-surface-hover: #f8f8f8;
- --color-surface-active: #f0f0f0;
+ /**
+  * Secondary Color Palette
+  * Blue secondary colors for alternative actions and accents
+  */
+ --color-secondary: #1a73e8;            /* Primary blue secondary */
+ --color-secondary-hover: #1557b0;      /* Darker blue for hover states */
+ --color-secondary-light: #4285f4;      /* Lighter blue for subtle elements */
+ --color-secondary-dark: #0d47a1;       /* Darkest blue for active states */
+ --color-secondary-bg: #e8f0fe;         /* Light blue background tint */
 
- /* Text Colors */
- --color-text-primary: #000000;
- --color-text-secondary: #696969;
- --color-text-tertiary: #828282;
- --color-text-inverse: #ffffff;
- --color-text-link: #0066cc;
- --color-text-link-hover: #0052a3;
- --color-text-link-visited: #551a8b;
+ /* =============================================================================
+    Background Color System
+    Layered background system for content hierarchy and organization
+    ============================================================================= */
 
- /* Border Colors */
- --color-border: #e0e0e0;
- --color-border-light: #f0f0f0;
- --color-border-dark: #cccccc;
- --color-border-focus: #ff6600;
+ /**
+  * Primary Background Colors
+  * Foundation backgrounds for different interface layers
+  */
+ --color-background: #ffffff;           /* Pure white primary background */
+ --color-background-secondary: #f6f6ef; /* Subtle off-white for secondary areas */
+ --color-background-tertiary: #fafafa;  /* Light gray for tertiary areas */
+ --color-background-elevated: #ffffff;  /* White for elevated surfaces */
 
- /* Status Colors */
- --color-success: #34a853;
- --color-success-light: #81c995;
- --color-success-dark: #1e7e34;
- --color-success-bg: #e8f5e9;
+ /**
+  * Surface Colors
+  * Interactive surface colors for cards, panels, and components
+  */
+ --color-surface: #ffffff;              /* Base surface color */
+ --color-surface-hover: #f8f8f8;        /* Surface color on hover */
+ --color-surface-active: #f0f0f0;       /* Surface color when active */
+ --color-surface-disabled: #f5f5f5;     /* Surface color for disabled states */
+ --color-surface-selected: #fff5f0;     /* Surface color for selected states */
 
- --color-warning: #fbbc04;
- --color-warning-light: #fdd663;
- --color-warning-dark: #f9a825;
- --color-warning-bg: #fffde7;
+ /**
+  * Email-Specific Background Colors
+  * Specialized backgrounds for email content display
+  */
+ --color-bg-email: #ffffff;             /* Clean white for email content */
+ --color-bg-thread: #f9f9f9;            /* Subtle gray for email threads */
+ --color-bg-quote: #f6f6f6;             /* Light gray for quoted content */
 
- --color-error: #ea4335;
- --color-error-light: #f28b82;
- --color-error-dark: #c5221f;
- --color-error-bg: #ffebee;
+ /* =============================================================================
+    Typography Color System
+    Text colors optimized for readability and hierarchy
+    ============================================================================= */
 
- --color-info: #4285f4;
- --color-info-light: #8ab4f8;
- --color-info-dark: #1967d2;
- --color-info-bg: #e8f0fe;
+ /**
+  * Primary Text Colors
+  * Main text colors with high contrast and semantic meaning
+  */
+ --color-text-primary: #000000;         /* Pure black for primary text */
+ --color-text-secondary: #696969;       /* Dark gray for secondary text */
+ --color-text-tertiary: #828282;        /* Medium gray for tertiary text */
+ --color-text-disabled: #cccccc;        /* Light gray for disabled text */
+ --color-text-inverse: #ffffff;         /* White text for dark backgrounds */
 
- /* Shadows */
- --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
- --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
- --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
- --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
- --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
- --shadow-focus: 0 0 0 3px rgba(255, 102, 0, 0.2);
+ /**
+  * Interactive Text Colors
+  * Text colors for links and interactive elements
+  */
+ --color-text-link: #0066cc;            /* Blue for links with high contrast */
+ --color-text-link-hover: #0052a3;      /* Darker blue for link hover */
+ --color-text-link-visited: #551a8b;    /* Purple for visited links */
+ --color-text-link-active: #003d82;     /* Darkest blue for active links */
 
- /* Spacing */
- --spacing-xs: 0.25rem;
- --spacing-sm: 0.5rem;
- --spacing-md: 1rem;
- --spacing-lg: 1.5rem;
- --spacing-xl: 2rem;
- --spacing-2xl: 3rem;
- --spacing-3xl: 4rem;
+ /**
+  * Email Content Text Colors
+  * Specialized text colors for email display and reading
+  */
+ --color-text-email-body: #000000;      /* Black for email body text */
+ --color-text-email-meta: #696969;      /* Gray for email metadata */
+ --color-text-email-quote: #555555;     /* Darker gray for quoted content */
 
- /* Typography */
+ /* =============================================================================
+    Border Color System
+    Border colors for component definition and visual separation
+    ============================================================================= */
+
+ /**
+  * Border Colors
+  * Semantic border colors for different states and contexts
+  */
+ --color-border: #e0e0e0;               /* Primary border color */
+ --color-border-light: #f0f0f0;         /* Light border for subtle separation */
+ --color-border-dark: #cccccc;          /* Dark border for emphasis */
+ --color-border-focus: #ff6600;         /* Orange focus border */
+ --color-border-hover: #d4d4d4;         /* Border color on hover */
+ --color-border-error: #ea4335;         /* Red border for errors */
+ --color-border-success: #34a853;       /* Green border for success */
+
+ /* =============================================================================
+    Status and Semantic Color System
+    Colors for system states, notifications, and semantic meaning
+    ============================================================================= */
+
+ /**
+  * Success Colors
+  * Green color palette for positive states and actions
+  */
+ --color-success: #34a853;              /* Primary success green */
+ --color-success-light: #81c995;        /* Light success green */
+ --color-success-dark: #1e7e34;         /* Dark success green */
+ --color-success-bg: #e8f5e9;           /* Success background tint */
+ --color-success-border: #81c995;       /* Success border color */
+
+ /**
+  * Warning Colors
+  * Yellow color palette for warning states and caution
+  */
+ --color-warning: #fbbc04;              /* Primary warning yellow */
+ --color-warning-light: #fdd663;        /* Light warning yellow */
+ --color-warning-dark: #f9a825;         /* Dark warning yellow */
+ --color-warning-bg: #fffde7;           /* Warning background tint */
+ --color-warning-border: #fdd663;       /* Warning border color */
+
+ /**
+  * Error Colors
+  * Red color palette for error states and destructive actions
+  */
+ --color-error: #ea4335;                /* Primary error red */
+ --color-error-light: #f28b82;          /* Light error red */
+ --color-error-dark: #c5221f;           /* Dark error red */
+ --color-error-bg: #ffebee;             /* Error background tint */
+ --color-error-border: #f28b82;         /* Error border color */
+
+ /**
+  * Info Colors
+  * Blue color palette for informational states and neutral actions
+  */
+ --color-info: #4285f4;                 /* Primary info blue */
+ --color-info-light: #8ab4f8;           /* Light info blue */
+ --color-info-dark: #1967d2;            /* Dark info blue */
+ --color-info-bg: #e8f0fe;              /* Info background tint */
+ --color-info-border: #8ab4f8;          /* Info border color */
+
+ /* =============================================================================
+    Shadow System
+    Layered shadow system for depth and visual hierarchy
+    ============================================================================= */
+
+ /**
+  * Shadow Definitions
+  * Progressive shadow system for component elevation and depth
+  */
+ --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);     /* Small shadow for subtle elevation */
+ --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Medium shadow */
+ --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Large shadow */
+ --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* Extra large shadow */
+ --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06); /* Inner shadow for inputs */
+ --shadow-focus: 0 0 0 3px rgba(255, 102, 0, 0.2);  /* Focus ring shadow */
+
+ /* =============================================================================
+    Spacing System
+    Consistent spacing scale for layout and component spacing
+    ============================================================================= */
+
+ /**
+  * Spacing Scale
+  * Modular spacing system for consistent layout rhythm
+  */
+ --spacing-xs: 0.25rem;                 /* 4px - Extra small spacing */
+ --spacing-sm: 0.5rem;                  /* 8px - Small spacing */
+ --spacing-md: 1rem;                    /* 16px - Medium spacing */
+ --spacing-lg: 1.5rem;                  /* 24px - Large spacing */
+ --spacing-xl: 2rem;                    /* 32px - Extra large spacing */
+ --spacing-2xl: 3rem;                   /* 48px - 2x extra large spacing */
+ --spacing-3xl: 4rem;                   /* 64px - 3x extra large spacing */
+
+ /* =============================================================================
+    Typography System
+    Comprehensive typography scale and font definitions
+    ============================================================================= */
+
+ /**
+  * Font Families
+  * System font stacks for optimal cross-platform typography
+  */
  --font-family-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
  --font-family-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
 
- --font-size-xs: 0.75rem;
- --font-size-sm: 0.875rem;
- --font-size-base: 1rem;
- --font-size-lg: 1.125rem;
- --font-size-xl: 1.25rem;
- --font-size-2xl: 1.5rem;
- --font-size-3xl: 1.875rem;
- --font-size-4xl: 2.25rem;
+ /**
+  * Font Size Scale
+  * Modular typography scale for consistent text sizing
+  */
+ --font-size-xs: 0.75rem;               /* 12px - Extra small text */
+ --font-size-sm: 0.875rem;              /* 14px - Small text */
+ --font-size-base: 1rem;                /* 16px - Base text size */
+ --font-size-lg: 1.125rem;              /* 18px - Large text */
+ --font-size-xl: 1.25rem;               /* 20px - Extra large text */
+ --font-size-2xl: 1.5rem;               /* 24px - 2x extra large text */
+ --font-size-3xl: 1.875rem;             /* 30px - 3x extra large text */
+ --font-size-4xl: 2.25rem;              /* 36px - 4x extra large text */
 
- --font-weight-normal: 400;
- --font-weight-medium: 500;
- --font-weight-semibold: 600;
- --font-weight-bold: 700;
+ /**
+  * Font Weights
+  * Semantic font weight system for typography hierarchy
+  */
+ --font-weight-normal: 400;             /* Normal font weight */
+ --font-weight-medium: 500;             /* Medium font weight */
+ --font-weight-semibold: 600;           /* Semi-bold font weight */
+ --font-weight-bold: 700;               /* Bold font weight */
 
- --line-height-tight: 1.25;
- --line-height-normal: 1.5;
- --line-height-relaxed: 1.75;
+ /**
+  * Line Heights
+  * Optimized line heights for different content types
+  */
+ --line-height-tight: 1.25;             /* Tight line height for headings */
+ --line-height-normal: 1.5;             /* Normal line height for body text */
+ --line-height-relaxed: 1.75;           /* Relaxed line height for reading */
 
- /* Borders */
- --border-width: 1px;
- --border-radius-sm: 0.25rem;
- --border-radius-md: 0.375rem;
- --border-radius-lg: 0.5rem;
- --border-radius-xl: 0.75rem;
- --border-radius-full: 9999px;
+ /* =============================================================================
+    Border and Radius System
+    Consistent border patterns and corner radius definitions
+    ============================================================================= */
 
- /* Transitions */
- --transition-fast: 150ms ease-in-out;
- --transition-normal: 250ms ease-in-out;
- --transition-slow: 350ms ease-in-out;
+ /**
+  * Border Properties
+  * Standard border width and radius values
+  */
+ --border-width: 1px;                   /* Standard border width */
+ --border-radius-sm: 0.25rem;           /* Small border radius */
+ --border-radius-md: 0.375rem;          /* Medium border radius */
+ --border-radius-lg: 0.5rem;            /* Large border radius */
+ --border-radius-xl: 0.75rem;           /* Extra large border radius */
+ --border-radius-full: 9999px;          /* Full border radius for circles */
 
- /* Z-index */
- --z-index-dropdown: 1000;
- --z-index-sticky: 1020;
- --z-index-fixed: 1030;
- --z-index-modal-backdrop: 1040;
- --z-index-modal: 1050;
- --z-index-popover: 1060;
- --z-index-tooltip: 1070;
+ /* =============================================================================
+    Animation and Transition System
+    Timing and easing for smooth interactions
+    ============================================================================= */
 
- /* Component Specific */
- --header-height: 3.5rem;
- --sidebar-width: 16rem;
- --sidebar-width-collapsed: 4rem;
+ /**
+  * Transition Timing
+  * Standardized transition durations for consistent motion
+  */
+ --transition-fast: 150ms ease-in-out;   /* Quick transitions */
+ --transition-normal: 250ms ease-in-out; /* Standard transitions */
+ --transition-slow: 350ms ease-in-out;   /* Slower transitions */
 
- /* Post Card */
- --post-card-bg: var(--color-surface);
- --post-card-bg-hover: var(--color-surface-hover);
- --post-card-border: var(--color-border-light);
- --post-number-color: var(--color-text-tertiary);
- --post-score-color: var(--color-text-secondary);
+ /* =============================================================================
+    Z-Index System
+    Layering system for proper element stacking
+    ============================================================================= */
 
- /* Comments */
- --comment-bg: var(--color-background-secondary);
- --comment-border: var(--color-border-light);
- --comment-thread-line: var(--color-border);
+ /**
+  * Z-Index Scale
+  * Consistent layering for UI components and overlays
+  */
+ --z-index-dropdown: 1000;              /* Dropdown menus */
+ --z-index-sticky: 1020;                /* Sticky elements */
+ --z-index-fixed: 1030;                 /* Fixed elements */
+ --z-index-modal-backdrop: 1040;        /* Modal backdrops */
+ --z-index-modal: 1050;                 /* Modal dialogs */
+ --z-index-popover: 1060;               /* Popover elements */
+ --z-index-tooltip: 1070;               /* Tooltip elements */
 
- /* Buttons */
- --button-primary-bg: var(--color-primary);
- --button-primary-hover: var(--color-primary-hover);
- --button-secondary-bg: var(--color-surface);
- --button-secondary-hover: var(--color-surface-hover);
- --button-ghost-hover: rgba(0, 0, 0, 0.05);
+ /* =============================================================================
+    Layout System
+    Layout-specific dimensions and constraints
+    ============================================================================= */
 
- /* Forms */
- --input-bg: var(--color-surface);
- --input-border: var(--color-border);
- --input-border-focus: var(--color-border-focus);
- --input-placeholder: var(--color-text-tertiary);
+ /**
+  * Layout Dimensions
+  * Standard layout dimensions for header, sidebar, and content areas
+  */
+ --header-height: 3.5rem;               /* Header height */
+ --sidebar-width: 16rem;                /* Sidebar width */
+ --sidebar-width-collapsed: 4rem;       /* Collapsed sidebar width */
 
- /* Badges */
- --badge-bg: var(--color-background-secondary);
- --badge-text: var(--color-text-secondary);
- --badge-border: var(--color-border-light);
+ /* =============================================================================
+    Component-Specific Variables
+    Specialized variables for specific UI components
+    ============================================================================= */
 
- /* Karma Colors */
- --karma-bronze: #cd7f32;
- --karma-silver: #c0c0c0;
- --karma-gold: #ffd700;
- --karma-platinum: #e5e4e2;
+ /**
+  * Post Card Variables
+  * Email post card styling variables
+  */
+ --post-card-bg: var(--color-surface);             /* Post card background */
+ --post-card-bg-hover: var(--color-surface-hover); /* Post card hover background */
+ --post-card-border: var(--color-border-light);    /* Post card border */
+ --post-number-color: var(--color-text-tertiary);  /* Post number color */
+ --post-score-color: var(--color-text-secondary);  /* Post score color */
 
- /* Repository Colors */
- --repo-public-bg: #e8f5e9;
- --repo-private-bg: #fff3e0;
- --repo-snowball-bg: #e3f2fd;
+ /**
+  * Comment System Variables
+  * Email comment and thread styling variables
+  */
+ --comment-bg: var(--color-background-secondary);  /* Comment background */
+ --comment-border: var(--color-border-light);      /* Comment border */
+ --comment-thread-line: var(--color-border);       /* Thread line color */
 
- /* Email Indicators */
- --email-unread-bg: #e3f2fd;
- --email-read-bg: transparent;
- --email-important-border: #fbbc04;
+ /**
+  * Button System Variables
+  * Button styling variables for different variants
+  */
+ --button-primary-bg: var(--color-primary);        /* Primary button background */
+ --button-primary-hover: var(--color-primary-hover); /* Primary button hover */
+ --button-secondary-bg: var(--color-surface);      /* Secondary button background */
+ --button-secondary-hover: var(--color-surface-hover); /* Secondary button hover */
+ --button-ghost-hover: rgba(0, 0, 0, 0.05);        /* Ghost button hover */
 
- /* Code Block */
- --code-bg: #f6f8fa;
- --code-border: #e1e4e8;
- --code-text: #24292e;
+ /**
+  * Form Input Variables
+  * Form control styling variables
+  */
+ --input-bg: var(--color-surface);                 /* Input background */
+ --input-border: var(--color-border);              /* Input border */
+ --input-border-focus: var(--color-border-focus);  /* Input focus border */
+ --input-placeholder: var(--color-text-tertiary);  /* Input placeholder color */
 
- /* Tooltips */
- --tooltip-bg: rgba(0, 0, 0, 0.9);
- --tooltip-text: #ffffff;
+ /**
+  * Badge System Variables
+  * Badge and label styling variables
+  */
+ --badge-bg: var(--color-background-secondary);    /* Badge background */
+ --badge-text: var(--color-text-secondary);        /* Badge text color */
+ --badge-border: var(--color-border-light);        /* Badge border */
 
- /* Overlays */
- --overlay-bg: rgba(0, 0, 0, 0.5);
- --overlay-light: rgba(255, 255, 255, 0.9);
+ /* =============================================================================
+    ShadowNews Platform-Specific Variables
+    Variables specific to email platform features
+    ============================================================================= */
 
- /* Scrollbar */
- --scrollbar-track: #f1f1f1;
- --scrollbar-thumb: #c1c1c1;
- --scrollbar-thumb-hover: #a8a8a8;
+ /**
+  * Karma System Variables
+  * User reputation and achievement colors
+  */
+ --karma-bronze: #cd7f32;               /* Bronze karma tier */
+ --karma-silver: #c0c0c0;               /* Silver karma tier */
+ --karma-gold: #ffd700;                 /* Gold karma tier */
+ --karma-platinum: #e5e4e2;             /* Platinum karma tier */
 
- /* Loading States */
- --skeleton-base: #e0e0e0;
- --skeleton-shine: #f5f5f5;
+ /**
+  * Repository Variables
+  * Email repository status and type indicators
+  */
+ --repo-public-bg: #e8f5e9;             /* Public repository background */
+ --repo-private-bg: #fff3e0;            /* Private repository background */
+ --repo-snowball-bg: #e3f2fd;           /* Snowball repository background */
 
- /* Charts */
- --chart-line-1: #ff6600;
- --chart-line-2: #1a73e8;
- --chart-line-3: #34a853;
- --chart-line-4: #fbbc04;
- --chart-grid: #e0e0e0;
+ /**
+  * Email Indicator Variables
+  * Email status and importance indicators
+  */
+ --email-unread-bg: #e3f2fd;            /* Unread email background */
+ --email-read-bg: transparent;          /* Read email background */
+ --email-important-border: #fbbc04;     /* Important email border */
 
- /* Notifications */
- --notification-bg: var(--color-surface);
- --notification-border: var(--color-border);
- --notification-unread: #e3f2fd;
+ /**
+  * Code Display Variables
+  * Code block and syntax highlighting colors
+  */
+ --code-bg: #f6f8fa;                    /* Code block background */
+ --code-border: #e1e4e8;                /* Code block border */
+ --code-text: #24292e;                  /* Code text color */
 
- /* Search */
- --search-bg: var(--color-surface);
- --search-border: var(--color-border);
- --search-focus-border: var(--color-primary);
- --search-result-hover: var(--color-background-secondary);
+ /**
+  * Tooltip Variables
+  * Tooltip and popover styling
+  */
+ --tooltip-bg: rgba(0, 0, 0, 0.9);      /* Tooltip background */
+ --tooltip-text: #ffffff;               /* Tooltip text color */
 
- /* Tags/Hashtags */
- --tag-bg: #f0f0f0;
- --tag-text: #616161;
- --tag-hover-bg: #e0e0e0;
- --tag-active-bg: var(--color-primary-bg);
- --tag-active-text: var(--color-primary);
+ /**
+  * Overlay Variables
+  * Modal and overlay background colors
+  */
+ --overlay-bg: rgba(0, 0, 0, 0.5);      /* Dark overlay background */
+ --overlay-light: rgba(255, 255, 255, 0.9); /* Light overlay background */
 
- /* Voting */
- --upvote-color: #ff6600;
- --downvote-color: #9b9b9b;
- --vote-active-bg: rgba(255, 102, 0, 0.1);
+ /**
+  * Scrollbar Variables
+  * Custom scrollbar styling colors
+  */
+ --scrollbar-track: #f1f1f1;            /* Scrollbar track background */
+ --scrollbar-thumb: #c1c1c1;            /* Scrollbar thumb color */
+ --scrollbar-thumb-hover: #a8a8a8;      /* Scrollbar thumb hover color */
 
- /* Modal */
- --modal-bg: var(--color-surface);
- --modal-backdrop: rgba(0, 0, 0, 0.5);
+ /**
+  * Loading State Variables
+  * Skeleton loading and placeholder colors
+  */
+ --skeleton-base: #e0e0e0;              /* Skeleton base color */
+ --skeleton-shine: #f5f5f5;             /* Skeleton shine color */
 
- /* Dividers */
- --divider-color: var(--color-border-light);
- --divider-strong: var(--color-border);
+ /**
+  * Chart Variables
+  * Data visualization and chart colors
+  */
+ --chart-line-1: #ff6600;               /* Primary chart line color */
+ --chart-line-2: #1a73e8;               /* Secondary chart line color */
+ --chart-line-3: #34a853;               /* Tertiary chart line color */
+ --chart-line-4: #fbbc04;               /* Quaternary chart line color */
+ --chart-grid: #e0e0e0;                 /* Chart grid line color */
 
- /* PWA Status Bar */
- --pwa-status-bar: #ff6600;
- --pwa-theme-color: #ffffff;
+ /**
+  * Notification Variables
+  * Notification and alert styling
+  */
+ --notification-bg: var(--color-surface);       /* Notification background */
+ --notification-border: var(--color-border);    /* Notification border */
+ --notification-unread: #e3f2fd;                /* Unread notification background */
 
- /* Accessibility */
- --focus-ring: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-primary);
- --selection-bg: rgba(255, 102, 0, 0.2);
- --selection-text: inherit;
+ /**
+  * Search Variables
+  * Search interface styling
+  */
+ --search-bg: var(--color-surface);             /* Search background */
+ --search-border: var(--color-border);          /* Search border */
+ --search-focus-border: var(--color-primary);   /* Search focus border */
+ --search-result-hover: var(--color-background-secondary); /* Search result hover */
+
+ /**
+  * Tag System Variables
+  * Tag and hashtag styling
+  */
+ --tag-bg: #f0f0f0;                     /* Tag background */
+ --tag-text: #616161;                   /* Tag text color */
+ --tag-hover-bg: #e0e0e0;               /* Tag hover background */
+ --tag-active-bg: var(--color-primary-bg); /* Active tag background */
+ --tag-active-text: var(--color-primary);  /* Active tag text */
+
+ /**
+  * Voting Variables
+  * Upvote and downvote styling
+  */
+ --upvote-color: #ff6600;               /* Upvote color */
+ --downvote-color: #9b9b9b;             /* Downvote color */
+ --vote-active-bg: rgba(255, 102, 0, 0.1); /* Active vote background */
+
+ /**
+  * Modal Variables
+  * Modal dialog styling
+  */
+ --modal-bg: var(--color-surface);      /* Modal background */
+ --modal-backdrop: rgba(0, 0, 0, 0.5);  /* Modal backdrop */
+
+ /**
+  * Divider Variables
+  * Separator and divider colors
+  */
+ --divider-color: var(--color-border-light); /* Light divider color */
+ --divider-strong: var(--color-border);      /* Strong divider color */
+
+ /**
+  * PWA Variables
+  * Progressive Web App theme colors
+  */
+ --pwa-status-bar: #ff6600;             /* PWA status bar color */
+ --pwa-theme-color: #ffffff;            /* PWA theme color */
+
+ /**
+  * Accessibility Variables
+  * Accessibility-focused styling variables
+  */
+ --focus-ring: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-primary); /* Focus ring */
+ --selection-bg: rgba(255, 102, 0, 0.2); /* Text selection background */
+ --selection-text: inherit;              /* Text selection color */
 }
 
-/* Scrollbar Styling */
+/* =============================================================================
+   Browser-Specific Light Theme Styling
+   Custom styling for browser elements and controls
+   ============================================================================= */
+
+/**
+ * Scrollbar Light Theme Styling
+ * Custom scrollbar appearance for light theme
+ */
 * {
  scrollbar-width: thin;
  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
@@ -263,19 +631,33 @@
  background-color: var(--scrollbar-thumb-hover);
 }
 
-/* Selection */
+/**
+ * Text Selection Styling
+ * Custom text selection colors for light theme
+ */
 ::selection {
  background-color: var(--selection-bg);
  color: var(--selection-text);
 }
 
-/* Focus Visible */
+/**
+ * Focus Indicator Styling
+ * Accessibility-compliant focus indicators
+ */
 :focus-visible {
  outline: none;
  box-shadow: var(--focus-ring);
 }
 
-/* Print Styles */
+/* =============================================================================
+   Media Query Adaptations
+   Responsive and accessibility adaptations for light theme
+   ============================================================================= */
+
+/**
+ * Print Media Adaptations
+ * High contrast colors optimized for print output
+ */
 @media print {
  :root {
    --color-primary: #000000;
@@ -285,7 +667,10 @@
  }
 }
 
-/* Reduced Motion */
+/**
+ * Reduced Motion Support
+ * Respects user preference for reduced motion
+ */
 @media (prefers-reduced-motion: reduce) {
  :root {
    --transition-fast: 0ms;
@@ -293,3 +678,21 @@
    --transition-slow: 0ms;
  }
 }
+
+/**
+ * High Contrast Mode Support
+ * Enhanced contrast for accessibility when requested
+ */
+@media (prefers-contrast: high) {
+ :root {
+   --color-text-primary: #000000;
+   --color-background: #ffffff;
+   --color-border: #000000;
+   --color-border-focus: #ff6600;
+ }
+}
+
+/* =============================================================================
+   End of Light Theme Configuration
+   Complete light mode styling system for ShadowNews email platform
+   ============================================================================= */

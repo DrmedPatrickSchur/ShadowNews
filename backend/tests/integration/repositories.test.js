@@ -1,3 +1,59 @@
+/**
+ * Repository Integration Tests
+ * 
+ * Comprehensive test suite for email repository management functionality
+ * in the ShadowNews platform. Tests cover repository creation, email
+ * management, CSV operations, snowball distribution, and community features.
+ * 
+ * Test Categories:
+ * - Repository Creation: Community list setup, validation, and configuration
+ * - Email Management: Adding, removing, and validating email addresses
+ * - CSV Operations: Bulk email import/export and data format validation
+ * - Snowball Distribution: Viral sharing and organic growth mechanisms
+ * - Privacy Controls: Public/private repository settings and access control
+ * - Quality Assurance: Email validation, spam prevention, and data integrity
+ * 
+ * Testing Strategy:
+ * - Integration testing with authenticated repository operations
+ * - File upload testing for CSV import functionality
+ * - Email service integration for validation and notifications
+ * - Performance testing for large-scale repository operations
+ * - Security testing for access control and data privacy
+ * 
+ * Repository Features:
+ * - Community-focused email list curation and management
+ * - Hashtag-based categorization for content organization
+ * - Subscriber growth tracking and engagement analytics
+ * - Quality scoring based on email engagement metrics
+ * - Organic growth through CSV sharing and snowball effects
+ * 
+ * Security Coverage:
+ * - Email address validation and verification processes
+ * - Spam prevention and abuse detection mechanisms
+ * - GDPR compliance for email data handling
+ * - Access control for repository ownership and permissions
+ * - Rate limiting for repository operations and email additions
+ * 
+ * Data Management:
+ * - CSV format validation and error handling
+ * - Bulk operations with transaction support
+ * - Email deduplication and data quality maintenance
+ * - Growth analytics and performance metrics tracking
+ * - Repository backup and restoration capabilities
+ * 
+ * Dependencies:
+ * - Supertest for HTTP request testing
+ * - Jest for test framework and assertions
+ * - In-memory MongoDB for isolated testing
+ * - File system operations for CSV testing
+ * - JWT authentication for user session management
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 const request = require('supertest');
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
@@ -9,28 +65,52 @@ const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path');
 
+// Test environment variables for repository testing
 let mongoServer;
 let authToken;
 let testUser;
 let testRepository;
 
+/**
+ * Test Environment Setup
+ * 
+ * Initializes in-memory MongoDB server for isolated repository testing.
+ * Creates clean database environment for testing repository operations
+ * without affecting existing data or external dependencies.
+ */
 beforeAll(async () => {
- mongoServer = await MongoMemoryServer.create();
- const mongoUri = mongoServer.getUri();
- await mongoose.connect(mongoUri);
+  mongoServer = await MongoMemoryServer.create();
+  const mongoUri = mongoServer.getUri();
+  await mongoose.connect(mongoUri);
 });
 
+/**
+ * Test Environment Cleanup
+ * 
+ * Shuts down test database and cleans up resources
+ * after all repository tests complete. Ensures proper
+ * cleanup and prevents resource leaks in test environment.
+ */
 afterAll(async () => {
- await mongoose.disconnect();
- await mongoServer.stop();
+  await mongoose.disconnect();
+  await mongoServer.stop();
 });
 
+/**
+ * Individual Test Setup
+ * 
+ * Prepares fresh test data before each repository test case.
+ * Creates authenticated test user, initializes repository data,
+ * and sets up authentication tokens for consistent testing.
+ */
 beforeEach(async () => {
- await User.deleteMany({});
- await Repository.deleteMany({});
- await Email.deleteMany({});
+  // Clear existing test data for clean test isolation
+  await User.deleteMany({});
+  await Repository.deleteMany({});
+  await Email.deleteMany({});
 
- testUser = await User.create({
+  // Create authenticated test user with repository management permissions
+  testUser = await User.create({
    username: 'testuser',
    email: 'test@shadownews.community',
    password: 'Test123!@#',

@@ -1,97 +1,289 @@
+/**
+ * Tailwind CSS Configuration - Utility-First Styling Framework
+ * 
+ * Comprehensive Tailwind CSS configuration with custom design system,
+ * component utilities, and responsive design tokens for the ShadowNews
+ * email-first social platform with modern UI patterns.
+ * 
+ * Core Features:
+ * - Utility Classes: Comprehensive utility class system for rapid development
+ * - Design System: Custom design tokens and color palette integration
+ * - Responsive Design: Mobile-first responsive utilities and breakpoints
+ * - Component Styling: Reusable component classes and design patterns
+ * - Dark Mode: Built-in dark mode support with automatic theme switching
+ * - Performance: Optimized CSS with unused style purging and tree-shaking
+ * - Accessibility: WCAG compliant utilities and accessibility helpers
+ * 
+ * Tailwind Layers:
+ * - Base Layer: Foundation styles and CSS resets with custom normalization
+ * - Components Layer: Reusable component patterns and design system elements
+ * - Utilities Layer: Atomic utility classes for precise styling control
+ * - Custom Additions: Project-specific utilities and helper classes
+ * 
+ * Design System Integration:
+ * - Color Palette: Semantic color system with CSS variables and theme support
+ * - Typography: Responsive typography scale with optimal readability
+ * - Spacing: Consistent spacing system based on design tokens
+ * - Shadows: Layered shadow system for depth and visual hierarchy
+ * - Borders: Border utilities with radius and width variations
+ * - Transitions: Performance-optimized transition and animation utilities
+ * 
+ * Email Platform Specific:
+ * - Email Composition: Utilities for email editor and composition interface
+ * - Repository Cards: Card layouts for email repository visualization
+ * - Threading: Comment and email thread styling utilities
+ * - Analytics: Data visualization and chart styling utilities
+ * - Mobile Email: Mobile-optimized email interface utilities
+ * - Snowball Visualization: Viral distribution visualization utilities
+ * 
+ * Responsive Design:
+ * - Mobile First: Progressive enhancement from mobile to desktop
+ * - Breakpoint System: Consistent breakpoints for all device sizes
+ * - Container Queries: Modern container-based responsive design
+ * - Fluid Scaling: Responsive font and spacing scaling utilities
+ * - Touch Optimization: Touch-friendly interface utilities
+ * - Print Styles: Print-optimized utility classes
+ * 
+ * Performance Features:
+ * - CSS Purging: Automatic removal of unused CSS for optimal bundle size
+ * - Tree Shaking: Dead code elimination for production builds
+ * - Critical CSS: Above-the-fold styling optimization
+ * - Lazy Loading: On-demand style loading for code splitting
+ * - Compression: CSS minification and compression for production
+ * - Caching: Efficient CSS caching strategies
+ * 
+ * Dark Mode Support:
+ * - System Detection: Automatic dark mode detection from OS preferences
+ * - Manual Toggle: User-controlled theme switching with persistence
+ * - Smooth Transitions: Seamless theme switching with transition effects
+ * - Color Adaptation: Intelligent color adaptation for dark themes
+ * - Accessibility: Dark mode accessibility and contrast compliance
+ * - Custom Themes: Extensible theming system for brand customization
+ * 
+ * Component Patterns:
+ * - Button Variants: Comprehensive button styling with states and sizes
+ * - Form Controls: Consistent form element styling with validation states
+ * - Card Components: Flexible card layouts with shadows and borders
+ * - Navigation: Header, sidebar, and breadcrumb navigation components
+ * - Modal Dialogs: Modal and overlay styling with backdrop effects
+ * - Data Tables: Responsive table layouts with sorting and filtering
+ * 
+ * Accessibility Features:
+ * - Focus Management: Visible focus indicators for keyboard navigation
+ * - Screen Reader: Utilities for screen reader and assistive technology
+ * - Color Contrast: High contrast utilities for accessibility compliance
+ * - Motion Preferences: Respect for reduced motion user preferences
+ * - Font Scaling: Support for user font size preferences
+ * - Semantic HTML: Utilities that encourage semantic markup
+ * 
+ * Development Experience:
+ * - IntelliSense: Full IDE support with autocomplete and documentation
+ * - Hot Reloading: Development-time style updates without page refresh
+ * - Debug Utilities: Development-time debugging and visualization tools
+ * - Component Documentation: Self-documenting utility classes
+ * - Consistent Naming: Predictable and memorable class naming conventions
+ * - Composition: Easy utility composition for complex styling
+ * 
+ * Dependencies:
+ * - Tailwind CSS: Utility-first CSS framework with custom configuration
+ * - PostCSS: CSS processing with plugins for optimization and transformation
+ * - CSS Variables: Dynamic theming with CSS custom properties
+ * - Modern CSS: CSS Grid, Flexbox, and modern layout features
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
+/* =============================================================================
+   Tailwind CSS Imports
+   Core Tailwind CSS layers with base styles, components, and utilities
+   ============================================================================= */
+
+/**
+ * Tailwind Base Layer
+ * Foundation styles including CSS reset, element defaults, and base typography
+ */
 @import 'tailwindcss/base';
+
+/**
+ * Tailwind Components Layer
+ * Reusable component classes and design system patterns
+ */
 @import 'tailwindcss/components';
+
+/**
+ * Tailwind Utilities Layer
+ * Atomic utility classes for precise styling control
+ */
 @import 'tailwindcss/utilities';
 
-/* Custom Base Styles */
+/* =============================================================================
+   Custom Base Styles
+   Extended base layer with custom design tokens and CSS variables
+   ============================================================================= */
+
+/**
+ * Base Layer Extensions
+ * Custom design tokens and CSS variables for theming and consistency
+ */
 @layer base {
+ /**
+  * Root Color Variables (Light Theme)
+  * Primary color palette using RGB values for transparency support
+  * Colors are defined as space-separated RGB values for css() function compatibility
+  */
  :root {
-   --color-primary: 255 69 0;
-   --color-primary-dark: 204 55 0;
-   --color-secondary: 0 123 255;
-   --color-success: 40 167 69;
-   --color-warning: 255 193 7;
-   --color-danger: 220 53 69;
-   --color-gray-50: 249 250 251;
-   --color-gray-100: 243 244 246;
-   --color-gray-200: 229 231 235;
-   --color-gray-300: 209 213 219;
-   --color-gray-400: 156 163 175;
-   --color-gray-500: 107 114 128;
-   --color-gray-600: 75 85 99;
-   --color-gray-700: 55 65 81;
-   --color-gray-800: 31 41 55;
-   --color-gray-900: 17 24 39;
+   /* Primary brand colors for ShadowNews platform */
+   --color-primary: 255 69 0;        /* Orange primary color (#ff4500) */
+   --color-primary-dark: 204 55 0;   /* Darker orange for hover states */
+   
+   /* Secondary and accent colors */
+   --color-secondary: 0 123 255;     /* Blue secondary color (#007bff) */
+   
+   /* Semantic status colors */
+   --color-success: 40 167 69;       /* Green for success states (#28a745) */
+   --color-warning: 255 193 7;       /* Yellow for warning states (#ffc107) */
+   --color-danger: 220 53 69;        /* Red for error states (#dc3545) */
+   
+   /* Neutral gray scale for backgrounds and text */
+   --color-gray-50: 249 250 251;     /* Lightest gray (#f9fafb) */
+   --color-gray-100: 243 244 246;    /* Very light gray (#f3f4f6) */
+   --color-gray-200: 229 231 235;    /* Light gray (#e5e7eb) */
+   --color-gray-300: 209 213 219;    /* Medium light gray (#d1d5db) */
+   --color-gray-400: 156 163 175;    /* Medium gray (#9ca3af) */
+   --color-gray-500: 107 114 128;    /* Base gray (#6b7280) */
+   --color-gray-600: 75 85 99;       /* Medium dark gray (#4b5563) */
+   --color-gray-700: 55 65 81;       /* Dark gray (#374151) */
+   --color-gray-800: 31 41 55;       /* Very dark gray (#1f2937) */
+   --color-gray-900: 17 24 39;       /* Darkest gray (#111827) */
  }
 
+ /**
+  * Dark Theme Color Variables
+  * Inverted gray scale for dark mode with proper contrast ratios
+  * Maintains semantic meaning while providing dark theme compatibility
+  */
  [data-theme='dark'] {
-   --color-gray-50: 17 24 39;
-   --color-gray-100: 31 41 55;
-   --color-gray-200: 55 65 81;
-   --color-gray-300: 75 85 99;
-   --color-gray-400: 107 114 128;
-   --color-gray-500: 156 163 175;
-   --color-gray-600: 209 213 219;
-   --color-gray-700: 229 231 235;
-   --color-gray-800: 243 244 246;
-   --color-gray-900: 249 250 251;
+   /* Inverted gray scale for dark theme */
+   --color-gray-50: 17 24 39;        /* Dark background */
+   --color-gray-100: 31 41 55;       /* Slightly lighter dark */
+   --color-gray-200: 55 65 81;       /* Medium dark */
+   --color-gray-300: 75 85 99;       /* Medium dark text */
+   --color-gray-400: 107 114 128;    /* Muted text */
+   --color-gray-500: 156 163 175;    /* Base text */
+   --color-gray-600: 209 213 219;    /* Light text */
+   --color-gray-700: 229 231 235;    /* Very light text */
+   --color-gray-800: 243 244 246;    /* Lightest text */
+   --color-gray-900: 249 250 251;    /* Background-level text */
  }
 
+ /**
+  * Universal Border Configuration
+  * Applies consistent border styling across all elements
+  */
  * {
    @apply border-border;
  }
 
+ /**
+  * Body Element Styling
+  * Foundation styling for the document body with responsive design
+  * Includes font family, background, text color, and rendering optimization
+  */
  body {
    @apply bg-gray-50 text-gray-900 font-sans antialiased;
  }
 
+ /**
+  * Dark Theme Body Styling
+  * Overrides body styling for dark theme with inverted colors
+  */
  [data-theme='dark'] body {
    @apply bg-gray-900 text-gray-50;
  }
 
+ /**
+  * Typography Hierarchy
+  * Responsive heading styles with consistent scaling and spacing
+  * Optimized for readability across devices and themes
+  */
+ 
+ /* Primary heading for page titles and major sections */
  h1 {
    @apply text-4xl font-bold tracking-tight;
  }
 
+ /* Secondary heading for subsections and card titles */
  h2 {
    @apply text-3xl font-semibold tracking-tight;
  }
 
+ /* Tertiary heading for component titles */
  h3 {
    @apply text-2xl font-semibold;
  }
 
+ /* Quaternary heading for small sections */
  h4 {
    @apply text-xl font-medium;
  }
 
+ /* Fifth-level heading for subsection labels */
  h5 {
    @apply text-lg font-medium;
  }
 
+ /* Sixth-level heading for component labels */
  h6 {
    @apply text-base font-medium;
  }
 
+ /**
+  * Link Styling
+  * Interactive link styling with hover effects and accessibility
+  */
  a {
    @apply text-primary hover:text-primary-dark transition-colors;
  }
 
+ /**
+  * Code Element Styling
+  * Inline code styling with background and typography
+  */
  code {
    @apply px-1 py-0.5 bg-gray-100 dark:bg-gray-800 rounded text-sm font-mono;
  }
 
+ /**
+  * Preformatted Text Styling
+  * Code block styling with scrolling and padding
+  */
  pre {
    @apply p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto;
  }
 
+ /**
+  * Nested Code in Pre
+  * Removes redundant styling for code within pre blocks
+  */
  pre code {
    @apply p-0 bg-transparent;
  }
 
+ /**
+  * Text Selection Styling
+  * Custom selection colors for brand consistency
+  */
  ::selection {
    @apply bg-primary text-white;
  }
 
+ /**
+  * Scrollbar Styling (WebKit)
+  * Custom scrollbar design for better visual integration
+  */
  ::-webkit-scrollbar {
    @apply w-2 h-2;
  }
@@ -109,33 +301,74 @@
  }
 }
 
-/* Custom Component Styles */
+/* =============================================================================
+   Component Layer
+   Reusable component patterns and design system elements
+   ============================================================================= */
+
+/**
+ * Component Layer Extensions
+ * Custom component classes for common UI patterns and ShadowNews-specific elements
+ */
 @layer components {
- /* Buttons */
+ 
+ /* =============================================================================
+    Button Components
+    Comprehensive button system with variants, sizes, and states
+    ============================================================================= */
+
+ /**
+  * Base Button Class
+  * Foundation button styling with accessibility and interaction states
+  */
  .btn {
    @apply inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
  }
 
+ /**
+  * Primary Button Variant
+  * Main call-to-action button with brand colors
+  */
  .btn-primary {
    @apply btn bg-primary text-white hover:bg-primary-dark focus:ring-primary;
  }
 
+ /**
+  * Secondary Button Variant
+  * Secondary actions with neutral colors and theme support
+  */
  .btn-secondary {
    @apply btn bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 focus:ring-gray-500;
  }
 
+ /**
+  * Outline Button Variant
+  * Subtle button with border and transparent background
+  */
  .btn-outline {
    @apply btn border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800 focus:ring-gray-500;
  }
 
+ /**
+  * Ghost Button Variant
+  * Minimal button for subtle actions
+  */
  .btn-ghost {
    @apply btn text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 focus:ring-gray-500;
  }
 
+ /**
+  * Danger Button Variant
+  * Destructive actions with red styling
+  */
  .btn-danger {
    @apply btn bg-danger text-white hover:bg-red-700 focus:ring-danger;
  }
 
+ /**
+  * Button Size Variants
+  * Small and large button size options
+  */
  .btn-sm {
    @apply text-xs px-3 py-1.5;
  }
@@ -144,83 +377,174 @@
    @apply text-base px-6 py-3;
  }
 
- /* Forms */
+ /* =============================================================================
+    Form Components
+    Comprehensive form control styling with validation states
+    ============================================================================= */
+
+ /**
+  * Base Input Styling
+  * Foundation input styling with focus states and dark mode support
+  */
  .input {
    @apply block w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400;
  }
 
+ /**
+  * Error Input State
+  * Input styling for validation errors
+  */
  .input-error {
    @apply border-danger focus:ring-danger focus:border-danger;
  }
 
+ /**
+  * Form Label Styling
+  * Consistent label styling for form accessibility
+  */
  .label {
    @apply block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1;
  }
 
+ /**
+  * Checkbox Styling
+  * Custom checkbox with brand colors
+  */
  .checkbox {
    @apply h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded;
  }
 
+ /**
+  * Radio Button Styling
+  * Custom radio button with brand colors
+  */
  .radio {
    @apply h-4 w-4 text-primary focus:ring-primary border-gray-300;
  }
 
+ /**
+  * Select Element Styling
+  * Custom select dropdown styling
+  */
  .select {
    @apply input pr-10 appearance-none bg-white dark:bg-gray-800;
  }
 
+ /**
+  * Textarea Styling
+  * Multi-line text input with resize control
+  */
  .textarea {
    @apply input resize-vertical min-h-[100px];
  }
 
- /* Cards */
+ /* =============================================================================
+    Card Components
+    Flexible card layouts for content containers
+    ============================================================================= */
+
+ /**
+  * Base Card Styling
+  * Foundation card with shadow, border, and dark mode support
+  */
  .card {
    @apply bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden;
  }
 
+ /**
+  * Card Body Section
+  * Main content area of cards with padding
+  */
  .card-body {
    @apply p-6;
  }
 
+ /**
+  * Card Header Section
+  * Header area with border separator
+  */
  .card-header {
    @apply px-6 py-4 border-b border-gray-200 dark:border-gray-700;
  }
 
+ /**
+  * Card Footer Section
+  * Footer area with background and border
+  */
  .card-footer {
    @apply px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900;
  }
 
- /* Post Styles */
+ /* =============================================================================
+    Post-Specific Components
+    Email and post display components
+    ============================================================================= */
+
+ /**
+  * Post Card Container
+  * Card specifically designed for post/email display
+  */
  .post-card {
    @apply card hover:shadow-md transition-shadow duration-200;
  }
 
+ /**
+  * Post Title Styling
+  * Clickable post titles with hover effects
+  */
  .post-title {
    @apply text-lg font-semibold text-gray-900 dark:text-gray-100 hover:text-primary dark:hover:text-primary transition-colors;
  }
 
+ /**
+  * Post Metadata Styling
+  * Author, date, and other post information
+  */
  .post-meta {
    @apply text-sm text-gray-500 dark:text-gray-400;
  }
 
+ /**
+  * Post Content Styling
+  * Rich text content with prose styling
+  */
  .post-content {
    @apply prose prose-sm max-w-none dark:prose-invert;
  }
 
- /* Vote Buttons */
+ /* =============================================================================
+    Interactive Components
+    Voting, badges, and user interaction elements
+    ============================================================================= */
+
+ /**
+  * Vote Button Styling
+  * Upvote and downvote button styling
+  */
  .vote-button {
    @apply p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors;
  }
 
+ /**
+  * Active Vote Button
+  * Styling for voted states
+  */
  .vote-button-active {
    @apply text-primary;
  }
 
- /* Badges */
+ /**
+  * Base Badge Styling
+  * Small informational labels
+  */
  .badge {
    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
  }
 
+ /**
+  * Badge Variants
+  * Different semantic badge colors
+  */
  .badge-primary {
    @apply bg-primary bg-opacity-10 text-primary dark:bg-opacity-20;
  }
@@ -241,34 +565,60 @@
    @apply bg-danger bg-opacity-10 text-danger dark:bg-opacity-20;
  }
 
- /* Tags/Hashtags */
+ /**
+  * Tag/Hashtag Styling
+  * Interactive tags for categorization
+  */
  .tag {
    @apply inline-flex items-center px-3 py-1 rounded-md text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 transition-colors cursor-pointer;
  }
 
+ /**
+  * Removable Tag Variant
+  * Tags with remove functionality
+  */
  .tag-removable {
    @apply pr-1;
  }
 
- /* Repository Card */
+ /* =============================================================================
+    ShadowNews-Specific Components
+    Platform-specific UI elements
+    ============================================================================= */
+
+ /**
+  * Repository Card Styling
+  * Email repository display cards
+  */
  .repository-card {
    @apply card p-6 hover:shadow-lg transition-all duration-200 cursor-pointer;
  }
 
+ /**
+  * Repository Statistics
+  * Stat displays within repository cards
+  */
  .repository-stat {
    @apply flex items-center justify-between py-2 border-b border-gray-100 dark:border-gray-700 last:border-0;
  }
 
- /* Email Badge */
+ /**
+  * Email Badge
+  * Indicators for email-related content
+  */
  .email-badge {
    @apply inline-flex items-center gap-1 px-2 py-1 bg-blue-50 text-blue-700 rounded-md text-sm dark:bg-blue-900 dark:text-blue-200;
  }
 
- /* Karma Badge */
+ /**
+  * Karma Badge System
+  * User reputation and achievement badges
+  */
  .karma-badge {
    @apply inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium;
  }
 
+ /* Karma tier styling */
  .karma-bronze {
    @apply bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200;
  }
@@ -285,101 +635,218 @@
    @apply bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200;
  }
 
- /* Loading States */
+ /* =============================================================================
+    Loading and State Components
+    UI elements for loading and state management
+    ============================================================================= */
+
+ /**
+  * Skeleton Loading
+  * Placeholder content for loading states
+  */
  .skeleton {
    @apply animate-pulse bg-gray-200 dark:bg-gray-700 rounded;
  }
 
+ /**
+  * Loading Spinner
+  * Animated loading indicator
+  */
  .spinner {
    @apply animate-spin h-5 w-5 text-primary;
  }
 
- /* Tooltips */
+ /**
+  * Tooltip Styling
+  * Contextual information tooltips
+  */
  .tooltip {
    @apply absolute z-10 px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700;
  }
 
- /* Dropdown */
+ /* =============================================================================
+    Navigation and Menu Components
+    Navigation interfaces and dropdown menus
+    ============================================================================= */
+
+ /**
+  * Dropdown Menu Container
+  * Contextual menu styling
+  */
  .dropdown-menu {
    @apply absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none;
  }
 
+ /**
+  * Dropdown Menu Items
+  * Individual menu item styling
+  */
  .dropdown-item {
    @apply block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700;
  }
 
- /* Modal */
- .modal-backdrop {
-   @apply fixed inset-0 bg-gray-500 bg-opacity-75 dark:bg-opacity-90 transition-opacity;
- }
-
- .modal-content {
-   @apply relative transform overflow-hidden rounded-lg bg-white dark:bg-gray-800 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg;
- }
-
- /* Navigation */
+ /**
+  * Navigation Link Styling
+  * Header and sidebar navigation links
+  */
  .nav-link {
    @apply px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-700 transition-colors;
  }
 
+ /**
+  * Active Navigation Link
+  * Current page navigation indicator
+  */
  .nav-link-active {
    @apply bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-white;
  }
 
- /* Sidebar */
+ /**
+  * Sidebar Navigation Items
+  * Sidebar-specific navigation styling
+  */
  .sidebar-item {
    @apply flex items-center px-4 py-2 text-sm font-medium rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors;
  }
 
+ /**
+  * Active Sidebar Item
+  * Current section sidebar indicator
+  */
  .sidebar-item-active {
    @apply bg-primary bg-opacity-10 text-primary dark:bg-opacity-20;
  }
 
- /* Comment Thread */
+ /* =============================================================================
+    Modal and Overlay Components
+    Modal dialogs and overlay interfaces
+    ============================================================================= */
+
+ /**
+  * Modal Backdrop
+  * Background overlay for modal dialogs
+  */
+ .modal-backdrop {
+   @apply fixed inset-0 bg-gray-500 bg-opacity-75 dark:bg-opacity-90 transition-opacity;
+ }
+
+ /**
+  * Modal Content Container
+  * Main modal dialog styling
+  */
+ .modal-content {
+   @apply relative transform overflow-hidden rounded-lg bg-white dark:bg-gray-800 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg;
+ }
+
+ /* =============================================================================
+    Comment and Discussion Components
+    Threading and discussion interface elements
+    ============================================================================= */
+
+ /**
+  * Comment Thread Styling
+  * Nested comment visualization
+  */
  .comment-thread {
    @apply border-l-2 border-gray-200 dark:border-gray-700 pl-4 ml-4;
  }
 
+ /**
+  * Comment Box Container
+  * Individual comment styling
+  */
  .comment-box {
    @apply p-4 rounded-lg bg-gray-50 dark:bg-gray-800 mb-4;
  }
 
- /* File Upload */
+ /* =============================================================================
+    File and Media Components
+    File upload and media handling interfaces
+    ============================================================================= */
+
+ /**
+  * File Upload Area
+  * Drag-and-drop file upload styling
+  */
  .file-upload {
    @apply relative cursor-pointer bg-white dark:bg-gray-800 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 p-6 hover:border-gray-400 dark:hover:border-gray-500 transition-colors;
  }
 
- /* Search Bar */
+ /* =============================================================================
+    Search and Filter Components
+    Search interfaces and filtering controls
+    ============================================================================= */
+
+ /**
+  * Search Bar Container
+  * Search input with icon positioning
+  */
  .search-bar {
    @apply relative;
  }
 
+ /**
+  * Search Input Field
+  * Input with left padding for icon
+  */
  .search-input {
    @apply input pl-10 pr-4;
  }
 
+ /**
+  * Search Icon Positioning
+  * Absolute positioned search icon
+  */
  .search-icon {
    @apply absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400;
  }
 
- /* Tables */
+ /* =============================================================================
+    Table Components
+    Data table styling and layout
+    ============================================================================= */
+
+ /**
+  * Table Container
+  * Responsive table with dividers
+  */
  .table {
    @apply min-w-full divide-y divide-gray-200 dark:divide-gray-700;
  }
 
+ /**
+  * Table Header Styling
+  * Header row background and styling
+  */
  .table-header {
    @apply bg-gray-50 dark:bg-gray-800;
  }
 
+ /**
+  * Table Cell Styling
+  * Standard table cell padding and text
+  */
  .table-cell {
    @apply px-6 py-4 whitespace-nowrap text-sm;
  }
 
- /* Alerts */
+ /* =============================================================================
+    Alert and Notification Components
+    Status messages and notifications
+    ============================================================================= */
+
+ /**
+  * Base Alert Styling
+  * Foundation alert with padding and border
+  */
  .alert {
    @apply p-4 rounded-lg border;
  }
 
+ /**
+  * Alert Variants
+  * Different semantic alert types
+  */
  .alert-info {
    @apply bg-blue-50 border-blue-200 text-blue-800 dark:bg-blue-900 dark:border-blue-700 dark:text-blue-200;
  }
@@ -396,41 +863,98 @@
    @apply bg-red-50 border-red-200 text-red-800 dark:bg-red-900 dark:border-red-700 dark:text-red-200;
  }
 
- /* Progress Bar */
+ /* =============================================================================
+    Progress and Status Components
+    Progress indicators and status displays
+    ============================================================================= */
+
+ /**
+  * Progress Bar Container
+  * Background container for progress indicators
+  */
  .progress {
    @apply w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700;
  }
 
+ /**
+  * Progress Bar Fill
+  * Animated progress indicator fill
+  */
  .progress-bar {
    @apply bg-primary h-2.5 rounded-full transition-all duration-300;
  }
 
- /* Tabs */
+ /* =============================================================================
+    Tab Components
+    Tabbed interface navigation
+    ============================================================================= */
+
+ /**
+  * Tab List Container
+  * Tab navigation bar with border
+  */
  .tab-list {
    @apply flex border-b border-gray-200 dark:border-gray-700;
  }
 
+ /**
+  * Tab Button Styling
+  * Individual tab button with hover effects
+  */
  .tab {
    @apply px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200 border-b-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors;
  }
 
+ /**
+  * Active Tab Styling
+  * Current tab indicator
+  */
  .tab-active {
    @apply text-primary border-primary dark:text-primary;
  }
 
- /* Mobile Menu */
+ /* =============================================================================
+    Mobile Interface Components
+    Mobile-specific navigation and interface elements
+    ============================================================================= */
+
+ /**
+  * Mobile Bottom Navigation
+  * Fixed bottom navigation for mobile devices
+  */
  .mobile-menu {
    @apply fixed inset-x-0 bottom-0 z-50 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 sm:hidden;
  }
 
+ /**
+  * Mobile Menu Items
+  * Individual mobile navigation items
+  */
  .mobile-menu-item {
    @apply flex flex-col items-center justify-center py-2 text-xs text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary;
  }
 }
 
-/* Custom Utilities */
+/* =============================================================================
+   Utilities Layer
+   Custom utility classes and animations
+   ============================================================================= */
+
+/**
+ * Utilities Layer Extensions
+ * Project-specific utility classes and animations
+ */
 @layer utilities {
- /* Text Truncation */
+ 
+ /* =============================================================================
+    Text Utilities
+    Advanced text manipulation utilities
+    ============================================================================= */
+
+ /**
+  * Multi-line Text Truncation
+  * Utility classes for truncating text to specific line counts
+  */
  .truncate-2 {
    @apply line-clamp-2;
  }
@@ -439,7 +963,15 @@
    @apply line-clamp-3;
  }
 
- /* Animations */
+ /* =============================================================================
+    Animation Utilities
+    Custom animations for enhanced user experience
+    ============================================================================= */
+
+ /**
+  * Slide Animation Utilities
+  * Smooth slide transitions for modals and panels
+  */
  .animate-slide-up {
    animation: slide-up 0.3s ease-out;
  }
@@ -448,25 +980,377 @@
    animation: slide-down 0.3s ease-out;
  }
 
+ /**
+  * Fade Animation Utilities
+  * Fade transitions for content appearance
+  */
  .animate-fade-in {
    animation: fade-in 0.3s ease-out;
  }
 
+ /**
+  * Scale Animation Utilities
+  * Scale transitions for interactive elements
+  */
  .animate-scale-in {
    animation: scale-in 0.2s ease-out;
  }
 
- /* Glassmorphism */
+ /* =============================================================================
+    Visual Effect Utilities
+    Modern visual effects and design enhancements
+    ============================================================================= */
+
+ /**
+  * Glassmorphism Effect
+  * Modern glass-like backdrop blur effect
+  */
  .glass {
    @apply backdrop-blur-md bg-white bg-opacity-70 dark:bg-gray-800 dark:bg-opacity-70;
  }
 
- /* Snowball Effect Visualization */
+ /* =============================================================================
+    ShadowNews Platform Utilities
+    Platform-specific visualization and effect utilities
+    ============================================================================= */
+
+ /**
+  * Snowball Effect Visualization
+  * Utilities for visualizing viral content distribution
+  */
  .snowball-node {
    @apply absolute w-3 h-3 bg-primary rounded-full animate-pulse;
  }
 
+ /**
+  * Connection Line Visualization
+  * Lines connecting nodes in snowball visualization
+  */
+
  .snowball-connection {
+   @apply absolute h-0.5 bg-primary opacity-50;
+ }
+
+ /**
+  * Karma Progression Visualization
+  * Visual elements for karma level and progression display
+  */
+ .karma-progress-bar {
+   @apply w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden;
+ }
+
+ .karma-progress-fill {
+   @apply h-full bg-gradient-to-r from-primary to-primary-dark transition-all duration-500;
+ }
+
+ /* =============================================================================
+    Email Platform Utilities
+    Utilities specific to email-first social platform features
+    ============================================================================= */
+
+ /**
+  * Email Thread Visualization
+  * Utilities for displaying email conversation threads
+  */
+ .email-thread-line {
+   @apply absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700;
+ }
+
+ .email-thread-dot {
+   @apply absolute left-5 w-2 h-2 bg-primary rounded-full;
+ }
+
+ /**
+  * Repository Metrics Display
+  * Utilities for email repository statistics and metrics
+  */
+ .metric-card {
+   @apply flex flex-col items-center p-4 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-lg;
+ }
+
+ .metric-value {
+   @apply text-2xl font-bold text-primary;
+ }
+
+ .metric-label {
+   @apply text-sm text-gray-600 dark:text-gray-400 font-medium;
+ }
+
+ /* =============================================================================
+    Accessibility Utilities
+    Utilities for enhanced accessibility and user experience
+    ============================================================================= */
+
+ /**
+  * Screen Reader Utilities
+  * Hidden content for screen readers and assistive technology
+  */
+ .sr-only-focusable {
+   @apply sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-2 focus:bg-white focus:text-black focus:shadow-lg;
+ }
+
+ /**
+  * High Contrast Mode Support
+  * Utilities that respect user's high contrast preferences
+  */
+ @media (prefers-contrast: high) {
+   .high-contrast-border {
+     @apply border-2 border-black dark:border-white;
+   }
+ }
+
+ /**
+  * Reduced Motion Support
+  * Respects user's motion preferences for accessibility
+  */
+ @media (prefers-reduced-motion: reduce) {
+   .respect-motion-preference {
+     @apply transition-none animate-none;
+   }
+ }
+
+ /* =============================================================================
+    Print Utilities
+    Utilities optimized for print media
+    ============================================================================= */
+
+ /**
+  * Print-specific Display Utilities
+  * Control element visibility and formatting for print
+  */
+ @media print {
+   .print-hidden {
+     @apply hidden;
+   }
+
+   .print-visible {
+     @apply block;
+   }
+
+   .print-break-before {
+     page-break-before: always;
+   }
+
+   .print-break-after {
+     page-break-after: always;
+   }
+
+   .print-no-break {
+     page-break-inside: avoid;
+   }
+ }
+}
+
+/* =============================================================================
+   Keyframe Animations
+   Custom animation definitions for enhanced user experience
+   ============================================================================= */
+
+/**
+ * Slide Up Animation
+ * Smooth upward slide motion for modals and panels
+ */
+@keyframes slide-up {
+ from {
+   transform: translateY(100%);
+   opacity: 0;
+ }
+ to {
+   transform: translateY(0);
+   opacity: 1;
+ }
+}
+
+/**
+ * Slide Down Animation
+ * Smooth downward slide motion for dropdowns and notifications
+ */
+@keyframes slide-down {
+ from {
+   transform: translateY(-100%);
+   opacity: 0;
+ }
+ to {
+   transform: translateY(0);
+   opacity: 1;
+ }
+}
+
+/**
+ * Fade In Animation
+ * Smooth opacity transition for content appearance
+ */
+@keyframes fade-in {
+ from {
+   opacity: 0;
+ }
+ to {
+   opacity: 1;
+ }
+}
+
+/**
+ * Scale In Animation
+ * Smooth scale transition for interactive elements
+ */
+@keyframes scale-in {
+ from {
+   transform: scale(0.95);
+   opacity: 0;
+ }
+ to {
+   transform: scale(1);
+   opacity: 1;
+ }
+}
+
+/**
+ * Pulse Glow Animation
+ * Subtle glow effect for highlighting important elements
+ */
+@keyframes pulse-glow {
+ 0%, 100% {
+   box-shadow: 0 0 5px rgba(255, 69, 0, 0.5);
+ }
+ 50% {
+   box-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
+ }
+}
+
+/**
+ * Shimmer Loading Animation
+ * Loading skeleton shimmer effect
+ */
+@keyframes shimmer {
+ 0% {
+   background-position: -200px 0;
+ }
+ 100% {
+   background-position: calc(200px + 100%) 0;
+ }
+}
+
+/* =============================================================================
+   Responsive Design Breakpoints
+   Mobile-first responsive design system
+   ============================================================================= */
+
+/**
+ * Container Queries (Future Enhancement)
+ * Modern container-based responsive design when browser support improves
+ */
+@container (min-width: 480px) {
+ .container-responsive {
+   @apply grid-cols-2;
+ }
+}
+
+@container (min-width: 768px) {
+ .container-responsive {
+   @apply grid-cols-3;
+ }
+}
+
+/* =============================================================================
+   Dark Mode Enhancements
+   Additional dark mode styling and transitions
+   ============================================================================= */
+
+/**
+ * Theme Transition
+ * Smooth transitions when switching between light and dark themes
+ */
+html {
+ transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/**
+ * Dark Mode Color Scheme
+ * Ensures proper color scheme detection for form controls
+ */
+[data-theme='dark'] {
+ color-scheme: dark;
+}
+
+[data-theme='light'] {
+ color-scheme: light;
+}
+
+/* =============================================================================
+   Performance Optimizations
+   CSS optimizations for better rendering performance
+   ============================================================================= */
+
+/**
+ * GPU Acceleration Hints
+ * Force GPU acceleration for smooth animations
+ */
+.gpu-accelerated {
+ transform: translateZ(0);
+ will-change: transform;
+}
+
+/**
+ * Contain Layout
+ * Layout containment for performance optimization
+ */
+.contain-layout {
+ contain: layout;
+}
+
+.contain-paint {
+ contain: paint;
+}
+
+/* =============================================================================
+   Email Platform Specific Enhancements
+   Additional styling for ShadowNews email platform features
+   ============================================================================= */
+
+/**
+ * Email Composition Interface
+ * Styling for email composition and editing interface
+ */
+.email-composer {
+ @apply min-h-[400px] resize-none border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 focus:border-primary dark:focus:border-primary transition-colors;
+}
+
+/**
+ * Viral Coefficient Display
+ * Styling for snowball effect viral coefficient visualization
+ */
+.viral-coefficient {
+ @apply inline-flex items-center gap-2 px-3 py-1 bg-gradient-to-r from-orange-100 to-red-100 dark:from-orange-900 dark:to-red-900 text-orange-800 dark:text-orange-200 rounded-full text-sm font-semibold;
+}
+
+/**
+ * Repository Health Indicator
+ * Visual health indicators for email repositories
+ */
+.repository-health-excellent {
+ @apply w-3 h-3 bg-green-500 rounded-full animate-pulse;
+}
+
+.repository-health-good {
+ @apply w-3 h-3 bg-yellow-500 rounded-full;
+}
+
+.repository-health-poor {
+ @apply w-3 h-3 bg-red-500 rounded-full;
+}
+
+/**
+ * Platform Logo and Branding
+ * Consistent branding elements across the platform
+ */
+.shadownews-logo {
+ @apply text-2xl font-bold bg-gradient-to-r from-primary to-red-600 bg-clip-text text-transparent;
+}
+
+/* =============================================================================
+   End of Tailwind CSS Configuration
+   Complete utility-first styling system for ShadowNews platform
+   ============================================================================= */
    @apply absolute border-t border-gray-300 dark:border-gray-600;
  }
 

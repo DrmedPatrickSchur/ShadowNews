@@ -1,4 +1,62 @@
-# Shadownews Database Schema
+/**
+ * @fileoverview database-schema.md
+ * 
+ * Implementation file for database-schema.md
+ * 
+ * Key Features:
+ * - Core functionality
+ * - Error handling
+ * - Performance optimization
+ * 
+ * Dependencies:
+ *  * - No external dependencies
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */\n\n<!--
+============================================================================
+ShadowNews - Database Schema and Data Architecture Documentation
+============================================================================
+
+Comprehensive documentation of the ShadowNews MongoDB database schema,
+including collection structures, relationships, and data modeling patterns.
+
+Purpose:
+- Define complete database schema with validation rules
+- Document relationships between collections and data flow
+- Provide indexing strategies for query optimization
+- Establish data integrity and consistency patterns
+
+Target Audience:
+- Backend developers working with database models
+- Database administrators managing MongoDB instances
+- DevOps engineers handling database migrations
+- Data analysts understanding the data structure
+
+Coverage:
+- Complete collection schemas with field specifications
+- Mongoose model definitions and validation rules
+- Database relationships and referential integrity
+- Indexing strategies for performance optimization
+- Data migration patterns and versioning
+- Query optimization and aggregation pipelines
+
+Technical Details:
+- MongoDB document structure and validation
+- Mongoose ODM integration and middleware
+- Compound indexes for complex query patterns
+- Data archival and cleanup strategies
+- Performance monitoring and optimization
+- Backup and recovery procedures
+
+Last Updated: 2025-07-27
+Version: 1.0.0
+============================================================================
+-->
+
+# ShadowNews Database Schema
 
 ## Overview
 

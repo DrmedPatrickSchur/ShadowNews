@@ -1,3 +1,51 @@
+/**
+ * Posts Integration Tests
+ * 
+ * Comprehensive test suite for post management functionality in the
+ * ShadowNews platform. Tests cover post creation, editing, voting,
+ * commenting, content validation, and community interaction features.
+ * 
+ * Test Categories:
+ * - Post Creation: Content submission, validation, and repository integration
+ * - Post Management: Editing, deletion, and ownership verification
+ * - Voting System: Upvotes, downvotes, score calculation, and karma effects
+ * - Comment Threading: Comment creation, replies, and nested discussions
+ * - Content Validation: Spam detection, content moderation, and quality control
+ * - Email Integration: Repository notifications and snowball distribution
+ * 
+ * Testing Strategy:
+ * - Integration testing with authenticated user sessions
+ * - Database state validation for persistent post data
+ * - Email service integration testing for notifications
+ * - Performance testing for high-volume content scenarios
+ * - Security testing for content injection and XSS prevention
+ * 
+ * Content Coverage:
+ * - Text posts with rich formatting and hashtag support
+ * - Link posts with URL validation and metadata extraction
+ * - Show HN posts with project showcase features
+ * - Discussion posts fostering community engagement
+ * - Research paper sharing with academic citation support
+ * 
+ * Security Measures:
+ * - Content sanitization and XSS prevention
+ * - Rate limiting for post creation and voting
+ * - Spam detection and automatic content filtering
+ * - Privilege escalation prevention in post management
+ * - Input validation for all post-related operations
+ * 
+ * Dependencies:
+ * - Supertest for HTTP request testing
+ * - Jest for test framework and assertions
+ * - Authenticated test sessions for user actions
+ * - Mocked email service for notification testing
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 const request = require('supertest');
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
@@ -7,49 +55,75 @@ const Post = require('../../src/models/Post.model');
 const Repository = require('../../src/models/Repository.model');
 const jwt = require('jsonwebtoken');
 
+// Test environment variables for isolated testing
 let mongoServer;
 let authToken;
 let testUser;
 let testRepository;
 
+/**
+ * Test Environment Setup
+ * 
+ * Initializes in-memory MongoDB server for isolated testing.
+ * Creates clean database environment without affecting
+ * development or production data during test execution.
+ */
 beforeAll(async () => {
- mongoServer = await MongoMemoryServer.create();
- const mongoUri = mongoServer.getUri();
- await mongoose.connect(mongoUri);
+  mongoServer = await MongoMemoryServer.create();
+  const mongoUri = mongoServer.getUri();
+  await mongoose.connect(mongoUri);
 });
 
+/**
+ * Test Environment Cleanup
+ * 
+ * Shuts down test database and cleans up resources
+ * after all tests complete. Ensures proper cleanup
+ * and prevents memory leaks in test environment.
+ */
 afterAll(async () => {
- await mongoose.disconnect();
- await mongoServer.stop();
+  await mongoose.disconnect();
+  await mongoServer.stop();
 });
 
+/**
+ * Individual Test Setup
+ * 
+ * Prepares fresh test data before each test case.
+ * Creates authenticated test user, test repository,
+ * and authentication token for consistent test conditions.
+ */
 beforeEach(async () => {
- await User.deleteMany({});
- await Post.deleteMany({});
- await Repository.deleteMany({});
+  // Clear existing test data for clean test isolation
+  await User.deleteMany({});
+  await Post.deleteMany({});
+  await Repository.deleteMany({});
 
- testUser = await User.create({
-   email: 'test@shadownews.community',
-   username: 'testuser',
-   password: 'Test123!@#',
-   karma: 100,
-   isEmailVerified: true
- });
+  // Create authenticated test user with verified email status
+  testUser = await User.create({
+    email: 'test@shadownews.community',
+    username: 'testuser',
+    password: 'Test123!@#',
+    karma: 100,
+    isEmailVerified: true
+  });
 
- testRepository = await Repository.create({
-   name: 'Test Repository',
-   topic: 'technology',
-   owner: testUser._id,
-   emails: ['user1@example.com', 'user2@example.com'],
-   isPublic: true,
-   subscriberCount: 2
- });
+  // Create test repository for post categorization and email distribution
+  testRepository = await Repository.create({
+    name: 'Test Repository',
+    topic: 'technology',
+    owner: testUser._id,
+    emails: ['user1@example.com', 'user2@example.com'],
+    isPublic: true,
+    subscriberCount: 2
+  });
 
- authToken = jwt.sign(
-   { userId: testUser._id, email: testUser.email },
-   process.env.JWT_SECRET || 'test-secret',
-   { expiresIn: '24h' }
- );
+  // Generate JWT authentication token for authenticated API requests
+  authToken = jwt.sign(
+    { userId: testUser._id, email: testUser.email },
+    process.env.JWT_SECRET || 'test-secret',
+    { expiresIn: '24h' }
+  );
 });
 
 describe('POST /api/posts', () => {

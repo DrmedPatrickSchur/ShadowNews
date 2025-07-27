@@ -1,3 +1,71 @@
+/**
+ * Main Application Component
+ * 
+ * Central application component for the ShadowNews frontend that orchestrates
+ * the entire React application structure, routing, state management, and
+ * global providers. Implements Progressive Web App features, authentication
+ * flows, and provides the foundational architecture for the platform.
+ * 
+ * Application Architecture:
+ * - React Router for declarative client-side routing
+ * - Redux Toolkit for global state management
+ * - React Query for server state and caching
+ * - Lazy loading for optimal bundle splitting and performance
+ * - Error boundaries for graceful error handling
+ * 
+ * Core Features:
+ * - Authentication Guard: Protected and public route management
+ * - Theme System: Dark/light mode support with system preference detection
+ * - WebSocket Integration: Real-time communication for live updates
+ * - PWA Support: Service worker registration and install prompts
+ * - Offline Detection: Network status monitoring and user feedback
+ * - SEO Optimization: React Helmet for meta tag management
+ * 
+ * Route Structure:
+ * - Public Routes: Home, posts, trending, search, user profiles
+ * - Auth Routes: Login and registration with redirect logic
+ * - Protected Routes: Submit, repositories, settings, email posting
+ * - Dynamic Routes: Hashtag filtering, repository-specific content
+ * - Fallback Routes: 404 error handling for unknown paths
+ * 
+ * State Management:
+ * - Redux Store: Global application state with persistence
+ * - React Query: Server state caching with background updates
+ * - Local State: Component-level state for UI interactions
+ * - WebSocket State: Real-time event handling and updates
+ * 
+ * Performance Optimizations:
+ * - Code Splitting: Lazy-loaded pages reduce initial bundle size
+ * - Memoization: React.memo and useMemo for render optimization
+ * - Prefetching: Intelligent data prefetching for user experience
+ * - Caching: Aggressive caching strategies for improved performance
+ * 
+ * Accessibility Features:
+ * - ARIA Labels: Comprehensive screen reader support
+ * - Keyboard Navigation: Full keyboard accessibility support
+ * - Focus Management: Proper focus handling in route transitions
+ * - Color Contrast: WCAG 2.1 compliant color schemes
+ * 
+ * Progressive Web App:
+ * - Service Worker: Offline functionality and caching strategies
+ * - App Manifest: Native app-like installation experience
+ * - Push Notifications: Real-time notification delivery
+ * - Background Sync: Offline action queuing and synchronization
+ * 
+ * Dependencies:
+ * - React 18+ for concurrent features and improved performance
+ * - React Router v6 for modern routing patterns
+ * - Redux Toolkit for efficient state management
+ * - React Query for server state management
+ * - React Helmet Async for SEO and meta tag management
+ * - React Hot Toast for user notification system
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 import React, { useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -19,7 +87,14 @@ import ErrorBoundary from './components/common/ErrorBoundary/ErrorBoundary';
 import OfflineIndicator from './components/common/OfflineIndicator/OfflineIndicator';
 import ScrollToTop from './components/common/ScrollToTop/ScrollToTop';
 
-// Lazy load pages for better performance
+/**
+ * Lazy-loaded Page Components
+ * 
+ * Implements code splitting for optimal bundle size and loading performance.
+ * Each page component is loaded only when needed, reducing initial bundle size
+ * and improving Time to Interactive (TTI) metrics.
+ */
+// Core page components with strategic loading priorities
 const Home = lazy(() => import('./pages/Home/Home'));
 const Login = lazy(() => import('./pages/Login/Login'));
 const Register = lazy(() => import('./pages/Register/Register'));
@@ -35,18 +110,35 @@ const Search = lazy(() => import('./pages/Search/Search'));
 const Trending = lazy(() => import('./pages/Trending/Trending'));
 const NotFound = lazy(() => import('./pages/NotFound/NotFound'));
 
+/**
+ * React Query Client Configuration
+ * 
+ * Configures global settings for server state management, caching strategies,
+ * and background data synchronization. Optimized for the ShadowNews platform's
+ * real-time content and email repository requirements.
+ */
 // Create a client
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes
-      cacheTime: 1000 * 60 * 10, // 10 minutes
-      retry: 1,
-      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 5, // 5 minutes - Data considered fresh for 5 minutes
+      cacheTime: 1000 * 60 * 10, // 10 minutes - Cache kept for 10 minutes
+      retry: 1, // Single retry on failure for better UX
+      refetchOnWindowFocus: false, // Disable refetch on window focus for battery saving
     },
   },
 });
 
+/**
+ * Protected Route Component
+ * 
+ * Higher-order component that restricts access to authenticated users only.
+ * Redirects unauthenticated users to login page while preserving the
+ * intended destination for post-login navigation.
+ * 
+ * @param children - React components to render if user is authenticated
+ * @returns JSX element with authentication guard logic
+ */
 // Protected Route wrapper
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();

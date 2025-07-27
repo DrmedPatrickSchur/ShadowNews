@@ -1,14 +1,80 @@
+/**
+ * @fileoverview Email Repositories End-to-End Test Suite
+ * 
+ * Comprehensive E2E testing suite for ShadowNews email repository system,
+ * covering repository creation, management, snowball distribution effects,
+ * analytics tracking, and email integration functionality.
+ * 
+ * Key Test Areas:
+ * - Repository creation with CSV uploads and validation
+ * - Snowball effect tracking with real-time growth monitoring
+ * - Repository management including exports and collaborators
+ * - Analytics dashboard with engagement metrics and campaign tracking
+ * - Repository discovery with search and filtering capabilities
+ * - Email integration with bounce handling and command processing
+ * - Member management with opt-in/opt-out preferences
+ * - Digest email scheduling and distribution
+ * 
+ * ShadowNews-Specific Features:
+ * - CSV email list imports with quality validation
+ * - Snowball distribution for viral content spread
+ * - Quality thresholds for automatic member addition
+ * - Real-time growth tracking and visualization
+ * - Email command processing (ADD, REMOVE, STATS)
+ * - Bounce handling and repository health monitoring
+ * - Collaborative repository management with roles
+ * - Advanced analytics for engagement and growth metrics
+ * 
+ * Test Data Strategy:
+ * - CSV fixture files for email list testing
+ * - Database seeding for repository creation
+ * - Simulated email events for integration testing
+ * - Background tasks for real-time feature testing
+ * - Mock data generation for analytics testing
+ * 
+ * Dependencies:
+ * - Cypress testing framework with file upload support
+ * - CSV fixture files for email data testing
+ * - Database tasks for repository and member management
+ * - Email simulation tasks for integration testing
+ * - Analytics data generation for dashboard testing
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 describe('Email Repositories', () => {
+  /**
+   * Global setup hook for repository testing
+   * Seeds database with test data and navigates to homepage
+   */
   beforeEach(() => {
     cy.task('db:seed')
     cy.visit('/')
   })
 
+  /**
+   * Repository Creation Test Suite
+   * 
+   * Tests email repository creation including CSV uploads,
+   * validation, privacy settings, and error handling.
+   */
   describe('Repository Creation', () => {
+    /**
+     * Setup hook for repository creation tests
+     * Authenticates user before testing creation functionality
+     */
     beforeEach(() => {
       cy.login('testuser@shadownews.community', 'password123')
     })
 
+    /**
+     * Test: Complete repository creation workflow
+     * Validates full repository creation with CSV upload, validation,
+     * privacy settings, and successful repository initialization
+     */
     it('should create a new repository with CSV upload', () => {
       cy.visit('/repositories/new')
       
@@ -42,6 +108,11 @@ describe('Email Repositories', () => {
       cy.get('[data-cy=success-toast]').should('contain', 'Repository created successfully')
     })
 
+    /**
+     * Test: CSV validation and error handling
+     * Tests CSV format validation with invalid email detection,
+     * error reporting, and email editing capabilities
+     */
     it('should validate CSV format and show errors', () => {
       cy.visit('/repositories/new')
       
@@ -66,6 +137,11 @@ describe('Email Repositories', () => {
       cy.get('[data-cy=create-repository]').should('be.disabled')
     })
 
+    /**
+     * Test: Repository merging functionality
+     * Tests merging of existing repositories with duplicate detection,
+     * preview capabilities, and successful consolidation
+     */
     it('should merge existing repositories', () => {
       cy.createRepository('AI Research', 'ai-research-emails.csv')
       cy.createRepository('Machine Learning', 'ml-emails.csv')
@@ -89,12 +165,27 @@ describe('Email Repositories', () => {
     })
   })
 
+  /**
+   * Snowball Distribution Test Suite
+   * 
+   * Tests the viral growth mechanism where email forwards
+   * automatically expand repository membership with quality controls.
+   */
   describe('Snowball Distribution', () => {
+    /**
+     * Setup hook for snowball testing
+     * Creates authenticated user and test repository for snowball testing
+     */
     beforeEach(() => {
       cy.login('poweruser@shadownews.community', 'password123')
       cy.createRepository('Blockchain Developers', 'blockchain-emails.csv')
     })
 
+    /**
+     * Test: Real-time snowball growth tracking
+     * Validates live tracking of repository growth through email forwards
+     * with visualization and metrics updates
+     */
     it('should track snowball growth in real-time', () => {
       cy.visit('/repositories/blockchain-developers')
       
@@ -121,6 +212,11 @@ describe('Email Repositories', () => {
       cy.get('[data-cy=node-count]').should('contain', '503 nodes')
     })
 
+    /**
+     * Test: Opt-out preference management
+     * Tests member opt-out functionality with status tracking
+     * and email distribution exclusion
+     */
     it('should respect opt-out preferences', () => {
       cy.visit('/repositories/blockchain-developers')
       cy.get('[data-cy=repository-settings]').click()
@@ -146,6 +242,11 @@ describe('Email Repositories', () => {
       })
     })
 
+    /**
+     * Test: Quality threshold enforcement
+     * Tests automatic member addition based on forward counts
+     * with configurable quality thresholds and pending management
+     */
     it('should apply quality thresholds for auto-addition', () => {
       cy.visit('/repositories/blockchain-developers/settings')
       

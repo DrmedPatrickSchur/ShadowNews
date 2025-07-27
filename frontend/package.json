@@ -1,138 +1,443 @@
 {
+  "_comment_header": "============================================================================",
+  "_comment_title": "ShadowNews Frontend Package Configuration",
+  "_comment_description": "Node.js package configuration for the ShadowNews React frontend application",
+  "_comment_architecture": "This package.json defines dependencies, scripts, and configuration for the ShadowNews email-first social platform frontend built with React, TypeScript, and modern web technologies.",
+  "_comment_platform": "ShadowNews combines traditional social news features with email repositories, snowball distribution, and AI-powered community tools.",
+  "_comment_version": "1.0.0",
+  "_comment_author": "ShadowNews Team",
+  "_comment_updated": "2025-01-27",
+  "_comment_separator": "============================================================================",
+
+  "_section_identity": "=== PROJECT IDENTITY ===",
   "name": "shadownews-frontend",
+  "_name_purpose": "Package identifier for npm and build tools",
+  
   "version": "1.0.0",
+  "_version_purpose": "Semantic versioning for release management and dependency tracking",
+  
   "private": true,
+  "_private_purpose": "Prevents accidental publication to npm registry",
+  
   "description": "Enhanced Hacker News Clone with Email Repository and Snowball Distribution",
+  "_description_purpose": "Project summary emphasizing unique email-first social features",
+  
   "author": "Shadownews Team",
+  "_author_purpose": "Development team attribution and contact information",
+  
   "license": "MIT",
+  "_license_purpose": "Open source license enabling community contribution and usage",
+
+  "_section_scripts": "=== DEVELOPMENT & BUILD SCRIPTS ===",
   "scripts": {
+    "_script_development": "--- Development Scripts ---",
+    
     "start": "react-scripts start",
+    "_start_purpose": "Launches development server with hot reload on port 3000",
+    
     "build": "react-scripts build",
+    "_build_purpose": "Creates production build with optimization and minification",
+    
     "test": "react-scripts test",
+    "_test_purpose": "Runs Jest test suite in interactive watch mode",
+    
     "eject": "react-scripts eject",
+    "_eject_purpose": "Exposes webpack configuration (irreversible operation)",
+
+    "_script_quality": "--- Code Quality Scripts ---",
+    
     "lint": "eslint src --ext .ts,.tsx",
+    "_lint_purpose": "Analyzes TypeScript/React code for style and error issues",
+    
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "_lint_fix_purpose": "Automatically fixes linting issues where possible",
+    
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
+    "_format_purpose": "Auto-formats code using Prettier style guidelines",
+    
     "type-check": "tsc --noEmit",
+    "_type_check_purpose": "Validates TypeScript types without generating output",
+
+    "_script_testing": "--- Testing Scripts ---",
+    
     "test:coverage": "react-scripts test --coverage --watchAll=false",
+    "_test_coverage_purpose": "Generates test coverage report for code quality assessment",
+    
     "test:cypress": "cypress open",
+    "_test_cypress_purpose": "Opens Cypress UI for interactive end-to-end testing",
+    
     "test:cypress:run": "cypress run",
+    "_test_cypress_run_purpose": "Runs Cypress e2e tests headlessly for CI/CD",
+
+    "_script_analysis": "--- Code Analysis Scripts ---",
+    
     "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "_analyze_purpose": "Visualizes bundle size and identifies optimization opportunities",
+
+    "_script_storybook": "--- Component Documentation Scripts ---",
+    
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "_storybook_purpose": "Launches Storybook for component development and documentation",
+    
+    "build-storybook": "build-storybook",
+    "_build_storybook_purpose": "Builds static Storybook for deployment and sharing"
   },
+
+  "_section_dependencies": "=== PRODUCTION DEPENDENCIES ===",
   "dependencies": {
+    "_dep_react_core": "--- React Ecosystem ---",
+    
     "@reduxjs/toolkit": "^1.9.7",
+    "_redux_toolkit_purpose": "Modern Redux state management with simplified API and built-in best practices",
+    
     "react": "^18.2.0",
+    "_react_purpose": "Core React library for building user interfaces with hooks and concurrent features",
+    
     "react-dom": "^18.2.0",
+    "_react_dom_purpose": "React DOM renderer for web applications with concurrent mode support",
+    
     "react-redux": "^8.1.3",
+    "_react_redux_purpose": "Official React bindings for Redux state management",
+    
     "react-router-dom": "^6.20.0",
+    "_react_router_purpose": "Declarative routing for React applications with modern hooks API",
+
+    "_dep_networking": "--- Networking & Communication ---",
+    
     "axios": "^1.6.2",
+    "_axios_purpose": "HTTP client for API requests with interceptors and request/response transformation",
+    
     "socket.io-client": "^4.7.2",
+    "_socket_io_purpose": "Real-time bidirectional communication for live updates and notifications",
+
+    "_dep_forms": "--- Forms & Data Handling ---",
+    
     "react-hook-form": "^7.48.2",
+    "_react_hook_form_purpose": "Performant forms with easy validation and minimal re-renders",
+    
     "react-query": "^3.39.3",
+    "_react_query_purpose": "Data fetching library with caching, synchronization, and background updates",
+
+    "_dep_utilities": "--- Utility Libraries ---",
+    
     "date-fns": "^2.30.0",
+    "_date_fns_purpose": "Modern JavaScript date utility library with modular functions",
+    
     "lodash": "^4.17.21",
+    "_lodash_purpose": "JavaScript utility library for data manipulation and functional programming",
+    
     "classnames": "^2.3.2",
+    "_classnames_purpose": "Utility for conditionally joining CSS class names",
+
+    "_dep_ui_components": "--- UI Components & Interactions ---",
+    
     "react-intersection-observer": "^9.5.3",
+    "_intersection_observer_purpose": "React hook for Intersection Observer API (infinite scroll, lazy loading)",
+    
     "react-markdown": "^9.0.1",
+    "_react_markdown_purpose": "Renders Markdown content as React components for post content",
+    
     "react-syntax-highlighter": "^15.5.0",
+    "_syntax_highlighter_purpose": "Code syntax highlighting for technical posts and discussions",
+    
     "react-dropzone": "^14.2.3",
+    "_dropzone_purpose": "Drag-and-drop file upload component for CSV and media uploads",
+    
     "react-hot-toast": "^2.4.1",
+    "_hot_toast_purpose": "Lightweight toast notifications for user feedback",
+    
     "react-helmet-async": "^2.0.4",
+    "_helmet_purpose": "Document head management for SEO and meta tags",
+
+    "_dep_data_processing": "--- Data Processing ---",
+    
     "papaparse": "^5.4.1",
+    "_papaparse_purpose": "Fast CSV parser for email repository imports and data processing",
+    
     "recharts": "^2.10.3",
+    "_recharts_purpose": "React charts library for analytics and data visualization",
+
+    "_dep_animation": "--- Animation & Motion ---",
+    
     "framer-motion": "^10.16.16",
+    "_framer_motion_purpose": "Production-ready motion library for React animations and gestures",
+
+    "_dep_pwa": "--- Progressive Web App ---",
+    
     "workbox-react": "^7.0.0",
+    "_workbox_react_purpose": "React integration for Workbox PWA functionality",
+    
     "workbox-precaching": "^7.0.0",
+    "_workbox_precaching_purpose": "Service worker precaching for offline functionality",
+    
     "workbox-routing": "^7.0.0",
-    "web-vitals": "^3.5.0"
+    "_workbox_routing_purpose": "Service worker routing for network request handling",
+
+    "_dep_performance": "--- Performance Monitoring ---",
+    
+    "web-vitals": "^3.5.0",
+    "_web_vitals_purpose": "Core Web Vitals measurement for performance optimization"
   },
+  
+  "_section_dev_dependencies": "=== DEVELOPMENT DEPENDENCIES ===",
   "devDependencies": {
+    "_dev_react_types": "--- React Type Definitions ---",
+    
     "@types/react": "^18.2.42",
+    "_types_react_purpose": "TypeScript type definitions for React components, hooks, and JSX elements",
+    
     "@types/react-dom": "^18.2.17",
+    "_types_react_dom_purpose": "TypeScript type definitions for React DOM rendering and server-side rendering",
+    
     "@types/node": "^20.10.4",
+    "_types_node_purpose": "TypeScript type definitions for Node.js runtime environment and APIs",
+
+    "_dev_library_types": "--- Third-Party Library Types ---",
+    
     "@types/lodash": "^4.14.202",
+    "_types_lodash_purpose": "TypeScript type definitions for Lodash utility functions and methods",
+    
     "@types/papaparse": "^5.3.14",
+    "_types_papaparse_purpose": "TypeScript type definitions for Papa Parse CSV parsing library",
+    
     "@types/react-syntax-highlighter": "^15.5.11",
+    "_types_react_syntax_highlighter_purpose": "TypeScript type definitions for React syntax highlighting component",
+
+    "_dev_typescript_tools": "--- TypeScript Development Tools ---",
+    
     "@typescript-eslint/eslint-plugin": "^6.13.2",
+    "_typescript_eslint_plugin_purpose": "ESLint plugin providing TypeScript-specific linting rules and type checking",
+    
     "@typescript-eslint/parser": "^6.13.2",
+    "_typescript_eslint_parser_purpose": "TypeScript parser for ESLint to analyze TypeScript syntax and semantics",
+
+    "_dev_testing_libraries": "--- Testing Libraries ---",
+    
     "@testing-library/react": "^14.1.2",
+    "_testing_library_react_purpose": "Simple and complete testing utilities for React components focusing on user interactions",
+    
     "@testing-library/jest-dom": "^6.1.5",
+    "_testing_library_jest_dom_purpose": "Custom Jest matchers for asserting on DOM elements and accessibility",
+    
     "@testing-library/user-event": "^14.5.1",
+    "_testing_library_user_event_purpose": "Fire events for user interactions in a way that resembles real user behavior",
+    
     "@testing-library/react-hooks": "^8.0.1",
+    "_testing_library_react_hooks_purpose": "Testing utilities specifically designed for testing React hooks in isolation",
+
+    "_dev_storybook_tools": "--- Storybook Development Environment ---",
+    
     "@storybook/addon-actions": "^7.6.4",
+    "_storybook_addon_actions_purpose": "Storybook addon for displaying component action events in the actions panel",
+    
     "@storybook/addon-essentials": "^7.6.4",
+    "_storybook_addon_essentials_purpose": "Essential Storybook addons including controls, docs, viewport, and backgrounds",
+    
     "@storybook/addon-links": "^7.6.4",
+    "_storybook_addon_links_purpose": "Storybook addon for creating links between stories for navigation",
+    
     "@storybook/react": "^7.6.4",
+    "_storybook_react_purpose": "Storybook framework for React component development and documentation",
+    
     "@storybook/react-webpack5": "^7.6.4",
+    "_storybook_react_webpack5_purpose": "Webpack 5 builder for Storybook React projects with modern bundling",
+
+    "_dev_build_tools": "--- Build and Development Tools ---",
+    
     "typescript": "^5.3.3",
+    "_typescript_purpose": "TypeScript compiler and language server for static type checking and code intelligence",
+    
     "react-scripts": "5.0.1",
+    "_react_scripts_purpose": "Create React App scripts providing webpack, Babel, and development server configuration",
+
+    "_dev_code_quality": "--- Code Quality and Linting ---",
+    
     "eslint": "^8.55.0",
+    "_eslint_purpose": "Pluggable JavaScript and TypeScript linter for identifying and fixing code quality issues",
+    
     "eslint-config-prettier": "^9.1.0",
+    "_eslint_config_prettier_purpose": "ESLint configuration that disables rules conflicting with Prettier formatting",
+    
     "eslint-plugin-react": "^7.33.2",
+    "_eslint_plugin_react_purpose": "React-specific ESLint rules for JSX, props, and component best practices",
+    
     "eslint-plugin-react-hooks": "^4.6.0",
+    "_eslint_plugin_react_hooks_purpose": "ESLint plugin enforcing the Rules of Hooks for React development",
+    
     "prettier": "^3.1.1",
+    "_prettier_purpose": "Opinionated code formatter ensuring consistent code style across the entire project",
+
+    "_dev_styling_tools": "--- CSS and Styling Tools ---",
+    
     "tailwindcss": "^3.3.6",
+    "_tailwindcss_purpose": "Utility-first CSS framework for rapid UI development with responsive design",
+    
     "autoprefixer": "^10.4.16",
+    "_autoprefixer_purpose": "PostCSS plugin automatically adding vendor prefixes for cross-browser compatibility",
+    
     "postcss": "^8.4.32",
+    "_postcss_purpose": "CSS transformation tool used by Tailwind CSS and other styling processors",
+
+    "_dev_e2e_testing": "--- End-to-End Testing ---",
+    
     "cypress": "^13.6.1",
+    "_cypress_purpose": "Modern end-to-end testing framework with visual testing and debugging capabilities",
+
+    "_dev_mocking": "--- API Mocking and Testing ---",
+    
     "msw": "^2.0.11",
+    "_msw_purpose": "Mock Service Worker for API mocking during development and testing",
+
+    "_dev_analysis": "--- Bundle Analysis ---",
+    
     "source-map-explorer": "^2.5.3",
+    "_source_map_explorer_purpose": "Analyzes JavaScript bundle sizes using source maps for optimization insights",
+
+    "_dev_git_workflow": "--- Git Workflow Automation ---",
+    
     "husky": "^8.0.3",
-    "lint-staged": "^15.2.0"
+    "_husky_purpose": "Git hooks manager for running scripts during git operations like commit and push",
+    
+    "lint-staged": "^15.2.0",
+    "_lint_staged_purpose": "Run linters and formatters on git staged files to ensure code quality"
   },
+  
+  "_section_engines": "=== ENGINE REQUIREMENTS ===",
   "engines": {
     "node": ">=18.0.0",
-    "npm": ">=9.0.0"
+    "_node_purpose": "Minimum Node.js version required for modern JavaScript features, ESM support, and optimal performance",
+    
+    "npm": ">=9.0.0",
+    "_npm_purpose": "Minimum npm version ensuring security updates, workspaces support, and improved dependency resolution"
   },
+
+  "_section_browserslist": "=== BROWSER SUPPORT CONFIGURATION ===",
   "browserslist": {
+    "_browserslist_purpose": "Defines target browsers for Babel compilation, autoprefixer, and build optimization",
+    
     "production": [
       ">0.2%",
       "not dead",
       "not op_mini all"
     ],
+    "_production_purpose": "Production builds support browsers with >0.2% market share, excluding dead browsers and Opera Mini for optimal performance",
+    
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
+    ],
+    "_development_purpose": "Development builds target latest browser versions for modern features and debugging capabilities"
   },
+
+  "_section_eslint_config": "=== ESLINT CONFIGURATION ===",
   "eslintConfig": {
+    "_eslint_config_purpose": "ESLint configuration extending Create React App defaults with Prettier integration",
     "extends": [
       "react-app",
       "react-app/jest",
       "prettier"
-    ]
+    ],
+    "_extends_purpose": "Inherits React App rules, Jest testing rules, and Prettier compatibility"
   },
+
+  "_section_prettier_config": "=== PRETTIER CONFIGURATION ===",
   "prettier": {
+    "_prettier_config_purpose": "Prettier code formatting configuration ensuring consistent style across the codebase",
+    
     "semi": true,
+    "_semi_purpose": "Enforces semicolons at the end of statements for code clarity",
+    
     "trailingComma": "es5",
+    "_trailing_comma_purpose": "Adds trailing commas where valid in ES5 (objects, arrays) for cleaner diffs",
+    
     "singleQuote": true,
+    "_single_quote_purpose": "Uses single quotes for strings to maintain consistency",
+    
     "printWidth": 80,
-    "tabWidth": 2
+    "_print_width_purpose": "Wraps lines at 80 characters for optimal readability",
+    
+    "tabWidth": 2,
+    "_tab_width_purpose": "Uses 2 spaces for indentation to match project standards"
   },
+
+  "_section_lint_staged": "=== LINT-STAGED CONFIGURATION ===",
   "lint-staged": {
+    "_lint_staged_purpose": "Runs linters and formatters on staged files during git commits for code quality",
+    
     "src/**/*.{ts,tsx}": [
       "eslint --fix",
       "prettier --write"
     ],
+    "_typescript_files_purpose": "Automatically fixes ESLint issues and formats TypeScript/React files",
+    
     "src/**/*.{css,md}": [
       "prettier --write"
-    ]
+    ],
+    "_other_files_purpose": "Formats CSS and Markdown files for consistency"
   },
+
+  "_section_husky": "=== HUSKY GIT HOOKS ===",
   "husky": {
+    "_husky_purpose": "Git hooks configuration for automated code quality checks",
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "_pre_commit_purpose": "Runs lint-staged on commit to ensure code quality before commits enter history"
     }
   },
+
+  "_section_jest": "=== JEST TESTING CONFIGURATION ===",
   "jest": {
+    "_jest_purpose": "Jest testing framework configuration with module transformation and path mapping",
+    
     "transformIgnorePatterns": [
       "node_modules/(?!(axios|react-markdown)/)"
     ],
-    "moduleNameMapper": {
+    "_transform_ignore_purpose": "Allows Jest to transform specific node_modules (axios, react-markdown) that need compilation",
+    
+    "moduleNameMapping": {
       "^@/(.*)$": "<rootDir>/src/$1"
-    }
+    },
+    "_module_name_mapping_purpose": "Enables absolute imports using @ alias pointing to src directory"
   },
-  "proxy": "http://localhost:5000"
+
+  "_section_proxy": "=== DEVELOPMENT PROXY ===",
+  "proxy": "http://localhost:5000",
+  "_proxy_purpose": "Proxies API requests to backend server during development to avoid CORS issues",
+
+  "_section_metadata": "=== PROJECT METADATA ===",
+  "keywords": [
+    "react",
+    "typescript", 
+    "hacker-news",
+    "social-platform",
+    "email-repository",
+    "snowball-distribution",
+    "progressive-web-app",
+    "tailwindcss",
+    "redux-toolkit",
+    "cypress",
+    "storybook"
+  ],
+  "_keywords_purpose": "Search keywords for npm discovery and project categorization",
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shadownews/frontend"
+  },
+  "_repository_purpose": "Git repository location for source code, issues, and collaborative development",
+
+  "bugs": {
+    "url": "https://github.com/shadownews/frontend/issues"
+  },
+  "_bugs_purpose": "Issue tracker URL for bug reports, feature requests, and community support",
+
+  "homepage": "https://shadownews.app",
+  "_homepage_purpose": "Production application URL and primary project website",
+
+  "_footer_comment": "============================================================================",
+  "_footer_note": "ShadowNews Frontend Package Configuration Complete",
+  "_footer_description": "This package.json orchestrates a comprehensive React application with TypeScript, testing frameworks, build optimization, and email-first social platform features. It provides a complete development environment with code quality tools, automated workflows, and modern web development best practices.",
+  "_footer_architecture": "The configuration supports the ShadowNews platform's unique email repository system, snowball distribution mechanism, and enhanced Hacker News-style community features.",
+  "_footer_separator": "============================================================================"
 }

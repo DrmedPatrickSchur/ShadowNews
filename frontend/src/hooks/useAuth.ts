@@ -1,3 +1,120 @@
+/**
+ * Authentication Hook System
+ * 
+ * Comprehensive authentication management system providing secure user session
+ * handling, token management, permission controls, and karma-based features.
+ * Implements React Context pattern with Redux integration for global state
+ * synchronization and automatic token refresh with error handling.
+ * 
+ * Core Features:
+ * - User Authentication: Login, registration, logout with secure token handling
+ * - Session Management: Automatic token refresh and session persistence
+ * - Email Verification: Email verification flow with resend functionality
+ * - Password Management: Forgot password and reset password workflows
+ * - Profile Updates: User profile modification with optimistic updates
+ * - Permission System: Role-based and karma-based permission management
+ * - Karma System: Community engagement scoring with level progression
+ * 
+ * Authentication Flow:
+ * - Login/Register: JWT token exchange with automatic storage
+ * - Token Storage: Secure localStorage with automatic cleanup
+ * - Session Validation: Automatic token validation on app initialization
+ * - Token Refresh: Transparent token renewal for extended sessions
+ * - Logout: Comprehensive cleanup of tokens and state
+ * 
+ * Context Architecture:
+ * - AuthProvider: Root context provider with state management
+ * - useAuth: Primary hook for authentication state and actions
+ * - useRequireAuth: Route protection for authenticated-only pages
+ * - useRequireGuest: Route protection for guest-only pages
+ * - useKarma: Karma system integration with level calculations
+ * - usePermissions: Permission checking based on role and karma
+ * 
+ * Security Features:
+ * - Token Management: Secure JWT handling with automatic refresh
+ * - HTTP Interceptors: Automatic token injection and error handling
+ * - Session Persistence: Secure session restoration across browser restarts
+ * - Error Handling: Comprehensive error management with user feedback
+ * - Cleanup: Proper token cleanup on logout and errors
+ * 
+ * State Management:
+ * - Redux Integration: Global authentication state with Redux Toolkit
+ * - Local State: Component-level loading and error states
+ * - Persistence: Browser storage for token persistence
+ * - Synchronization: Real-time state updates across components
+ * 
+ * User Experience:
+ * - Loading States: Comprehensive loading indicators during auth operations
+ * - Error Handling: User-friendly error messages with recovery options
+ * - Automatic Navigation: Smart redirects based on authentication state
+ * - Optimistic Updates: Immediate UI updates with fallback on errors
+ * 
+ * Permission System:
+ * - Role-Based: Admin, moderator, and user role permissions
+ * - Karma-Based: Community engagement-based feature unlocking
+ * - Feature Gates: Granular permission control for platform features
+ * - Progressive Access: Graduated access based on community participation
+ * 
+ * Karma System Features:
+ * - Level Calculation: Community engagement level determination
+ * - Progress Tracking: Percentage progress to next karma level
+ * - Feature Unlocking: Karma-based feature access control
+ * - Community Recognition: Public karma display and achievements
+ * 
+ * Email Verification:
+ * - Verification Flow: Complete email verification with token validation
+ * - Resend Functionality: Automatic resend with rate limiting
+ * - Status Tracking: Real-time verification status updates
+ * - Required Actions: Feature gating for unverified users
+ * 
+ * Password Management:
+ * - Forgot Password: Email-based password reset initiation
+ * - Reset Flow: Secure token-based password reset
+ * - Validation: Client and server-side password validation
+ * - Security: Secure password reset with token expiration
+ * 
+ * Route Protection:
+ * - Authenticated Routes: Automatic redirect for unauthenticated users
+ * - Guest Routes: Redirect authenticated users from auth pages
+ * - Loading Handling: Proper loading states during auth checks
+ * - Navigation: Smart navigation based on authentication state
+ * 
+ * Error Handling:
+ * - Network Errors: Graceful handling of network connectivity issues
+ * - API Errors: Comprehensive API error processing and user feedback
+ * - Token Errors: Automatic token refresh and fallback handling
+ * - Validation Errors: Form validation with real-time feedback
+ * 
+ * Performance Optimizations:
+ * - Memoization: useCallback optimization for stable function references
+ * - Lazy Loading: Conditional loading of authentication features
+ * - Efficient Updates: Minimal re-renders with optimized state updates
+ * - Memory Management: Proper cleanup of subscriptions and interceptors
+ * 
+ * Integration Features:
+ * - Redux Integration: Seamless Redux state management integration
+ * - Router Integration: React Router integration for navigation
+ * - Service Integration: Auth service abstraction for API calls
+ * - Context Sharing: Global context sharing across component tree
+ * 
+ * Development Features:
+ * - TypeScript: Full TypeScript support with strict typing
+ * - Error Boundaries: Comprehensive error boundary integration
+ * - Debug Support: Development-mode debugging and logging
+ * - Testing: Mock-friendly architecture for unit testing
+ * 
+ * Dependencies:
+ * - React: Hooks and context for state management
+ * - Redux Toolkit: Global state management and actions
+ * - React Router: Navigation and route protection
+ * - Auth Service: API abstraction for authentication operations
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 import { useState, useEffect, useCallback, createContext, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';

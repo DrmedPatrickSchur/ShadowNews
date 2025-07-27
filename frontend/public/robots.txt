@@ -1,38 +1,153 @@
-# https://www.robotstxt.org/robotstxt.html
+# ============================================================================
+# ShadowNews Robots.txt Configuration
+# ============================================================================
+# 
+# Search engine crawler directives for the ShadowNews email-first social
+# platform. This file controls how search engines index and crawl the
+# platform while balancing public content discovery with user privacy.
+#
+# ## Platform Architecture
+#
+# ShadowNews combines traditional social news features with email-first
+# interactions and repository-based content organization. This robots.txt
+# configuration ensures optimal search engine visibility for public content
+# while protecting user privacy and system security.
+#
+# ## SEO Strategy
+#
+# ### ✅ Allowed Content (Indexed)
+# - Public posts and discussions
+# - Email repositories (public)
+# - User profiles (public information only)
+# - API documentation for developers
+# - Static pages and help content
+#
+# ### ❌ Restricted Content (Not Indexed)
+# - User authentication flows
+# - Private user settings and dashboards
+# - Internal API endpoints
+# - Configuration files and technical assets
+# - Email verification and password reset flows
+#
+# ## Email Platform Considerations
+#
+# ShadowNews' unique email-first approach requires careful SEO balance:
+# - Email repository content should be discoverable
+# - Private email addresses must remain protected
+# - Snowball distribution mechanisms need crawl consideration
+# - Digest generation doesn't interfere with crawling
+#
+# @reference https://www.robotstxt.org/robotstxt.html
+# @author ShadowNews Team  
+# @version 1.0.0
+# @since 2024-01-01
+# @lastModified 2025-01-27
+# ============================================================================
+
+# =============================================================================
+# Universal Crawler Directives
+# Default rules applying to all search engine crawlers
+# =============================================================================
+
+# Apply following rules to all user agents (Google, Bing, etc.)
 User-agent: *
+
+# Allow crawling of root domain and public content by default
 Allow: /
 
-# Directories
+# =============================================================================
+# Protected Directories & User Privacy
+# Restrict access to sensitive user areas and authentication flows
+# =============================================================================
+
+# API Documentation - Allow for developer discovery
 Allow: /api/docs
+
+# API Endpoints - Block to prevent unnecessary crawling and protect user data
 Disallow: /api/
+
+# Administrative Areas - Block admin interfaces and tools
 Disallow: /admin/
+
+# Private Content - Block private user content and internal pages
 Disallow: /private/
+
+# User Settings - Protect personal user configuration pages
 Disallow: /user/settings/
+
+# User Dashboard - Block private user activity and analytics
 Disallow: /user/dashboard/
+
+# Authentication Flow - Block login/logout processes for security
 Disallow: /auth/
 Disallow: /logout/
+
+# Password Security - Block password reset and email verification flows
 Disallow: /reset-password/
 Disallow: /verify-email/
 
-# Files
+# =============================================================================
+# Technical Files & Assets
+# Block crawling of technical files that don't provide user value
+# =============================================================================
+
+# Configuration Files - Block access to system configuration
 Disallow: /config.json
+
+# JSON Data Files - Block direct access to API response files
 Disallow: /*.json$
+
+# XML Data Files - Block direct access to data files
 Disallow: /*.xml$
+
+# Service Worker - Block crawling of PWA service worker
 Disallow: /service-worker.js
+
+# Source Maps - Block development debugging files
 Disallow: /*.map$
 
-# Allow search engines to index posts and repositories
+# =============================================================================
+# Public Content Discovery
+# Explicitly allow indexing of valuable public content
+# =============================================================================
+
+# Posts & Discussions - Primary content for discovery
 Allow: /posts/
+
+# Email Repositories - Unique platform feature for SEO
 Allow: /repositories/
+
+# Short URLs - Allow crawling of shortened post URLs
 Allow: /p/
+
+# Short Repository URLs - Allow crawling of shortened repo URLs  
 Allow: /r/
+
+# Public User Profiles - Allow discovery of user-generated content
 Allow: /user/*/profile
 
-# Crawl-delay for respectful crawling
+# =============================================================================
+# Crawler Behavior Control
+# Respectful crawling configuration for server performance
+# =============================================================================
+
+# Crawl Delay - 1 second delay between requests for server consideration
+# Prevents overwhelming server while allowing thorough indexing
 Crawl-delay: 1
 
-# Sitemaps
+# =============================================================================
+# XML Sitemaps
+# Structured content discovery for search engines
+# =============================================================================
+
+# Main Sitemap - Primary site structure and page discovery
 Sitemap: https://shadownews.com/sitemap.xml
+
+# Posts Sitemap - Dedicated sitemap for post content discovery
 Sitemap: https://shadownews.com/sitemap-posts.xml
+
+# Repositories Sitemap - Email repository discovery for unique content
 Sitemap: https://shadownews.com/sitemap-repositories.xml
+
+# Users Sitemap - Public user profiles for people search results
 Sitemap: https://shadownews.com/sitemap-users.xml

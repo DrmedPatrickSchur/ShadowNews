@@ -1,35 +1,205 @@
+/**
+ * UI Slice - User Interface State and Experience Management
+ * 
+ * Comprehensive Redux slice managing user interface state, theme preferences,
+ * modals, notifications, and user experience controls for the ShadowNews
+ * email-first social platform with responsive design and accessibility.
+ * 
+ * Core Features:
+ * - Theme Management: Dark/light mode with system preference detection
+ * - Modal System: Centralized modal state and component management
+ * - Notification System: Toast notifications and user feedback management
+ * - Layout Control: Sidebar, navigation, and responsive layout management
+ * - User Preferences: Personalized UI settings and user experience controls
+ * - Loading States: Global loading state management and user feedback
+ * - Filter Management: Content filtering and view customization
+ * 
+ * Theme System:
+ * - Multi-theme Support: Light, dark, and system preference themes
+ * - Dynamic Switching: Real-time theme switching with state persistence
+ * - System Integration: Automatic theme detection from OS preferences
+ * - Custom Themes: Extensible theme system for brand customization
+ * - Accessibility: High contrast and accessibility-focused theme variants
+ * - Performance: Optimized theme switching with minimal re-renders
+ * - Consistency: Unified theme application across all components
+ * 
+ * Modal Management:
+ * - Centralized Control: Global modal state management and coordination
+ * - Component Integration: Dynamic modal component loading and rendering
+ * - Stacking Support: Multiple modal layers with proper z-index management
+ * - Backdrop Control: Configurable backdrop behavior and click handling
+ * - Keyboard Navigation: Full keyboard accessibility and escape handling
+ * - Animation Support: Smooth modal transitions and animation control
+ * - Mobile Optimization: Touch-friendly modal interactions and gestures
+ * 
+ * Notification System:
+ * - Toast Notifications: Non-intrusive user feedback and status updates
+ * - Type Classification: Success, error, warning, and info notification types
+ * - Auto-dismiss: Configurable notification duration and auto-removal
+ * - User Interaction: Manual dismissal and notification action handling
+ * - Queue Management: Notification queuing and display prioritization
+ * - Persistence: Notification history and replay functionality
+ * - Accessibility: Screen reader support and keyboard navigation
+ * 
+ * Layout and Navigation:
+ * - Responsive Design: Adaptive layout for desktop, tablet, and mobile
+ * - Sidebar Management: Collapsible sidebar with state persistence
+ * - Mobile Menu: Touch-optimized navigation for mobile devices
+ * - Search Interface: Expandable search with real-time suggestions
+ * - Breadcrumb Navigation: Hierarchical navigation and page context
+ * - Scroll Management: Scroll position tracking and restoration
+ * - Focus Management: Keyboard focus and accessibility improvements
+ * 
+ * User Preferences:
+ * - View Modes: Compact, card, and list view options for content display
+ * - Sort Preferences: User-defined sorting and filtering preferences
+ * - Display Options: Customizable display density and information levels
+ * - Accessibility Settings: User accessibility preferences and accommodations
+ * - Language Preferences: Internationalization and localization support
+ * - Keyboard Shortcuts: Customizable keyboard shortcuts and hotkeys
+ * - Data Persistence: User preference storage and synchronization
+ * 
+ * Loading and Feedback:
+ * - Global Loading: Application-wide loading state management
+ * - Component Loading: Granular loading states for individual components
+ * - Progress Indicators: Progress bars and completion status tracking
+ * - Error Boundaries: Error state management and recovery interfaces
+ * - Skeleton Screens: Content placeholder loading states
+ * - Infinite Scroll: Loading states for pagination and content loading
+ * - Real-time Feedback: Live status updates and progress monitoring
+ * 
+ * Filter and Search:
+ * - Content Filtering: Advanced filtering options for content discovery
+ * - Search Integration: Search interface state and suggestion management
+ * - Filter Persistence: Filter state storage and restoration
+ * - Quick Filters: Preset filter combinations for common use cases
+ * - Filter History: Recently used filter tracking and suggestions
+ * - Advanced Search: Complex search query building and validation
+ * - Export Filters: Filter configuration sharing and export
+ * 
+ * Responsive Design:
+ * - Breakpoint Management: Responsive breakpoint detection and handling
+ * - Mobile Optimization: Touch-optimized interface elements and gestures
+ * - Tablet Support: Tablet-specific layout adaptations and interactions
+ * - Desktop Enhancement: Desktop-specific features and keyboard shortcuts
+ * - Progressive Enhancement: Graceful degradation for limited capabilities
+ * - Performance Optimization: Efficient rendering across device types
+ * - Cross-browser Compatibility: Consistent experience across browsers
+ * 
+ * Accessibility Features:
+ * - Screen Reader Support: ARIA labels and semantic markup integration
+ * - Keyboard Navigation: Full keyboard accessibility and focus management
+ * - High Contrast: High contrast theme variants for visual accessibility
+ * - Motion Preferences: Respect for reduced motion user preferences
+ * - Font Scaling: Support for user font size preferences
+ * - Color Blindness: Color-blind friendly design and alternatives
+ * - Voice Interface: Voice navigation and control integration
+ * 
+ * Performance Features:
+ * - State Optimization: Efficient state updates and minimal re-renders
+ * - Lazy Loading: On-demand component and resource loading
+ * - Memory Management: Efficient cleanup and garbage collection
+ * - Caching: UI state caching and intelligent invalidation
+ * - Debouncing: Input debouncing for search and filter operations
+ * - Virtualization: Virtual scrolling for large data sets
+ * - Code Splitting: Dynamic import and component splitting
+ * 
+ * Integration Features:
+ * - Analytics Integration: UI interaction tracking and analytics
+ * - Real-time Updates: Live UI updates from WebSocket events
+ * - API Synchronization: UI state synchronization with server state
+ * - External Services: Integration with external UI and design services
+ * - Testing Support: UI testing utilities and state inspection
+ * - Debug Tools: UI debugging and state visualization tools
+ * - Performance Monitoring: UI performance tracking and optimization
+ * 
+ * Development Features:
+ * - Type Safety: Full TypeScript integration with UI state types
+ * - Component Integration: Seamless React component integration
+ * - State Inspection: Redux DevTools integration for UI state debugging
+ * - Hot Reloading: Development-time state preservation
+ * - Error Handling: Comprehensive UI error handling and recovery
+ * - Documentation: Complete UI state documentation and examples
+ * 
+ * Dependencies:
+ * - Redux Toolkit: State management with createSlice and actions
+ * - React Integration: Seamless React component and hook integration
+ * - Theme Provider: Theme management and dynamic switching support
+ * - Accessibility Libraries: Screen reader and accessibility tool integration
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+/**
+ * Notification Interface
+ * Structure for toast notifications and user feedback messages
+ */
 export interface Notification {
+ /** Unique notification identifier for tracking and management */
  id: string;
+ /** Notification type for styling and icon selection */
  type: 'success' | 'error' | 'warning' | 'info';
+ /** Notification message content for user display */
  message: string;
+ /** Optional duration in milliseconds for auto-dismiss (default: 5000) */
  duration?: number;
+ /** Notification creation timestamp for ordering and expiration */
  timestamp: number;
 }
 
+/**
+ * Modal Interface
+ * Structure for modal dialog state and component management
+ */
 export interface Modal {
+ /** Unique modal identifier for tracking and management */
  id: string;
+ /** Modal component name for dynamic loading and rendering */
  component: string;
+ /** Optional modal props for component configuration */
  props?: Record<string, any>;
+ /** Modal visibility state for show/hide control */
  isOpen: boolean;
 }
 
+/**
+ * UI State Interface
+ * Comprehensive UI state structure for user interface management
+ */
 export interface UIState {
+ /** Current theme preference: light, dark, or system detection */
  theme: 'light' | 'dark' | 'system';
+ /** Sidebar collapse state for layout management */
  sidebarCollapsed: boolean;
+ /** Mobile navigation menu visibility state */
  mobileMenuOpen: boolean;
+ /** Search interface expansion state */
  searchOpen: boolean;
+ /** Array of active notifications for user feedback */
  notifications: Notification[];
+ /** Array of active modals for dialog management */
  modals: Modal[];
+ /** Loading states by component or operation identifier */
  loadingStates: Record<string, boolean>;
+ /** Scroll positions by page or component for restoration */
  scrollPositions: Record<string, number>;
+ /** Active content filters and sorting preferences */
  activeFilters: {
+   /** Content sorting preference */
    sortBy: 'hot' | 'new' | 'top' | 'rising';
+   /** Time range filter for content discovery */
    timeRange: 'hour' | 'day' | 'week' | 'month' | 'year' | 'all';
+   /** Category filters for content organization */
    categories: string[];
+   /** Hashtag filters for topic-based filtering */
    hashtags: string[];
  };
+ /** Content display mode preference */
  viewMode: 'compact' | 'card' | 'list';
  feedAutoRefresh: boolean;
  feedRefreshInterval: number;

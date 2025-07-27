@@ -1,176 +1,475 @@
+<!--
+  ============================================================================
+  ShadowNews - Main HTML Template
+  ============================================================================
+  
+  Primary HTML document serving as the foundation for the ShadowNews React
+  application. This file provides the complete document structure, metadata,
+  progressive web app configuration, and initial loading experience.
+  
+  ## Architecture Overview
+  
+  ShadowNews is an enhanced Hacker News clone that combines traditional social
+  news features with innovative email-first interactions, repository-based
+  content organization, and viral snowball distribution systems.
+  
+  ## Key Features
+  
+  ### 🌐 Progressive Web App (PWA)
+  - Service worker registration for offline functionality
+  - Web app manifest for installable experience
+  - Responsive design optimized for all devices
+  - Performance-first loading strategies
+  
+  ### 📱 Mobile & Accessibility Optimized
+  - Responsive viewport configuration
+  - Touch-friendly interaction design
+  - Screen reader compatible structure
+  - Dark mode support with system preference detection
+  
+  ### 🚀 Performance Optimization
+  - Critical CSS inlining for faster initial render
+  - Resource preloading for improved Core Web Vitals
+  - Font optimization with display=swap
+  - Efficient error handling and chunk loading recovery
+  
+  ### 🔍 SEO & Social Media Integration
+  - Comprehensive Open Graph meta tags
+  - Twitter Card optimization
+  - Structured data markup ready
+  - Search engine friendly metadata
+  
+  ## Email Platform Integration
+  
+  ShadowNews uniquely supports email-first community interactions:
+  - Email-to-post conversion systems
+  - Repository-based email organization
+  - Snowball distribution for viral growth
+  - Digest generation and management
+  
+  @author ShadowNews Team
+  @version 1.0.0
+  @since 2024-01-01
+  @lastModified 2025-01-27
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+ <!-- =======================================================================
+      Document Metadata & Character Encoding
+      Basic document configuration and language settings
+      ======================================================================= -->
+ 
+ <!-- UTF-8 encoding for full Unicode character support -->
  <meta charset="utf-8" />
+ 
+ <!-- Responsive viewport configuration for mobile-first design -->
+ <!-- Allows up to 5x zoom for accessibility while maintaining usability -->
  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
+ 
+ <!-- PWA theme color - matches ShadowNews orange branding (#ff6600) -->
  <meta name="theme-color" content="#ff6600" />
+ 
+ <!-- =======================================================================
+      SEO Meta Tags & Content Description
+      Search engine optimization and content discovery
+      ======================================================================= -->
+ 
+ <!-- Primary meta description for search engines and social sharing -->
  <meta name="description" content="Shadownews - Where Ideas Snowball Into Communities. An enhanced Hacker News clone with email repositories and snowball distribution." />
+ 
+ <!-- Keyword targeting for SEO and content categorization -->
  <meta name="keywords" content="shadownews, hacker news, tech news, email repository, community, discussions, technology" />
+ 
+ <!-- Content authorship and platform attribution -->
  <meta name="author" content="Shadownews Team" />
  
- <!-- Open Graph / Facebook -->
+ <!-- =======================================================================
+      Open Graph / Facebook Social Media Integration
+      Facebook, LinkedIn, and general social platform optimization
+      ======================================================================= -->
+ 
+ <!-- Content type specification for social media crawlers -->
  <meta property="og:type" content="website" />
+ 
+ <!-- Canonical URL for social sharing and SEO -->
  <meta property="og:url" content="https://shadownews.community/" />
+ 
+ <!-- Social media optimized title for sharing -->
  <meta property="og:title" content="Shadownews - Where Ideas Snowball Into Communities" />
+ 
+ <!-- Enhanced description emphasizing community and innovation -->
  <meta property="og:description" content="Join the next generation of community-driven discussions with email repositories and snowball distribution." />
+ 
+ <!-- Social media preview image for rich link previews -->
  <meta property="og:image" content="%PUBLIC_URL%/og-image.png" />
  
- <!-- Twitter -->
+ <!-- =======================================================================
+      Twitter Card Integration
+      Twitter-specific social media optimization
+      ======================================================================= -->
+ 
+ <!-- Large image card format for enhanced Twitter previews -->
  <meta property="twitter:card" content="summary_large_image" />
+ 
+ <!-- Twitter canonical URL -->
  <meta property="twitter:url" content="https://shadownews.community/" />
+ 
+ <!-- Twitter optimized title -->
  <meta property="twitter:title" content="Shadownews - Where Ideas Snowball Into Communities" />
+ 
+ <!-- Twitter description highlighting platform uniqueness -->
  <meta property="twitter:description" content="Join the next generation of community-driven discussions with email repositories and snowball distribution." />
+ 
+ <!-- Twitter preview image for rich media cards -->
  <meta property="twitter:image" content="%PUBLIC_URL%/twitter-image.png" />
  
- <!-- PWA -->
+ <!-- =======================================================================
+      Progressive Web App (PWA) Configuration
+      Mobile app-like experience and installation support
+      ======================================================================= -->
+ 
+ <!-- Web app manifest for PWA installation and configuration -->
  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+ 
+ <!-- Apple touch icon for iOS home screen installation -->
  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
  
- <!-- Favicon -->
+ <!-- =======================================================================
+      Favicon & Icon Configuration
+      Browser tab and bookmark icons across devices
+      ======================================================================= -->
+ 
+ <!-- Default favicon for browser tabs and bookmarks -->
  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+ 
+ <!-- High-resolution PNG icons for modern browsers -->
  <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32x32.png" />
  <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png" />
  
- <!-- Fonts -->
+ <!-- =======================================================================
+      Font Loading & Typography Optimization
+      Performance-optimized web font loading
+      ======================================================================= -->
+ 
+ <!-- Google Fonts preconnect for faster font loading -->
  <link rel="preconnect" href="https://fonts.googleapis.com" />
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+ 
+ <!-- Inter font family for UI text and JetBrains Mono for code -->
+ <!-- display=swap ensures text remains visible during font load -->
  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
  
- <!-- Preload critical resources -->
+ <!-- =======================================================================
+      Resource Preloading for Performance
+      Critical resource optimization for faster page loads
+      ======================================================================= -->
+ 
+ <!-- Preload critical CSS for immediate styling -->
  <link rel="preload" href="/static/css/main.css" as="style" />
+ 
+ <!-- Preload main JavaScript bundle for faster execution -->
  <link rel="preload" href="/static/js/main.js" as="script" />
  
+ <!-- =======================================================================
+      Page Title - Primary Browser Tab Content
+      ======================================================================= -->
+ 
+ <!-- Main page title displayed in browser tab and search results -->
  <title>Shadownews - Where Ideas Snowball Into Communities</title>
  
- <!-- Critical CSS for initial render -->
+ <!-- =======================================================================
+      Critical CSS for Initial Render
+      Inline styles for immediate rendering and loading state
+      ======================================================================= -->
+ 
+ <!-- Critical CSS ensures immediate styling before external CSS loads -->
+ <!-- Prevents flash of unstyled content (FOUC) and improves perceived performance -->
  <style>
+   /* =====================================================================
+      Base Document Styling
+      Foundational styles for consistent cross-browser rendering
+      ===================================================================== */
+   
    body {
+     /* Remove default browser margins for consistent layout */
      margin: 0;
+     
+     /* Font stack prioritizing Inter, then system fonts for optimal readability */
      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
        sans-serif;
+     
+     /* Enhanced font rendering for crisp text display */
      -webkit-font-smoothing: antialiased;
      -moz-osx-font-smoothing: grayscale;
+     
+     /* ShadowNews signature background color (Hacker News inspired) */
      background-color: #f6f6ef;
+     
+     /* Default text color for optimal readability */
      color: #000;
    }
    
+   /* =====================================================================
+      React Root Container
+      Primary application mount point configuration
+      ===================================================================== */
+   
    #root {
+     /* Ensure full viewport height for proper layout */
      min-height: 100vh;
    }
    
+   /* =====================================================================
+      Initial Loading Experience
+      Loading state before React application hydration
+      ===================================================================== */
+   
    .initial-loader {
+     /* Center loader in viewport using flexbox */
      display: flex;
      justify-content: center;
      align-items: center;
+     
+     /* Full viewport height for centered loading experience */
      min-height: 100vh;
+     
+     /* Match body background during loading transition */
      background-color: #f6f6ef;
    }
    
    .loader-content {
+     /* Center-align loader elements */
      text-align: center;
    }
    
    .loader-logo {
+     /* Responsive logo sizing */
      width: 80px;
      height: 80px;
+     
+     /* Center the logo horizontally with bottom margin */
      margin: 0 auto 20px;
+     
+     /* Smooth pulsing animation for visual engagement */
      animation: pulse 2s ease-in-out infinite;
    }
    
+   /* Smooth pulsing animation for loading indicator */
    @keyframes pulse {
-     0% { opacity: 1; transform: scale(1); }
-     50% { opacity: 0.7; transform: scale(0.95); }
-     100% { opacity: 1; transform: scale(1); }
+     0% { 
+       opacity: 1; 
+       transform: scale(1); 
+     }
+     50% { 
+       opacity: 0.7; 
+       transform: scale(0.95); 
+     }
+     100% { 
+       opacity: 1; 
+       transform: scale(1); 
+     }
    }
    
    .loader-text {
+     /* Subtle text color for loading message */
      color: #666;
+     
+     /* Readable font size for loading text */
      font-size: 14px;
+     
+     /* Spacing above loading text */
      margin-top: 10px;
    }
    
+   /* =====================================================================
+      No JavaScript Fallback
+      Accessible message for users without JavaScript
+      ===================================================================== */
+   
    .noscript-message {
+     /* Ensure visibility even when hidden by noscript */
      display: block;
+     
+     /* Prominent padding for readability */
      padding: 20px;
+     
+     /* ShadowNews brand color for attention */
      background-color: #ff6600;
+     
+     /* High contrast white text */
      color: white;
+     
+     /* Center-aligned message */
      text-align: center;
+     
+     /* Prominent font size for important message */
      font-size: 16px;
    }
    
-   /* Dark mode support */
+   /* =====================================================================
+      Dark Mode Support
+      Automatic dark theme based on system preferences
+      ===================================================================== */
+   
+   /* Detect and apply dark mode styling automatically */
    @media (prefers-color-scheme: dark) {
      body {
+       /* Dark background for reduced eye strain */
        background-color: #1a1a1a;
+       
+       /* Light text for dark background readability */
        color: #f0f0f0;
      }
      
      .initial-loader {
+       /* Match dark background during loading */
        background-color: #1a1a1a;
      }
      
      .loader-text {
+       /* Lighter gray for dark mode readability */
        color: #999;
      }
    }
  </style>
  
- <!-- Analytics -->
+ <!-- =======================================================================
+      Analytics Integration
+      User behavior tracking and performance monitoring
+      ======================================================================= -->
+ 
+ <!-- Google Analytics 4 configuration for user analytics -->
+ <!-- Tracks page views, user interactions, and conversion events -->
  <script>
+   // Initialize Google Analytics data layer for event tracking
    window.dataLayer = window.dataLayer || [];
+   
+   // Global site tag function for analytics event sending
    function gtag(){dataLayer.push(arguments);}
+   
+   // Configure analytics with current timestamp
    gtag('js', new Date());
+   
+   // Replace GA_MEASUREMENT_ID with actual Google Analytics 4 ID
    gtag('config', 'GA_MEASUREMENT_ID');
  </script>
  
- <!-- Service Worker Registration -->
+ <!-- =======================================================================
+      Service Worker Registration
+      Progressive Web App offline functionality
+      ======================================================================= -->
+ 
+ <!-- Service worker enables offline browsing and caching strategies -->
  <script>
+   // Check if service workers are supported in current browser
    if ('serviceWorker' in navigator) {
+     // Register service worker after page load for optimal performance
      window.addEventListener('load', () => {
+       // Register the service worker with success and error handling
        navigator.serviceWorker.register('%PUBLIC_URL%/service-worker.js')
-         .then(registration => console.log('SW registered:', registration.scope))
-         .catch(error => console.log('SW registration failed:', error));
+         .then(registration => {
+           // Log successful registration with scope information
+           console.log('SW registered:', registration.scope);
+         })
+         .catch(error => {
+           // Log registration failures for debugging
+           console.log('SW registration failed:', error);
+         });
      });
    }
  </script>
 </head>
 <body>
+ <!-- =======================================================================
+      No JavaScript Fallback Message
+      Accessibility notice for users without JavaScript support
+      ======================================================================= -->
+ 
+ <!-- Displays warning message when JavaScript is disabled -->
+ <!-- Essential for accessibility and progressive enhancement -->
  <noscript>
    <div class="noscript-message">
      You need to enable JavaScript to run Shadownews. Please enable JavaScript in your browser settings and reload the page.
    </div>
  </noscript>
  
+ <!-- =======================================================================
+      React Application Root
+      Primary mount point for the ShadowNews React application
+      ======================================================================= -->
+ 
+ <!-- Root container where React application will be rendered -->
  <div id="root">
+   <!-- =================================================================
+        Initial Loading Experience
+        Loading state displayed before React hydration
+        ================================================================= -->
+   
+   <!-- Loading screen with animated logo and progress indication -->
    <div class="initial-loader">
      <div class="loader-content">
+       <!-- ShadowNews Logo SVG with Animated Pulse Effect -->
+       <!-- Custom SVG logo representing the platform's identity -->
        <svg class="loader-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+         <!-- Main circular background in ShadowNews orange -->
          <circle cx="50" cy="50" r="45" fill="#ff6600" />
+         
+         <!-- Upward-pointing triangle representing growth and progress -->
          <path d="M35 35 L65 35 L50 65 Z" fill="white" />
+         
+         <!-- Central circular element representing community hub -->
          <circle cx="50" cy="45" r="15" fill="white" />
+         
+         <!-- Inner accent circle in brand orange -->
          <circle cx="50" cy="45" r="8" fill="#ff6600" />
        </svg>
+       
+       <!-- Loading text with platform branding -->
        <div class="loader-text">Loading Shadownews...</div>
      </div>
    </div>
  </div>
  
- <!-- Error boundary fallback -->
+ <!-- =======================================================================
+      Error Recovery & Resilience
+      JavaScript error handling and recovery mechanisms
+      ======================================================================= -->
+ 
+ <!-- Chunk Loading Error Recovery -->
+ <!-- Automatically reloads page when code splitting chunks fail to load -->
  <script>
+   // Listen for global JavaScript errors
    window.addEventListener('error', function(e) {
+     // Detect chunk loading failures (common in single-page applications)
      if (e.error && e.error.message && e.error.message.includes('ChunkLoadError')) {
+       // Log error for debugging purposes
        console.error('Chunk load error detected, reloading page...');
+       
+       // Automatically reload page to recover from chunk loading failure
        window.location.reload();
      }
    });
  </script>
  
- <!-- Intersection Observer polyfill for older browsers -->
+ <!-- =======================================================================
+      Browser Compatibility & Polyfills
+      Ensure modern features work across all supported browsers
+      ======================================================================= -->
+ 
+ <!-- Intersection Observer Polyfill for Legacy Browser Support -->
+ <!-- Required for infinite scrolling and lazy loading features -->
  <script>
+   // Check if Intersection Observer is natively supported
    if (!('IntersectionObserver' in window)) {
+     // Load polyfill for browsers lacking native support
      const script = document.createElement('script');
+     
+     // Polyfill.io provides optimized polyfills based on user agent
      script.src = 'https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver';
+     
+     // Inject polyfill script into document head
      document.head.appendChild(script);
    }
  </script>

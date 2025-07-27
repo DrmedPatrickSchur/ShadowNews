@@ -1,13 +1,108 @@
+/**
+ * @fileoverview Database Seeding Script
+ * 
+ * Comprehensive database seeding utility for the ShadowNews platform that
+ * generates realistic sample data for development, testing, and demonstration
+ * purposes. Creates a complete ecosystem of users, posts, comments, repositories,
+ * and relationships that simulate real platform usage patterns.
+ * 
+ * This script populates the database with meaningful test data that reflects
+ * the actual structure and relationships found in a thriving online community,
+ * enabling comprehensive testing and development workflows.
+ * 
+ * Key Features:
+ * - Realistic user profiles with authentic usernames and biographies
+ * - Diverse content creation including posts, comments, and discussions
+ * - Email repository simulation with growth patterns and snowball effects
+ * - Complex relationship modeling between users, content, and repositories
+ * - Karma system integration with realistic point distributions
+ * - Hashtag and categorization system with trending topics
+ * - Date distribution to simulate platform growth over time
+ * - Engagement patterns including voting, commenting, and sharing
+ * 
+ * Generated Data Categories:
+ * - Users: Authentic profiles with karma, preferences, and activity history
+ * - Posts: Technology-focused content with URLs, text, and metadata
+ * - Comments: Threaded discussions with realistic engagement patterns
+ * - Repositories: Email lists with growth metrics and member activity
+ * - Karma Records: Detailed point breakdowns and activity history
+ * - Relationships: Following, repository memberships, and interactions
+ * 
+ * Seeding Strategy:
+ * - Technology-focused content reflecting Hacker News audience
+ * - Realistic engagement ratios and community behavior patterns
+ * - Email repository growth simulation with viral distribution
+ * - Historical data distribution to show platform evolution
+ * - Varied user activity levels from lurkers to power users
+ * - Content quality distribution with high and low-quality examples
+ * 
+ * Data Volume Configuration:
+ * - 20 Users: Mix of active and casual community members
+ * - 10 Repositories: Diverse technology topics and communities
+ * - 50 Posts: Varied content types including links and discussions
+ * - 200+ Comments: Realistic discussion threads and engagement
+ * - 500+ Email Addresses: Repository membership simulation
+ * 
+ * Technology Topics:
+ * - AI/Machine Learning developments and discussions
+ * - Blockchain and cryptocurrency innovations
+ * - Web development frameworks and best practices
+ * - DevOps tools and infrastructure automation
+ * - Mobile application development trends
+ * - Cybersecurity threats and mitigation strategies
+ * - Data science methodologies and tools
+ * - Cloud computing platforms and services
+ * 
+ * Usage:
+ * ```bash
+ * # Seed database with sample data
+ * node scripts/seedDatabase.js
+ * 
+ * # Clear and reseed database
+ * npm run db:seed
+ * 
+ * # Seed with custom data volume
+ * NODE_ENV=development node scripts/seedDatabase.js
+ * ```
+ * 
+ * Safety Features:
+ * - Development environment validation
+ * - Data clearing confirmation prompts
+ * - Rollback capabilities for testing scenarios
+ * - Performance monitoring for large datasets
+ * - Memory optimization for resource-constrained environments
+ * 
+ * Dependencies:
+ * - mongoose: MongoDB ODM for data modeling and persistence
+ * - bcryptjs: Password hashing for secure authentication
+ * - faker: Realistic fake data generation for testing
+ * - dotenv: Environment variable configuration management
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
+// MongoDB ODM for database operations and modeling
 const mongoose = require('mongoose');
+
+// Secure password hashing library
 const bcrypt = require('bcryptjs');
+
+// Realistic fake data generation for comprehensive testing
 const faker = require('faker');
+
+// Environment variable configuration management
 const dotenv = require('dotenv');
+
+// Cross-platform path utilities
 const path = require('path');
 
-// Load environment variables
+// Load environment variables from configuration file
 dotenv.config({ path: path.join(__dirname, '../.env') });
 
-// Import models
+// Import all database models for seeding operations
 const User = require('../src/models/User.model');
 const Post = require('../src/models/Post.model');
 const Comment = require('../src/models/Comment.model');
@@ -15,21 +110,59 @@ const Repository = require('../src/models/Repository.model');
 const Email = require('../src/models/Email.model');
 const Karma = require('../src/models/Karma.model');
 
-// MongoDB connection
+/**
+ * Database Connection Setup
+ * 
+ * Establishes connection to MongoDB database with appropriate
+ * configuration for seeding operations. Includes error handling
+ * and graceful failure for connection issues.
+ * 
+ * @returns {Promise<void>} Resolves when database connection is established
+ * @throws {Error} Database connection errors
+ * 
+ * @since 1.0.0
+ */
 const connectDB = async () => {
- try {
-   await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/shadownews', {
-     useNewUrlParser: true,
-     useUnifiedTopology: true,
-   });
-   console.log('MongoDB connected for seeding');
- } catch (error) {
-   console.error('MongoDB connection error:', error);
-   process.exit(1);
- }
+  try {
+    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/shadownews', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('MongoDB connected for seeding');
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    process.exit(1);
+  }
 };
 
-// Seed data
+/**
+ * Main Database Seeding Function
+ * 
+ * Orchestrates the complete database seeding process including data clearing,
+ * user creation, repository setup, content generation, and relationship
+ * establishment. Provides comprehensive logging and error handling throughout.
+ * 
+ * Seeding Process:
+ * 1. Clear existing data from all collections
+ * 2. Create diverse user profiles with authentication
+ * 3. Generate email repositories with realistic content
+ * 4. Create posts with technology-focused topics
+ * 5. Generate comment threads and discussions
+ * 6. Establish karma records and point distributions
+ * 7. Create relationships and engagement patterns
+ * 
+ * Data Generation Strategy:
+ * - Realistic user personas with varied activity levels
+ * - Technology-focused content reflecting target audience
+ * - Natural engagement patterns and community behavior
+ * - Historical data distribution showing platform growth
+ * - Email repository simulation with viral growth patterns
+ * 
+ * @returns {Promise<void>} Resolves when seeding completes successfully
+ * @throws {Error} Seeding operation errors
+ * 
+ * @since 1.0.0
+ */
 const seedData = async () => {
  try {
    // Clear existing data

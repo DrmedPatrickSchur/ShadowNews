@@ -1,3 +1,136 @@
+/**
+ * Comments Service - Comprehensive Comment Management System
+ * 
+ * Advanced comment management service providing complete comment lifecycle
+ * management, threading, voting, moderation, and AI-enhanced features for
+ * the ShadowNews email-first social platform. Supports hierarchical
+ * commenting with email integration and intelligent content processing.
+ * 
+ * Core Features:
+ * - Comment CRUD: Complete comment lifecycle management
+ * - Threading System: Hierarchical comment threads with unlimited depth
+ * - Voting System: Upvote/downvote functionality with karma integration
+ * - Moderation: Content reporting and moderation tools
+ * - Email Integration: Email-to-comment and comment-to-email workflows
+ * - AI Enhancement: Smart replies, summarization, and toxicity detection
+ * - Search and Discovery: Advanced comment search and filtering
+ * 
+ * Comment Threading:
+ * - Hierarchical Structure: Unlimited depth comment trees
+ * - Thread Management: Collapse, expand, and navigation utilities
+ * - Context Retrieval: Comment context and conversation flow
+ * - Bulk Operations: Efficient handling of multiple comments
+ * - Thread Visualization: Enhanced thread visualization and navigation
+ * 
+ * Voting and Engagement:
+ * - Vote Management: Upvote, downvote, and vote removal
+ * - Karma Integration: Automatic karma calculation and updates
+ * - Engagement Metrics: View counts, read time, and interaction rates
+ * - Top Commenters: Leaderboards and recognition systems
+ * - Quality Scoring: Algorithmic comment quality assessment
+ * 
+ * Content Management:
+ * - Rich Text Support: Markdown and HTML content processing
+ * - Mention System: User mention detection and notifications
+ * - Preview Mode: Real-time comment preview with formatting
+ * - Edit History: Complete comment revision tracking
+ * - Content Validation: Input sanitization and security checks
+ * 
+ * Email Integration:
+ * - Email-to-Comment: Convert emails to comments automatically
+ * - Comment Notifications: Email notifications for comment activity
+ * - Email Threading: Maintain email thread context in comments
+ * - Subscription Management: Subscribe/unsubscribe from comment threads
+ * - Email Export: Export comments in email-friendly formats
+ * 
+ * Search and Filtering:
+ * - Advanced Search: Full-text search across comment content
+ * - Filter Options: Date range, user, post, and content filters
+ * - Sorting Options: Top, new, controversial, and chronological sorting
+ * - Related Comments: Discover related and similar comments
+ * - Search Analytics: Track search patterns and popular content
+ * 
+ * AI-Powered Features:
+ * - Smart Replies: AI-generated reply suggestions with tone control
+ * - Thread Summarization: Automatic thread summary generation
+ * - Toxicity Detection: Real-time content toxicity screening
+ * - Sentiment Analysis: Comment sentiment classification
+ * - Content Enhancement: AI-powered content improvement suggestions
+ * 
+ * Moderation Tools:
+ * - Content Reporting: User-driven content moderation system
+ * - Automated Screening: AI-powered content policy enforcement
+ * - Moderation Queue: Centralized moderation workflow management
+ * - User Reputation: Community-driven user credibility system
+ * - Content Flagging: Automatic flagging of problematic content
+ * 
+ * User Experience:
+ * - Save/Bookmark: Personal comment saving and organization
+ * - User History: Complete user comment history tracking
+ * - Subscription System: Thread-level notification preferences
+ * - Mobile Optimization: Touch-friendly comment interaction
+ * - Accessibility: Screen reader and keyboard navigation support
+ * 
+ * Performance Features:
+ * - Lazy Loading: On-demand comment loading for large threads
+ * - Caching Strategy: Intelligent comment caching for performance
+ * - Pagination: Efficient pagination for large comment sets
+ * - Virtual Scrolling: Smooth scrolling for extensive comment lists
+ * - Background Sync: Background comment synchronization
+ * 
+ * Analytics and Metrics:
+ * - Engagement Tracking: Comment interaction and engagement metrics
+ * - User Analytics: User comment patterns and behavior analysis
+ * - Content Analytics: Comment performance and popularity tracking
+ * - Trend Analysis: Identify trending topics and discussions
+ * - Quality Metrics: Comment quality and value assessment
+ * 
+ * Data Export:
+ * - Multiple Formats: JSON, CSV, and Markdown export options
+ * - Selective Export: Filter-based comment export functionality
+ * - Archive Creation: Complete comment archive generation
+ * - Data Portability: User data portability and migration support
+ * - Backup Integration: Automated backup and restore capabilities
+ * 
+ * Security Features:
+ * - Content Sanitization: Comprehensive input sanitization
+ * - Spam Detection: Automated spam and abuse detection
+ * - Rate Limiting: Protection against comment spam and flooding
+ * - Permission Validation: User permission and access control
+ * - Audit Logging: Complete comment activity audit trail
+ * 
+ * Integration Patterns:
+ * - API Service: Built on centralized API service layer
+ * - Real-time Updates: WebSocket integration for live comment updates
+ * - State Management: Redux integration for comment state
+ * - Component Integration: React component integration patterns
+ * - Hook Integration: Custom hooks for comment operations
+ * 
+ * Collaboration Features:
+ * - Multi-user Editing: Collaborative comment editing capabilities
+ * - Conflict Resolution: Handle concurrent comment modifications
+ * - Version Control: Comment version tracking and rollback
+ * - Team Moderation: Collaborative moderation workflows
+ * - Discussion Facilitation: Tools for managing large discussions
+ * 
+ * Mobile and Offline:
+ * - Offline Support: Basic offline comment functionality
+ * - Sync on Reconnect: Automatic synchronization when online
+ * - Mobile Gestures: Touch-optimized comment interactions
+ * - Progressive Loading: Bandwidth-optimized comment loading
+ * - Background Processing: Non-blocking comment operations
+ * 
+ * Dependencies:
+ * - API Service: Centralized HTTP client for all API communications
+ * - Comment Types: TypeScript interfaces for type safety
+ * - Pagination Types: Reusable pagination interface definitions
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 import api from './api';
 import { 
   Comment, 
@@ -9,6 +142,27 @@ import {
 } from '../types/comment.types';
 import { PaginatedResponse } from '../types/api.types';
 
+/**
+ * Comments Service Class
+ * 
+ * Comprehensive comment management service providing complete comment
+ * lifecycle operations, threading, voting, moderation, and AI features.
+ * Implements advanced comment functionality for email-first social platform.
+ * 
+ * Service Architecture:
+ * - RESTful API Integration: Built on centralized API service
+ * - Type Safety: Full TypeScript integration with comment types
+ * - Error Handling: Comprehensive error management and recovery
+ * - Performance: Optimized for large-scale comment systems
+ * - Security: Input validation and content sanitization
+ * 
+ * Core Capabilities:
+ * - Thread Management: Hierarchical comment trees with unlimited depth
+ * - Vote System: Community-driven comment ranking and feedback
+ * - Email Integration: Seamless email-to-comment workflows
+ * - AI Enhancement: Smart content processing and moderation
+ * - Search and Discovery: Advanced comment search and filtering
+ */
 class CommentsService {
   private readonly baseURL = '/api/comments';
 

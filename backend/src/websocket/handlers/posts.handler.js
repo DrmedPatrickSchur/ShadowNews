@@ -1,62 +1,215 @@
+/**
+ * @fileoverview WebSocket Posts Handler
+ * 
+ * Real-time event handler for post-related WebSocket operations in the ShadowNews
+ * platform. Manages live post creation, editing, voting, deletion, and feed
+ * subscriptions to provide instant content updates without page refreshes.
+ * 
+ * This handler enables the core real-time functionality that makes ShadowNews
+ * feel responsive and engaging, allowing users to see new content, votes,
+ * and interactions as they happen across the platform.
+ * 
+ * Key Features:
+ * - Real-time post creation with instant broadcasting to all users
+ * - Live voting system with immediate score updates and animations
+ * - Post editing with conflict resolution and update propagation
+ * - Soft deletion with moderation capabilities and undo functionality
+ * - Room-based viewer tracking for engagement analytics
+ * - Hashtag subscription system for personalized content filtering
+ * - Feed management with hot, new, and top post streams
+ * - Typing indicators for enhanced user experience
+ * - Trending algorithm integration with Redis-based scoring
+ * 
+ * WebSocket Events Handled:
+ * - post:join/leave - Room management for post-specific updates
+ * - post:create - Live post creation with validation and broadcasting
+ * - post:vote - Real-time voting with karma integration
+ * - post:edit - Live post editing with authorization checks
+ * - post:delete - Soft deletion with moderation support
+ * - hashtag:subscribe/unsubscribe - Tag-based content filtering
+ * - feed:subscribe - Live feed updates for different sort orders
+ * - post:typing:start/stop - Typing indicators for comment sections
+ * 
+ * Real-time Features:
+ * - Instant post appearance in feeds without refresh
+ * - Live vote count updates with smooth animations
+ * - Real-time viewer counts for engagement metrics
+ * - Immediate content updates when posts are edited
+ * - Live hashtag filtering and subscription management
+ * - Trending score updates with algorithmic ranking
+ * 
+ * Performance Optimizations:
+ * - Redis caching for trending calculations
+ * - Efficient room management for targeted broadcasting
+ * - Batch operations for high-frequency vote updates
+ * - Lazy loading for feed subscriptions
+ * - Debounced typing indicators to reduce noise
+ * 
+ * Security Features:
+ * - Authentication verification for all operations
+ * - Authorization checks for post editing and deletion
+ * - Input validation and sanitization
+ * - Rate limiting for vote and creation operations
+ * - Moderation capabilities for high-karma users
+ * 
+ * Dependencies:
+ * - Post/User/Repository models for data persistence
+ * - Validation utilities for input security
+ * - Redis client for trending algorithms and caching
+ * - Logger for operation tracking and debugging
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
+// Database models for post operations and relationships
 const Post = require('../../models/Post.model');
 const User = require('../../models/User.model');
 const Repository = require('../../models/Repository.model');
+
+// Validation utilities for input sanitization and security
 const { validatePostData } = require('../../utils/validators');
+
+// Centralized logging for WebSocket post operations
 const logger = require('../../utils/logger');
+
+// Redis client for trending algorithms and performance caching
 const redisClient = require('../../utils/redis');
 
+/**
+ * Posts WebSocket Event Handler
+ * 
+ * Main handler function that configures all post-related WebSocket event
+ * listeners and provides real-time functionality for post interactions.
+ * Integrates with the Socket.IO server to enable live content updates.
+ * 
+ * This handler is called for each new WebSocket connection and sets up
+ * all the event listeners needed for real-time post functionality.
+ * 
+ * @param {socketIO.Server} io - Socket.IO server instance for broadcasting
+ * @param {socketIO.Socket} socket - Individual client socket connection
+ * @returns {void}
+ * 
+ * @since 1.0.0
+ */
 const postsHandler = (io, socket) => {
- // Join post room for real-time updates
- socket.on('post:join', async (postId) => {
-   try {
-     socket.join(`post:${postId}`);
-     logger.info(`Socket ${socket.id} joined post room: ${postId}`);
-     
-     // Send current viewers count
-     const viewersCount = io.sockets.adapter.rooms.get(`post:${postId}`)?.size || 0;
-     io.to(`post:${postId}`).emit('post:viewers', { postId, count: viewersCount });
-   } catch (error) {
-     logger.error('Error joining post room:', error);
-     socket.emit('error', { message: 'Failed to join post room' });
-   }
- });
+  /**
+   * Join Post Room Event Handler
+   * 
+   * Allows users to join a specific post's room to receive real-time updates
+   * about that post, including new comments, vote changes, and edits.
+   * Also tracks viewer counts for engagement analytics.
+   * 
+   * Room Benefits:
+   * - Targeted event broadcasting for relevant users only
+   * - Viewer count tracking for engagement metrics
+   * - Reduced bandwidth by filtering irrelevant updates
+   * - Real-time collaboration features like typing indicators
+   * 
+   * @param {string} postId - ID of the post to join for updates
+   * @fires post:viewers - Broadcasts updated viewer count to room
+   * @fires error - Error notification if join operation fails
+   * 
+   * @since 1.0.0
+   */
+  socket.on('post:join', async (postId) => {
+    try {
+      // Join the post-specific room for targeted updates
+      socket.join(`post:${postId}`);
+      logger.info(`Socket ${socket.id} joined post room: ${postId}`);
+      
+      // Calculate and broadcast current viewer count
+      const viewersCount = io.sockets.adapter.rooms.get(`post:${postId}`)?.size || 0;
+      io.to(`post:${postId}`).emit('post:viewers', { postId, count: viewersCount });
+    } catch (error) {
+      logger.error('Error joining post room:', error);
+      socket.emit('error', { message: 'Failed to join post room' });
+    }
+  });
 
- // Leave post room
- socket.on('post:leave', async (postId) => {
-   try {
-     socket.leave(`post:${postId}`);
-     logger.info(`Socket ${socket.id} left post room: ${postId}`);
-     
-     // Update viewers count
-     const viewersCount = io.sockets.adapter.rooms.get(`post:${postId}`)?.size || 0;
-     io.to(`post:${postId}`).emit('post:viewers', { postId, count: viewersCount });
-   } catch (error) {
-     logger.error('Error leaving post room:', error);
-   }
- });
+  /**
+   * Leave Post Room Event Handler
+   * 
+   * Removes user from a post's room when they navigate away or close
+   * the post. Updates viewer counts and cleans up room membership.
+   * 
+   * @param {string} postId - ID of the post to leave
+   * @fires post:viewers - Broadcasts updated viewer count after user leaves
+   * 
+   * @since 1.0.0
+   */
+  socket.on('post:leave', async (postId) => {
+    try {
+      socket.leave(`post:${postId}`);
+      logger.info(`Socket ${socket.id} left post room: ${postId}`);
+      
+      // Update viewer count after user leaves
+      const viewersCount = io.sockets.adapter.rooms.get(`post:${postId}`)?.size || 0;
+      io.to(`post:${postId}`).emit('post:viewers', { postId, count: viewersCount });
+  });
 
- // Real-time post creation
- socket.on('post:create', async (data) => {
-   try {
-     if (!socket.userId) {
-       return socket.emit('error', { message: 'Authentication required' });
-     }
+  /**
+   * Real-time Post Creation Event Handler
+   * 
+   * Handles live post creation with immediate validation, persistence,
+   * and broadcasting to all connected users. Integrates with karma system,
+   * repository management, and trending algorithms for complete functionality.
+   * 
+   * Creation Process:
+   * 1. Authenticate user and validate post data
+   * 2. Create post record with initial score and user vote
+   * 3. Award karma to author for content creation
+   * 4. Link post to specified repositories
+   * 5. Broadcast new post to all connected clients
+   * 6. Update trending algorithms with new content
+   * 
+   * Features:
+   * - Input validation and sanitization
+   * - Automatic hashtag parsing and association
+   * - Repository linking for content organization
+   * - Karma rewards for content creation
+   * - Trending algorithm integration
+   * - Real-time broadcasting to all users
+   * 
+   * @param {Object} data - Post creation data from client
+   * @param {string} data.title - Post title (required)
+   * @param {string} data.content - Post content (optional)
+   * @param {string} data.url - External URL (optional)
+   * @param {Array<string>} data.hashtags - Associated hashtags
+   * @param {Array<string>} data.repositoryIds - Linked repositories
+   * 
+   * @fires post:new - Broadcasts new post to all connected clients
+   * @fires post:created - Confirms successful creation to author
+   * @fires error - Error notification for validation or creation failures
+   * 
+   * @since 1.0.0
+   */
+  socket.on('post:create', async (data) => {
+    try {
+      // Verify user authentication
+      if (!socket.userId) {
+        return socket.emit('error', { message: 'Authentication required' });
+      }
 
-     const validationResult = validatePostData(data);
-     if (!validationResult.isValid) {
-       return socket.emit('error', { message: validationResult.error });
-     }
+      // Validate post data for security and completeness
+      const validationResult = validatePostData(data);
+      if (!validationResult.isValid) {
+        return socket.emit('error', { message: validationResult.error });
+      }
 
-     const post = new Post({
-       ...data,
-       author: socket.userId,
-       hashtags: data.hashtags || [],
-       repositoryIds: data.repositoryIds || [],
-       createdAt: new Date(),
-       score: 1,
-       upvotes: [socket.userId],
-       downvotes: []
-     });
+      // Create new post with initial voting data
+      const post = new Post({
+        ...data,
+        author: socket.userId,
+        hashtags: data.hashtags || [],
+        repositoryIds: data.repositoryIds || [],
+        createdAt: new Date(),
+        score: 1, // Start with score of 1 (author's implicit upvote)
+        upvotes: [socket.userId], // Author automatically upvotes their post
+        downvotes: []
+      });
 
      await post.save();
      await post.populate('author', 'username email karma');

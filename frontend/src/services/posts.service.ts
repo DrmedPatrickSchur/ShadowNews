@@ -1,3 +1,142 @@
+/**
+ * Posts Service - Comprehensive Content Management System
+ * 
+ * Advanced post management service providing complete content lifecycle
+ * management, social features, voting systems, and community engagement
+ * tools for the ShadowNews email-first social platform. Handles all
+ * post-related operations with real-time updates and AI enhancement.
+ * 
+ * Core Features:
+ * - Post Lifecycle: Complete CRUD operations for posts and content
+ * - Social Voting: Community-driven content ranking with karma system
+ * - Search and Discovery: Advanced content search and recommendation
+ * - Real-time Updates: Live post updates and engagement tracking
+ * - Email Integration: Email-to-post conversion and notifications
+ * - AI Enhancement: Smart content processing and moderation
+ * - Community Features: Hashtags, repositories, and user engagement
+ * 
+ * Content Management:
+ * - Rich Text Support: Markdown and HTML content processing
+ * - Media Handling: Image, video, and attachment management
+ * - Version Control: Post revision tracking and rollback
+ * - Draft System: Save and restore post drafts
+ * - Content Validation: Input sanitization and security checks
+ * - SEO Optimization: Search engine optimization and metadata
+ * 
+ * Social Features:
+ * - Voting System: Upvote/downvote with karma integration
+ * - Comment Integration: Seamless comment thread management
+ * - Sharing: Cross-platform content sharing and syndication
+ * - Bookmarking: Personal content saving and organization
+ * - Following: User and content following system
+ * - Mentions: User mention system with notifications
+ * 
+ * Discovery and Search:
+ * - Full-text Search: Advanced content search across all posts
+ * - Hashtag System: Topic-based content organization
+ * - Trending: Real-time trending content identification
+ * - Recommendations: AI-powered content recommendation engine
+ * - Filter System: Advanced filtering by date, popularity, topic
+ * - Related Content: Discover related posts and discussions
+ * 
+ * Email Integration:
+ * - Email-to-Post: Automatic post creation from emails
+ * - Post Notifications: Email notifications for post activity
+ * - Newsletter Integration: Include posts in email newsletters
+ * - Email Sharing: Share posts via email with custom messages
+ * - Digest Creation: Automated email digest generation
+ * 
+ * Real-time Features:
+ * - Live Updates: Real-time post content and engagement updates
+ * - Activity Streams: Live activity feeds for followed content
+ * - Collaboration: Real-time collaborative editing capabilities
+ * - Notification System: Instant notifications for post interactions
+ * - Presence Indicators: Show active users and engagement
+ * 
+ * Analytics and Insights:
+ * - Engagement Metrics: Views, votes, comments, and sharing statistics
+ * - User Analytics: Author performance and audience insights
+ * - Content Performance: Track post performance over time
+ * - Trend Analysis: Identify trending topics and content patterns
+ * - A/B Testing: Test different content strategies and formats
+ * 
+ * Moderation Tools:
+ * - Content Screening: Automated content moderation and filtering
+ * - Community Reporting: User-driven content reporting system
+ * - Spam Detection: Advanced spam and abuse detection
+ * - Quality Control: Algorithmic content quality assessment
+ * - Moderation Queue: Centralized content moderation workflow
+ * 
+ * Performance Features:
+ * - Lazy Loading: On-demand content loading for large feeds
+ * - Caching Strategy: Intelligent content caching for performance
+ * - Pagination: Efficient pagination for large content sets
+ * - Image Optimization: Automatic image compression and optimization
+ * - CDN Integration: Content delivery network optimization
+ * 
+ * Repository Integration:
+ * - Repository Posts: Posts associated with email repositories
+ * - Cross-posting: Share posts across multiple repositories
+ * - Access Control: Repository-based content access permissions
+ * - Collaboration: Multi-user repository content management
+ * - Organization: Repository-based content organization
+ * 
+ * AI and Enhancement:
+ * - Content Suggestions: AI-powered content improvement suggestions
+ * - Auto-tagging: Automatic hashtag and topic identification
+ * - Sentiment Analysis: Content sentiment classification
+ * - Quality Scoring: Algorithmic content quality assessment
+ * - Translation: Multi-language content translation support
+ * 
+ * Mobile and Accessibility:
+ * - Mobile Optimization: Touch-friendly post interaction interfaces
+ * - Offline Support: Basic offline post viewing and creation
+ * - Screen Reader: Full accessibility support for content
+ * - Voice Interface: Voice-activated post creation and navigation
+ * - Progressive Loading: Bandwidth-optimized content delivery
+ * 
+ * Security Features:
+ * - Content Sanitization: Comprehensive input sanitization
+ * - Permission Validation: User permission and access control
+ * - Rate Limiting: Protection against spam and abuse
+ * - Privacy Controls: Granular privacy settings for content
+ * - Audit Logging: Complete post activity audit trail
+ * 
+ * Integration Patterns:
+ * - API Service: Built on centralized API service layer
+ * - WebSocket Integration: Real-time post updates and notifications
+ * - Auth Service: Seamless authentication integration
+ * - State Management: Redux integration for post state
+ * - Component Integration: React component integration patterns
+ * 
+ * Data Management:
+ * - Type Safety: Full TypeScript integration with post types
+ * - Error Handling: Comprehensive error management and recovery
+ * - Validation: Client-side and server-side validation
+ * - Serialization: Efficient data serialization and transmission
+ * - Backup: Automated content backup and recovery
+ * 
+ * Development Features:
+ * - Testing Support: Comprehensive testing utilities and mocks
+ * - Debug Tools: Advanced debugging and monitoring capabilities
+ * - API Documentation: Complete API documentation and examples
+ * - Performance Monitoring: Real-time performance tracking
+ * - Error Tracking: Comprehensive error logging and analysis
+ * 
+ * Dependencies:
+ * - Axios: HTTP client for API communication
+ * - Constants: Application configuration and API endpoints
+ * - Post Types: TypeScript interfaces for type safety
+ * - API Types: Shared API interface definitions
+ * - Auth Service: Authentication and authorization integration
+ * - WebSocket Service: Real-time communication support
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 import axios, { AxiosError } from 'axios';
 import { API_BASE_URL, API_ENDPOINTS } from '../utils/constants';
 import { 

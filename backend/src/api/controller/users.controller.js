@@ -1,4 +1,21 @@
-const User = require('../../models/User.model');
+/**
+ * @fileoverview users.controller.js
+ * 
+ * Implementation file for users.controller.js
+ * 
+ * Key Features:
+ * - Core functionality
+ * - Error handling
+ * - Performance optimization
+ * 
+ * Dependencies:
+ *  * - No external dependencies
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */\n\nconst User = require('../../models/User.model');
 const Repository = require('../../models/Repository.model');
 const Post = require('../../models/Post.model');
 const Comment = require('../../models/Comment.model');

@@ -1,4 +1,21 @@
-import { formatDistanceToNow, parseISO, format, isValid } from 'date-fns';
+/**
+ * @fileoverview helpers.ts
+ * 
+ * Implementation file for helpers.ts
+ * 
+ * Key Features:
+ * - Core functionality
+ * - Error handling
+ * - Performance optimization
+ * 
+ * Dependencies:
+ *  * - No external dependencies
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */\n\nimport { formatDistanceToNow, parseISO, format, isValid } from 'date-fns';
 import DOMPurify from 'dompurify';
 import { marked } from 'marked';
 

@@ -1,3 +1,110 @@
+/**
+ * WebSocket Service - Real-time Communication and Live Updates
+ * 
+ * Comprehensive WebSocket service providing real-time bidirectional
+ * communication for live updates, notifications, collaboration, and
+ * interactive features across the ShadowNews email-first social platform.
+ * 
+ * Core Features:
+ * - Real-time Updates: Live content updates and synchronization
+ * - Notification System: Instant notification delivery and management
+ * - Collaboration: Multi-user real-time editing and interaction
+ * - Presence Tracking: User online status and activity monitoring
+ * - Live Analytics: Real-time metrics and performance updates
+ * - Chat Integration: Real-time messaging and communication features
+ * - Event Broadcasting: System-wide event distribution and handling
+ * 
+ * Real-time Data Synchronization:
+ * - Post Updates: Live post creation, modification, and deletion events
+ * - Comment Threading: Real-time comment additions and threading updates
+ * - Vote Tracking: Instant voting updates and score synchronization
+ * - Repository Changes: Live repository modifications and member updates
+ * - Email Activity: Real-time email collection and verification status
+ * - Snowball Distribution: Live viral distribution tracking and metrics
+ * 
+ * Notification Management:
+ * - Instant Delivery: Real-time notification pushing with priority handling
+ * - Type Classification: Comment replies, mentions, system alerts, repository updates
+ * - Read Status: Real-time read/unread status synchronization
+ * - Batching: Intelligent notification batching for performance optimization
+ * - Filtering: User preference-based notification filtering and categorization
+ * - Toast Integration: Browser notification integration with permission management
+ * 
+ * Collaboration Features:
+ * - Multi-user Editing: Real-time collaborative editing with conflict resolution
+ * - Presence Awareness: Live user presence indication and activity status
+ * - Cursor Tracking: Real-time cursor and selection position sharing
+ * - Lock Management: Collaborative editing locks and conflict prevention
+ * - Change Broadcasting: Live change propagation with operational transformation
+ * - Version Control: Real-time version synchronization and conflict resolution
+ * 
+ * Live Analytics:
+ * - Growth Metrics: Real-time repository growth and member acquisition tracking
+ * - Engagement Stats: Live engagement rate monitoring and trend analysis
+ * - Performance Data: Real-time system performance and health monitoring
+ * - User Analytics: Live user behavior tracking and activity metrics
+ * - Viral Tracking: Real-time snowball distribution and viral coefficient monitoring
+ * - Error Monitoring: Live error tracking and system health alerts
+ * 
+ * Connection Management:
+ * - Auto-reconnection: Intelligent reconnection with exponential backoff
+ * - Health Monitoring: Connection health checking and status reporting
+ * - Authentication: Secure WebSocket authentication with JWT integration
+ * - Load Balancing: Multiple server connection management and failover
+ * - Rate Limiting: Connection rate limiting and abuse prevention
+ * - Graceful Degradation: Fallback mechanisms for connection failures
+ * 
+ * Event System:
+ * - Event Broadcasting: System-wide event distribution with topic subscriptions
+ * - Custom Events: User-defined event types and handlers
+ * - Event Filtering: Selective event subscription and filtering
+ * - Event History: Event replay and history management
+ * - Error Handling: Comprehensive event error handling and recovery
+ * - Performance Optimization: Event batching and throttling for performance
+ * 
+ * Security Features:
+ * - Authentication: JWT-based WebSocket authentication and authorization
+ * - Rate Limiting: Message rate limiting and spam prevention
+ * - Data Validation: Message payload validation and sanitization
+ * - Access Control: User permission-based event filtering and access
+ * - Encryption: End-to-end encryption for sensitive real-time data
+ * - Audit Trail: Complete WebSocket activity logging and monitoring
+ * 
+ * Performance Optimization:
+ * - Message Batching: Efficient message batching for high-frequency updates
+ * - Compression: WebSocket compression for bandwidth optimization
+ * - Lazy Loading: On-demand event subscription and resource management
+ * - Caching: Intelligent event caching and duplicate prevention
+ * - Throttling: Update throttling for smooth user experience
+ * - Memory Management: Efficient memory usage and garbage collection
+ * 
+ * Integration Features:
+ * - Redux Integration: Seamless Redux store integration with real-time updates
+ * - React Hooks: Custom React hooks for WebSocket state management
+ * - API Synchronization: WebSocket and REST API synchronization
+ * - External Services: Integration with external real-time services
+ * - Browser APIs: Browser notification and visibility API integration
+ * - Mobile Support: Mobile-optimized WebSocket connections and handling
+ * 
+ * Development Features:
+ * - Type Safety: Full TypeScript integration with WebSocket message types
+ * - Error Handling: Comprehensive error management and recovery mechanisms
+ * - Debug Tools: Advanced debugging and monitoring capabilities
+ * - Testing Support: WebSocket testing utilities and mock implementations
+ * - Documentation: Complete API documentation with usage examples
+ * - Performance Monitoring: Real-time WebSocket performance tracking
+ * 
+ * Dependencies:
+ * - Socket.IO Client: WebSocket client library for real-time communication
+ * - Redux Store: State management integration for live updates
+ * - React Integration: React hooks and component integration
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 import { io, Socket } from 'socket.io-client';
 import { store } from '../store/store';
 import { 
@@ -26,34 +133,115 @@ import {
   removeOnlineUser 
 } from '../store/slices/ui.slice';
 
+/**
+ * WebSocket Message Interface
+ * Standardized message format for all WebSocket communications
+ * 
+ * Message Structure:
+ * - Type-based routing with event classification and handler mapping
+ * - Payload flexibility with support for any data structure
+ * - User context with optional user identification and authorization
+ * - Timestamp tracking for message ordering and synchronization
+ */
 interface WebSocketMessage {
+  /** Message type for event routing and handler selection */
   type: string;
+  /** Message payload containing event-specific data */
   payload: any;
+  /** Optional user identifier for user-specific message handling */
   userId?: string;
+  /** Message timestamp for ordering and synchronization */
   timestamp: number;
 }
 
+/**
+ * Typing User Interface
+ * Information about users currently typing in real-time collaboration
+ */
 interface TypingUser {
+  /** User identifier for typing status tracking */
   userId: string;
+  /** Display username for typing indicators */
   username: string;
+  /** Optional post ID for post-specific typing */
   postId?: string;
+  /** Optional comment ID for comment-specific typing */
   commentId?: string;
 }
 
+/**
+ * WebSocket Service Class
+ * Comprehensive real-time communication service managing WebSocket connections,
+ * event handling, presence tracking, and live data synchronization for the
+ * ShadowNews platform.
+ * 
+ * Architecture:
+ * - Singleton pattern with connection pooling and state management
+ * - Event-driven architecture with typed message handling and routing
+ * - Auto-reconnection with exponential backoff and health monitoring
+ * - Redux integration with seamless state synchronization
+ * 
+ * Core Responsibilities:
+ * - WebSocket connection management with authentication and security
+ * - Real-time event broadcasting and subscription management
+ * - Live data synchronization with conflict resolution and ordering
+ * - Presence tracking with user status and activity monitoring
+ * - Notification delivery with priority handling and batching
+ * - Collaboration features with multi-user editing and awareness
+ */
 class WebSocketService {
+  /** Active WebSocket connection instance */
   private socket: Socket | null = null;
+  /** Current reconnection attempt counter */
   private reconnectAttempts = 0;
+  /** Maximum reconnection attempts before giving up */
   private maxReconnectAttempts = 5;
+  /** Base delay between reconnection attempts (exponential backoff) */
   private reconnectDelay = 1000;
+  /** Ping interval timer for connection health monitoring */
   private pingInterval: NodeJS.Timeout | null = null;
+  /** Typing indicator timeout for cleanup and management */
   private typingTimeout: NodeJS.Timeout | null = null;
+  /** Set of subscribed channels for selective event filtering */
   private subscribedChannels: Set<string> = new Set();
+  /** Map of event handlers for custom event processing */
   private eventHandlers: Map<string, Function[]> = new Map();
 
+  /**
+   * WebSocket Service Constructor
+   * Initialize service with cleanup handlers and configuration
+   */
   constructor() {
     this.setupBeforeUnloadHandler();
   }
 
+  /**
+   * Establish WebSocket connection with authentication and configuration
+   * 
+   * Features:
+   * - JWT-based authentication with token validation and refresh
+   * - Multi-transport support with WebSocket and polling fallbacks
+   * - Auto-reconnection with exponential backoff and health monitoring
+   * - Event handler setup with comprehensive error handling and recovery
+   * - Connection health monitoring with ping/pong and timeout detection
+   * 
+   * Configuration:
+   * - Transport priorities: WebSocket preferred, polling fallback
+   * - Reconnection strategy: exponential backoff with maximum attempts
+   * - Timeout handling: connection timeout and response monitoring
+   * - Authentication: JWT token integration with automatic refresh
+   * 
+   * @param token - JWT authentication token for secure connection
+   * @returns Promise<void> - Connection establishment confirmation
+   * 
+   * @example
+   * ```typescript
+   * // Connect with authentication token
+   * const token = localStorage.getItem('authToken');
+   * await webSocketService.connect(token);
+   * console.log('WebSocket connected successfully');
+   * ```
+   */
   connect(token: string): Promise<void> {
     return new Promise((resolve, reject) => {
       if (this.socket?.connected) {
@@ -61,8 +249,10 @@ class WebSocketService {
         return;
       }
 
+      // Get WebSocket URL from environment or use development default
       const wsUrl = process.env.REACT_APP_WS_URL || 'http://localhost:3001';
       
+      // Initialize Socket.IO connection with comprehensive configuration
       this.socket = io(wsUrl, {
         auth: { token },
         transports: ['websocket', 'polling'],
@@ -73,6 +263,7 @@ class WebSocketService {
         timeout: 20000,
       });
 
+      // Handle successful connection establishment
       this.socket.on('connect', () => {
         console.log('WebSocket connected');
         this.reconnectAttempts = 0;

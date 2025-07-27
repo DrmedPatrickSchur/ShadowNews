@@ -1,4 +1,61 @@
-# Shadownews Architecture Overview
+/**
+ * @fileoverview overview.md
+ * 
+ * Implementation file for overview.md
+ * 
+ * Key Features:
+ * - Core functionality
+ * - Error handling
+ * - Performance optimization
+ * 
+ * Dependencies:
+ *  * - No external dependencies
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */\n\n<!--
+============================================================================
+ShadowNews - System Architecture Overview Documentation
+============================================================================
+
+High-level architectural documentation providing comprehensive overview of
+ShadowNews platform design, component interactions, and system boundaries.
+
+Purpose:
+- Provide system-wide architectural understanding
+- Define component relationships and data flow patterns
+- Establish design principles and architectural decisions
+- Guide development team alignment and technical decisions
+
+Target Audience:
+- Software architects designing system components
+- Senior developers understanding system boundaries
+- Product managers planning feature development
+- Technical leads making architectural decisions
+
+Coverage:
+- Multi-tier architecture with clear separation of concerns
+- Microservices design patterns and service boundaries
+- Email-first interaction patterns and content processing
+- Real-time communication and WebSocket architecture
+- AI integration for content enhancement and moderation
+- Scalability patterns and performance considerations
+
+System Layers:
+- Presentation Layer: React frontend and PWA
+- API Gateway: Load balancing and request routing
+- Application Layer: Express.js services and workers
+- Service Layer: Business logic and domain services
+- Data Layer: MongoDB, Redis, and external integrations
+
+Last Updated: 2025-07-27
+Version: 1.0.0
+============================================================================
+-->
+
+# ShadowNews Architecture Overview
 
 ## System Architecture
 

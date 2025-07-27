@@ -1,96 +1,158 @@
 {
+  "_comment_header": "============================================================================",
+  "_comment_title": "ShadowNews Progressive Web App Manifest",
+  "_comment_description": "PWA configuration for installable app experience and native features",
+  "_comment_purpose": "This manifest enables ShadowNews to be installed as a standalone app on mobile devices and desktop platforms, providing native app-like functionality including offline support, home screen installation, and OS integration.",
+  "_comment_architecture": "The manifest defines app identity, visual appearance, behavioral characteristics, and platform integration features for the email-first social platform.",
+  "_comment_version": "1.0.0",
+  "_comment_author": "ShadowNews Team",
+  "_comment_updated": "2025-01-27",
+  "_comment_separator": "============================================================================",
+
+  "_section_identity": "=== APP IDENTITY & BRANDING ===",
   "short_name": "Shadownews",
+  "_short_name_purpose": "Concise app name for home screen icons and launcher (max 12 chars recommended)",
+  
   "name": "Shadownews - Where Ideas Snowball Into Communities",
+  "_name_purpose": "Full app name displayed during installation and in app stores",
+  
+  "_section_icons": "=== ICON CONFIGURATION ===",
   "icons": [
     {
       "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "type": "image/x-icon",
+      "_purpose": "Legacy favicon for browser tabs and bookmarks"
     },
     {
       "src": "logo192.png",
       "type": "image/png",
       "sizes": "192x192",
-      "purpose": "maskable"
+      "_purpose": "Standard Android home screen icon and app drawer"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png", 
+      "sizes": "512x512",
+      "_purpose": "High-resolution icon for splash screens and app stores"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable",
+      "_purpose": "Adaptive icon for Android that can be masked to different shapes"
     },
     {
       "src": "logo512.png",
       "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "maskable"
+      "sizes": "512x512", 
+      "purpose": "maskable",
+      "_purpose": "High-res adaptive icon for various Android launcher shapes"
     }
   ],
+
+  "_section_app_behavior": "=== APPLICATION BEHAVIOR ===",
   "start_url": ".",
+  "_start_url_purpose": "Entry point when app is launched from home screen",
+  
   "display": "standalone",
-  "theme_color": "#ff6600",
-  "background_color": "#f6f6ef",
-  "description": "Enhanced Hacker News clone with email repositories and snowball distribution",
+  "_display_purpose": "App runs in standalone mode without browser UI for native feel",
+  "_display_options": "fullscreen, standalone, minimal-ui, browser",
+  
   "orientation": "portrait-primary",
+  "_orientation_purpose": "Preferred screen orientation, optimized for mobile usage",
+  
   "scope": "/",
+  "_scope_purpose": "URL scope that determines which pages belong to this PWA",
+
+  "_section_visual_theme": "=== VISUAL THEME & COLORS ===",
+  "theme_color": "#ff6600",
+  "_theme_color_purpose": "Brand color for system UI elements (status bar, task switcher)",
+  
+  "background_color": "#f6f6ef", 
+  "_background_color_purpose": "Splash screen background color while app loads",
+
+  "_section_metadata": "=== APP METADATA ===",
+  "description": "Enhanced Hacker News clone with email repositories and snowball distribution",
+  "_description_purpose": "App store description and installation prompt details",
+  
   "lang": "en-US",
+  "_lang_purpose": "Primary language for the application interface",
+  
   "categories": ["news", "social", "productivity"],
+  "_categories_purpose": "App store categorization for discovery and classification",
+
+  "_section_screenshots": "=== APP STORE SCREENSHOTS ===", 
   "screenshots": [
     {
       "src": "screenshots/desktop-home.png",
       "sizes": "1920x1080",
       "type": "image/png",
-      "label": "Desktop home screen"
+      "label": "Desktop home screen",
+      "_purpose": "Desktop interface showcase for app store listings"
     },
     {
       "src": "screenshots/mobile-home.png",
       "sizes": "390x844",
-      "type": "image/png",
-      "label": "Mobile home screen"
+      "type": "image/png", 
+      "label": "Mobile home screen",
+      "_purpose": "Mobile interface preview for installation prompts"
     },
     {
       "src": "screenshots/repository-view.png",
       "sizes": "1920x1080",
       "type": "image/png",
-      "label": "Email repository management"
+      "label": "Email repository management",
+      "_purpose": "Unique email repository feature demonstration"
     }
   ],
+
+  "_section_shortcuts": "=== APP SHORTCUTS & QUICK ACTIONS ===",
   "shortcuts": [
     {
       "name": "Submit Post",
-      "short_name": "Submit",
+      "short_name": "Submit", 
       "description": "Create a new post",
       "url": "/submit",
-      "icons": [{ "src": "icons/submit.png", "sizes": "192x192" }]
+      "icons": [{ "src": "icons/submit.png", "sizes": "192x192" }],
+      "_purpose": "Quick access to content creation from home screen"
     },
     {
       "name": "Repositories",
       "short_name": "Repos",
-      "description": "Manage email repositories",
+      "description": "Manage email repositories", 
       "url": "/repositories",
-      "icons": [{ "src": "icons/repository.png", "sizes": "192x192" }]
+      "icons": [{ "src": "icons/repository.png", "sizes": "192x192" }],
+      "_purpose": "Direct access to unique email repository feature"
     },
     {
       "name": "Trending",
       "short_name": "Hot",
       "description": "View trending posts",
-      "url": "/hot",
-      "icons": [{ "src": "icons/trending.png", "sizes": "192x192" }]
+      "url": "/hot", 
+      "icons": [{ "src": "icons/trending.png", "sizes": "192x192" }],
+      "_purpose": "Quick discovery of popular content"
     }
   ],
+
+  "_section_platform_integration": "=== PLATFORM INTEGRATION ===",
   "prefer_related_applications": false,
+  "_prefer_related_purpose": "Prioritize PWA over native apps in app stores",
+  
   "related_applications": [],
+  "_related_apps_purpose": "List of related native apps (empty for PWA-first approach)",
+
+  "_section_sharing": "=== WEB SHARE TARGET ===",
   "share_target": {
     "action": "/submit",
-    "method": "GET",
+    "method": "GET", 
     "params": {
       "title": "title",
-      "text": "text",
+      "text": "text", 
       "url": "url"
-    }
+    },
+    "_purpose": "Enables sharing content TO ShadowNews from other apps",
+    "_usage": "When users share links/text from other apps, ShadowNews appears as share target"
   }
 }

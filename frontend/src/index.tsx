@@ -1,3 +1,66 @@
+/**
+ * Application Entry Point
+ * 
+ * Main entry point for the ShadowNews React application that initializes
+ * the application with all necessary providers, configurations, and
+ * Progressive Web App features. Handles application bootstrapping,
+ * analytics integration, and global error handling.
+ * 
+ * Core Responsibilities:
+ * - React Application Rendering: DOM mounting and StrictMode enablement
+ * - Provider Configuration: Redux, React Query, and context providers
+ * - PWA Integration: Service worker registration and offline support
+ * - Analytics Setup: Performance monitoring and user behavior tracking
+ * - Error Handling: Global error boundary and unhandled promise rejection
+ * - Performance Monitoring: Web Vitals collection and reporting
+ * 
+ * Provider Architecture:
+ * - Redux Provider: Global state management for application data
+ * - React Query Provider: Server state management and caching
+ * - Browser Router: Client-side routing configuration
+ * - Theme Provider: Dark/light mode and CSS variable management
+ * - Auth Provider: Authentication state and user session management
+ * - WebSocket Provider: Real-time communication and event handling
+ * 
+ * PWA Features:
+ * - Service Worker: Offline functionality and background sync
+ * - App Manifest: Native app-like installation experience
+ * - Offline Detection: Network status monitoring and user feedback
+ * - Standalone Mode: PWA launch detection and analytics tracking
+ * - Background Sync: Offline action queuing and synchronization
+ * 
+ * Performance Optimization:
+ * - React Query Configuration: Optimized caching and retry strategies
+ * - Lazy Loading: Dynamic imports for analytics and optional features
+ * - Error Boundaries: Graceful error handling without app crashes
+ * - Web Vitals: Performance metrics collection and monitoring
+ * 
+ * Analytics Integration:
+ * - Google Analytics: User behavior and conversion tracking
+ * - Web Vitals: Core performance metrics (CLS, FID, FCP, LCP, TTFB)
+ * - Error Tracking: Exception monitoring and debugging support
+ * - PWA Analytics: Installation and usage pattern tracking
+ * 
+ * Development Features:
+ * - React DevTools: Component tree inspection and debugging
+ * - React Query DevTools: Server state inspection and cache monitoring
+ * - Error Logging: Console-based error reporting for development
+ * - Hot Module Replacement: Fast development feedback loop
+ * 
+ * Dependencies:
+ * - React 18+ for concurrent features and improved performance
+ * - ReactDOM for DOM rendering and root management
+ * - Redux Toolkit for state management and DevTools integration
+ * - React Query for server state management and caching
+ * - React Router for client-side navigation
+ * - React Hot Toast for user notifications and feedback
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
@@ -19,18 +82,25 @@ import './styles/globals.css';
 import './styles/variables.css';
 import './styles/tailwind.css';
 
+/**
+ * React Query Client Configuration
+ * 
+ * Configures global React Query settings for optimal server state management.
+ * Implements aggressive caching strategies with exponential backoff retry logic
+ * for improved reliability and user experience.
+ */
 // Create a client for React Query
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes
-      cacheTime: 1000 * 60 * 10, // 10 minutes
-      retry: 3,
-      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
-      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 5, // 5 minutes - Data considered fresh for 5 minutes
+      cacheTime: 1000 * 60 * 10, // 10 minutes - Cache retained for 10 minutes
+      retry: 3, // Three retry attempts for failed requests
+      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000), // Exponential backoff
+      refetchOnWindowFocus: false, // Disable automatic refetch on focus
     },
     mutations: {
-      retry: 1,
+      retry: 1, // Single retry for mutations to prevent duplicate actions
     },
   },
 });

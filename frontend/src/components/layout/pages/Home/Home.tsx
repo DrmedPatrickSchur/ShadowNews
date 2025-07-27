@@ -1,3 +1,130 @@
+/**
+ * Home Page Component
+ * 
+ * Primary landing page and content hub for the ShadowNews platform, providing
+ * adaptive user experience for both authenticated and guest users. Features
+ * real-time content feeds, interactive filtering, trending repositories,
+ * community statistics, and promotional sections with smooth animations.
+ * 
+ * Core Features:
+ * - Adaptive Layout: Different presentations for authenticated vs guest users
+ * - Real-Time Feed: Live post updates with infinite scrolling and filter options
+ * - Hero Section: Promotional content with call-to-action for guest users
+ * - Content Filtering: Hot, New, Top, and Best post categorization
+ * - Trending Repositories: Sidebar showcase of popular email repositories
+ * - Community Stats: Live metrics and engagement indicators
+ * 
+ * User Experience Flows:
+ * - Guest Users: Hero section with registration prompts and about information
+ * - Authenticated Users: Immediate access to content feed and quick actions
+ * - Content Discovery: Multiple filtering options and recommendation systems
+ * - Engagement: Easy access to submission, voting, and commenting features
+ * 
+ * Layout Architecture:
+ * - Hero Section: Full-width promotional area with animated statistics ticker
+ * - Main Grid: Two-column layout with primary feed and informational sidebar
+ * - Filter Tabs: Interactive post categorization with visual state indicators
+ * - Infinite Feed: Continuous post loading with performance optimization
+ * - Sidebar Modules: Contextual information and action panels
+ * 
+ * Real-Time Features:
+ * - Live Statistics: WebSocket-powered real-time community metrics
+ * - Feed Updates: Automatic content refresh with new post indicators
+ * - Trending Data: Dynamic repository popularity tracking
+ * - Activity Monitoring: User engagement and interaction metrics
+ * 
+ * Content Management:
+ * - Post Filtering: Multiple sorting algorithms (hot, new, top, best)
+ * - Infinite Scroll: Progressive content loading with performance optimization
+ * - State Management: Redux integration for global state synchronization
+ * - Cache Management: Optimized data fetching and storage strategies
+ * 
+ * Responsive Design:
+ * - Mobile Layout: Single-column design with collapsible sidebar
+ * - Tablet Adaptation: Balanced two-column layout with optimized spacing
+ * - Desktop Experience: Full-featured layout with all components visible
+ * - Touch Optimization: Touch-friendly interactive elements for mobile
+ * 
+ * Animation System:
+ * - Page Transitions: Smooth entrance animations for all major components
+ * - Staggered Loading: Sequential animation delays for visual hierarchy
+ * - Interactive Feedback: Hover states and button press animations
+ * - Loading States: Skeleton screens and progressive loading indicators
+ * 
+ * Performance Optimizations:
+ * - Lazy Loading: Components and images loaded on demand
+ * - Virtual Scrolling: Efficient rendering for large post lists
+ * - Debounced Actions: Optimized user interaction handling
+ * - Memory Management: Proper cleanup of subscriptions and event listeners
+ * 
+ * Sidebar Components:
+ * - Quick Actions: Authenticated user shortcuts for common tasks
+ * - Trending Repositories: Popular email repositories with engagement metrics
+ * - Community Stats: Real-time platform statistics and milestones
+ * - About Section: Platform introduction for guest users
+ * 
+ * Hero Section Features:
+ * - Value Proposition: Clear messaging about platform benefits
+ * - Call-to-Action: Registration and information buttons
+ * - Live Statistics: Animated ticker showing real-time platform activity
+ * - Social Proof: Community size and engagement indicators
+ * 
+ * Filter System:
+ * - Hot Posts: Algorithm-ranked content based on engagement velocity
+ * - New Posts: Chronologically sorted recent submissions
+ * - Top Posts: Highest-rated content by community voting
+ * - Best Posts: Quality-ranked content using engagement signals
+ * 
+ * Accessibility Features:
+ * - Keyboard Navigation: Full keyboard accessibility for all interactive elements
+ * - Screen Reader Support: Proper ARIA labels and semantic markup
+ * - Focus Management: Logical tab order and visible focus indicators
+ * - Color Contrast: WCAG compliant color schemes for readability
+ * - Alternative Text: Descriptive alt text for all images and icons
+ * 
+ * State Integration:
+ * - Authentication State: User session management and conditional rendering
+ * - Posts State: Content feed management with filtering and pagination
+ * - Repository State: Trending repository data and user subscriptions
+ * - UI State: Theme preferences and user interface customizations
+ * 
+ * WebSocket Integration:
+ * - Real-Time Updates: Live community statistics and activity feeds
+ * - Connection Management: Automatic reconnection and error handling
+ * - Event Handling: Subscription management for different data streams
+ * - Performance: Efficient event processing and state updates
+ * 
+ * Error Handling:
+ * - API Failures: Graceful degradation with retry mechanisms
+ * - Network Issues: Offline support and connection status indicators
+ * - Loading States: Comprehensive loading and error state management
+ * - User Feedback: Clear error messages and recovery options
+ * 
+ * Mobile Optimization:
+ * - Touch Gestures: Swipe navigation and touch-friendly interactions
+ * - Performance: Optimized rendering for mobile device constraints
+ * - Battery Efficiency: Minimal animation overhead and optimized updates
+ * - Data Usage: Efficient content loading and image optimization
+ * 
+ * Content Discovery:
+ * - Personalization: Algorithm-driven content recommendations
+ * - Trending Analysis: Real-time trending topic identification
+ * - Social Signals: Community engagement-based content promotion
+ * - Search Integration: Quick access to search functionality
+ * 
+ * Dependencies:
+ * - React: Component framework with hooks for state and lifecycle management
+ * - React Router: Navigation and routing for multi-page application
+ * - Redux Toolkit: State management for global application state
+ * - Framer Motion: Animation library for smooth transitions and effects
+ * - Lucide React: Icon library for consistent visual elements
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';

@@ -1,4 +1,53 @@
-# Environment Configuration
+<!--
+============================================================================
+ShadowNews - Environment Configuration Guide
+============================================================================
+
+Comprehensive guide for configuring ShadowNews environment variables,
+secrets management, and multi-environment deployment configurations.
+
+Purpose:
+- Define all required environment variables and configurations
+- Document secrets management and security best practices
+- Provide environment-specific configuration templates
+- Establish configuration validation and error handling
+
+Target Audience:
+- DevOps engineers configuring deployment environments
+- Backend developers setting up local development
+- Security engineers managing secrets and credentials
+- System administrators deploying production systems
+
+Coverage:
+- Complete environment variable reference
+- Development, staging, and production configurations
+- Secrets management and security considerations
+- Database and external service configurations
+- Email service provider integrations
+- AI service and third-party API configurations
+
+Security Features:
+- Environment-specific secret isolation
+- Encrypted secrets management with rotation
+- Database connection security and SSL
+- API key management and rate limiting
+- CORS configuration and domain restrictions
+- Production hardening and security headers
+
+Configuration Categories:
+- Server and application runtime settings
+- Database connections and clustering
+- External service integrations (email, AI, payment)
+- Security tokens and authentication secrets
+- Monitoring and logging configurations
+- Feature flags and environment toggles
+
+Last Updated: 2025-07-27
+Version: 1.0.0
+============================================================================
+-->
+
+# Environment Configuration\n\n# Environment Configuration
 
 ## Environment Variables
 

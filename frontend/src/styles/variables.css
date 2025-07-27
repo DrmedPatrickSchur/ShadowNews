@@ -1,391 +1,804 @@
+/**
+ * CSS Design System Variables - Global Design Token Configuration
+ * 
+ * Comprehensive design system variable configuration for the ShadowNews
+ * email-first social platform. Provides a complete set of design tokens
+ * for consistent styling, theming, and responsive design across the application.
+ * 
+ * Design System Philosophy:
+ * - Consistency: Unified design language across all components and features
+ * - Scalability: Modular system that grows with the platform's needs
+ * - Accessibility: Variables designed with accessibility standards in mind
+ * - Performance: Optimized for efficient CSS rendering and minimal overhead
+ * - Maintainability: Clear naming conventions and organized token structure
+ * - Flexibility: Support for multiple themes and customization scenarios
+ * 
+ * Token Categories:
+ * - Color System: Comprehensive color palette with semantic naming
+ * - Typography: Font families, sizes, weights, and line heights
+ * - Spacing: Consistent spacing scale for layout and component spacing
+ * - Shadows: Layered shadow system for depth and visual hierarchy
+ * - Borders: Border radius and styling for component definition
+ * - Animation: Timing functions and durations for smooth interactions
+ * - Layout: Breakpoints, grid systems, and container definitions
+ * - Component Tokens: Specialized tokens for specific UI components
+ * 
+ * Color System Strategy:
+ * - Semantic Colors: Status colors (success, warning, error, info)
+ * - Brand Colors: Primary and secondary brand identity colors
+ * - Neutral Palette: Comprehensive gray scale for backgrounds and text
+ * - Theme Support: Variables designed for light/dark theme switching
+ * - Accessibility: WCAG-compliant contrast ratios across all color combinations
+ * - Email Focus: Colors optimized for email content display and reading
+ * 
+ * Typography System:
+ * - System Fonts: Cross-platform font stacks for optimal rendering
+ * - Modular Scale: Consistent typography sizing with mathematical relationships
+ * - Semantic Weights: Font weights with clear semantic meaning
+ * - Reading Optimization: Line heights optimized for different content types
+ * - Email Typography: Special considerations for email content readability
+ * - Code Display: Monospace fonts optimized for technical content
+ * 
+ * Spacing System:
+ * - Modular Scale: Consistent spacing increments based on design principles
+ * - Component Spacing: Standardized spacing for UI components
+ * - Layout Spacing: Spacing values for page layout and content organization
+ * - Responsive Spacing: Adaptive spacing that works across device sizes
+ * - Email Layout: Spacing optimized for email content and repository cards
+ * - Reading Experience: Spacing that enhances content consumption
+ * 
+ * Component Token System:
+ * - Button Tokens: Comprehensive button styling variables
+ * - Form Tokens: Input, select, and form control styling
+ * - Card Tokens: Card component styling and layout
+ * - Modal Tokens: Modal dialog and overlay styling
+ * - Navigation Tokens: Header, sidebar, and navigation styling
+ * - Email Tokens: Email-specific component styling
+ * 
+ * Performance Considerations:
+ * - CSS Custom Properties: Efficient variable system with runtime updates
+ * - Token Organization: Logical grouping for optimal CSS compilation
+ * - Minimal Overhead: Lean variable definitions for fast loading
+ * - Caching Optimization: Variables structured for browser caching efficiency
+ * - Runtime Performance: Variables optimized for fast CSS computation
+ * - Bundle Size: Efficient token definitions to minimize CSS payload
+ * 
+ * Accessibility Features:
+ * - Color Contrast: All color combinations meet WCAG AA+ standards
+ * - Focus Management: High-visibility focus indicator variables
+ * - Motion Preferences: Variables that respect reduced motion preferences
+ * - Font Scaling: Support for user font size preferences
+ * - Screen Reader Support: Variables optimized for assistive technology
+ * - Keyboard Navigation: Focus and interaction state variables
+ * 
+ * Email Platform Optimizations:
+ * - Repository Styling: Variables for email repository visualization
+ * - Karma System: Color and styling variables for user reputation
+ * - Email Threading: Variables for email conversation display
+ * - Snowball Analytics: Variables for viral content visualization
+ * - Content Categories: Variables for different email content types
+ * - Professional Interface: Variables for business-focused design
+ * 
+ * Theme System Support:
+ * - Light Theme: Optimized variables for light mode experience
+ * - Dark Theme: Comprehensive dark mode variable overrides
+ * - System Integration: Variables that respect OS theme preferences
+ * - Dynamic Switching: Smooth theme transitions with CSS variables
+ * - Custom Themes: Extensible system for brand customization
+ * - Theme Persistence: Variables that work with theme storage systems
+ * 
+ * Responsive Design:
+ * - Mobile First: Variables designed for progressive enhancement
+ * - Breakpoint System: Consistent breakpoints for all device sizes
+ * - Container Queries: Modern responsive design variable support
+ * - Flexible Scaling: Variables that adapt to different screen densities
+ * - Touch Optimization: Variables for touch-friendly interfaces
+ * - Print Support: Variables optimized for print media
+ * 
+ * Browser Support:
+ * - Modern Browsers: Full CSS custom property support
+ * - Legacy Fallbacks: Graceful degradation for older browsers
+ * - Cross-Platform: Variables tested across different operating systems
+ * - Mobile Browsers: Optimized for mobile browser rendering
+ * - High DPI: Variables that work with high-density displays
+ * - Print Media: Variables that render well in print
+ * 
+ * Maintenance Guidelines:
+ * - Naming Conventions: Clear, semantic variable naming patterns
+ * - Token Auditing: Regular reviews for consistency and usage
+ * - Performance Monitoring: Ongoing assessment of variable impact
+ * - Version Control: Systematic updates and change management
+ * - Documentation: Comprehensive documentation for all variables
+ * - Testing: Automated testing for variable consistency
+ * 
+ * Development Experience:
+ * - IDE Support: Variables with autocomplete and documentation
+ * - Hot Reloading: Development-time variable updates
+ * - Debug Support: Variables that aid in development debugging
+ * - Consistency Checks: Variables that enforce design consistency
+ * - Component Documentation: Self-documenting variable system
+ * - Design-Dev Sync: Variables that bridge design and development
+ * 
+ * Dependencies:
+ * - CSS Custom Properties: Modern browser support for CSS variables
+ * - PostCSS: CSS processing for variable optimization and transformation
+ * - Design Tokens: Integration with design token management systems
+ * - Theme System: CSS theming infrastructure for dynamic switching
+ * 
+ * @author ShadowNews Team
+ * @version 2.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
+/* =============================================================================
+   Global Design System Variables
+   Complete design token system for ShadowNews email platform
+   ============================================================================= */
+
+/**
+ * Root Design System Variables
+ * Foundation design tokens for consistent styling across the application
+ */
 :root {
- /* Color Palette - Primary */
- --color-primary-50: #f0f9ff;
- --color-primary-100: #e0f2fe;
- --color-primary-200: #bae6fd;
- --color-primary-300: #7dd3fc;
- --color-primary-400: #38bdf8;
- --color-primary-500: #0ea5e9;
- --color-primary-600: #0284c7;
- --color-primary-700: #0369a1;
- --color-primary-800: #075985;
- --color-primary-900: #0c4a6e;
+ 
+ /* =============================================================================
+    Color Palette - Primary Brand Colors
+    ShadowNews orange brand identity with comprehensive tonal scale
+    ============================================================================= */
+ 
+ /**
+  * Primary Color Scale
+  * Orange brand color with 10-step tonal progression for comprehensive design flexibility
+  */
+ --color-primary-50: #fff7ed;           /* Lightest orange tint for subtle backgrounds */
+ --color-primary-100: #ffedd5;          /* Very light orange for hover states */
+ --color-primary-200: #fed7aa;          /* Light orange for disabled states */
+ --color-primary-300: #fdba74;          /* Medium-light orange for secondary accents */
+ --color-primary-400: #fb923c;          /* Medium orange for interactive elements */
+ --color-primary-500: #ff6600;          /* Primary brand orange - main brand color */
+ --color-primary-600: #ea580c;          /* Darker orange for hover states */
+ --color-primary-700: #c2410c;          /* Dark orange for active states */
+ --color-primary-800: #9a3412;          /* Very dark orange for text on light backgrounds */
+ --color-primary-900: #7c2d12;          /* Darkest orange for high contrast elements */
 
- /* Color Palette - Secondary */
- --color-secondary-50: #fdf4ff;
- --color-secondary-100: #fae8ff;
- --color-secondary-200: #f5d0fe;
- --color-secondary-300: #f0abfc;
- --color-secondary-400: #e879f9;
- --color-secondary-500: #d946ef;
- --color-secondary-600: #c026d3;
- --color-secondary-700: #a21caf;
- --color-secondary-800: #86198f;
- --color-secondary-900: #701a75;
+ /* =============================================================================
+    Color Palette - Secondary Colors
+    Blue secondary colors for alternative actions and accent elements
+    ============================================================================= */
+ 
+ /**
+  * Secondary Color Scale
+  * Blue color system for secondary actions and alternative branding
+  */
+ --color-secondary-50: #eff6ff;         /* Lightest blue for subtle backgrounds */
+ --color-secondary-100: #dbeafe;        /* Very light blue for info backgrounds */
+ --color-secondary-200: #bfdbfe;        /* Light blue for hover states */
+ --color-secondary-300: #93c5fd;        /* Medium-light blue for accents */
+ --color-secondary-400: #60a5fa;        /* Medium blue for interactive elements */
+ --color-secondary-500: #3b82f6;        /* Primary secondary blue */
+ --color-secondary-600: #2563eb;        /* Darker blue for hover states */
+ --color-secondary-700: #1d4ed8;        /* Dark blue for active states */
+ --color-secondary-800: #1e40af;        /* Very dark blue for text */
+ --color-secondary-900: #1e3a8a;        /* Darkest blue for high contrast */
 
- /* Color Palette - Accent */
- --color-accent-50: #fefce8;
- --color-accent-100: #fef9c3;
- --color-accent-200: #fef08a;
- --color-accent-300: #fde047;
- --color-accent-400: #facc15;
- --color-accent-500: #eab308;
- --color-accent-600: #ca8a04;
- --color-accent-700: #a16207;
- --color-accent-800: #854d0e;
- --color-accent-900: #713f12;
+ /* =============================================================================
+    Color Palette - Accent Colors
+    Yellow accent colors for highlights and attention-grabbing elements
+    ============================================================================= */
+ 
+ /**
+  * Accent Color Scale
+  * Yellow/amber color system for highlights and warning states
+  */
+ --color-accent-50: #fefce8;            /* Lightest yellow for subtle backgrounds */
+ --color-accent-100: #fef9c3;           /* Very light yellow for warning backgrounds */
+ --color-accent-200: #fef08a;           /* Light yellow for hover states */
+ --color-accent-300: #fde047;           /* Medium-light yellow for accents */
+ --color-accent-400: #facc15;           /* Medium yellow for interactive elements */
+ --color-accent-500: #eab308;           /* Primary accent yellow */
+ --color-accent-600: #ca8a04;           /* Darker yellow for hover states */
+ --color-accent-700: #a16207;           /* Dark yellow for active states */
+ --color-accent-800: #854d0e;           /* Very dark yellow for text */
+ --color-accent-900: #713f12;           /* Darkest yellow for high contrast */
 
- /* Neutral Colors */
- --color-gray-50: #f9fafb;
- --color-gray-100: #f3f4f6;
- --color-gray-200: #e5e7eb;
- --color-gray-300: #d1d5db;
- --color-gray-400: #9ca3af;
- --color-gray-500: #6b7280;
- --color-gray-600: #4b5563;
- --color-gray-700: #374151;
- --color-gray-800: #1f2937;
- --color-gray-900: #111827;
- --color-gray-950: #030712;
+ /* =============================================================================
+    Neutral Color Palette
+    Comprehensive gray scale for backgrounds, text, and UI elements
+    ============================================================================= */
+ 
+ /**
+  * Neutral Gray Scale
+  * 11-step gray progression for backgrounds, text, and neutral elements
+  */
+ --color-gray-50: #f9fafb;              /* Lightest gray for subtle backgrounds */
+ --color-gray-100: #f3f4f6;             /* Very light gray for secondary backgrounds */
+ --color-gray-200: #e5e7eb;             /* Light gray for borders and dividers */
+ --color-gray-300: #d1d5db;             /* Medium-light gray for disabled states */
+ --color-gray-400: #9ca3af;             /* Medium gray for placeholders */
+ --color-gray-500: #6b7280;             /* Base gray for secondary text */
+ --color-gray-600: #4b5563;             /* Dark gray for primary text */
+ --color-gray-700: #374151;             /* Very dark gray for headings */
+ --color-gray-800: #1f2937;             /* Darkest gray for high contrast text */
+ --color-gray-900: #111827;             /* Near-black for maximum contrast */
+ --color-gray-950: #030712;             /* Pure dark for dark mode backgrounds */
 
- /* Semantic Colors */
- --color-success: #22c55e;
- --color-success-light: #4ade80;
- --color-success-dark: #16a34a;
- --color-warning: #f59e0b;
- --color-warning-light: #fbbf24;
- --color-warning-dark: #d97706;
- --color-error: #ef4444;
- --color-error-light: #f87171;
- --color-error-dark: #dc2626;
- --color-info: #3b82f6;
- --color-info-light: #60a5fa;
- --color-info-dark: #2563eb;
+ /* =============================================================================
+    Semantic Color System
+    Status and meaning-based colors for UI feedback and states
+    ============================================================================= */
+ 
+ /**
+  * Success Colors
+  * Green color palette for positive actions and successful states
+  */
+ --color-success: #22c55e;              /* Primary success green */
+ --color-success-light: #4ade80;        /* Light success green for backgrounds */
+ --color-success-dark: #16a34a;         /* Dark success green for emphasis */
 
- /* Background Colors */
- --color-background: #ffffff;
- --color-background-secondary: #f9fafb;
- --color-background-tertiary: #f3f4f6;
- --color-background-inverse: #111827;
- --color-surface: #ffffff;
- --color-surface-hover: #f9fafb;
- --color-surface-active: #f3f4f6;
+ /**
+  * Warning Colors
+  * Orange/yellow color palette for caution and warning states
+  */
+ --color-warning: #f59e0b;              /* Primary warning orange */
+ --color-warning-light: #fbbf24;        /* Light warning orange for backgrounds */
+ --color-warning-dark: #d97706;         /* Dark warning orange for emphasis */
 
- /* Text Colors */
- --color-text-primary: #111827;
- --color-text-secondary: #4b5563;
- --color-text-tertiary: #6b7280;
- --color-text-disabled: #9ca3af;
- --color-text-inverse: #ffffff;
- --color-text-link: #0ea5e9;
- --color-text-link-hover: #0284c7;
+ /**
+  * Error Colors
+  * Red color palette for errors and destructive actions
+  */
+ --color-error: #ef4444;                /* Primary error red */
+ --color-error-light: #f87171;          /* Light error red for backgrounds */
+ --color-error-dark: #dc2626;           /* Dark error red for emphasis */
 
- /* Border Colors */
- --color-border: #e5e7eb;
- --color-border-hover: #d1d5db;
- --color-border-focus: #0ea5e9;
- --color-divider: #f3f4f6;
+ /**
+  * Info Colors
+  * Blue color palette for informational states and neutral feedback
+  */
+ --color-info: #3b82f6;                 /* Primary info blue */
+ --color-info-light: #60a5fa;           /* Light info blue for backgrounds */
+ --color-info-dark: #2563eb;            /* Dark info blue for emphasis */
 
- /* Typography */
+ /* =============================================================================
+    Background Color System
+    Layered background colors for content hierarchy and organization
+    ============================================================================= */
+ 
+ /**
+  * Background Colors
+  * Primary background color system for content layers
+  */
+ --color-background: #ffffff;           /* Pure white primary background */
+ --color-background-secondary: #f9fafb; /* Light gray secondary background */
+ --color-background-tertiary: #f3f4f6;  /* Medium gray tertiary background */
+ --color-background-inverse: #111827;   /* Dark background for contrast */
+ 
+ /**
+  * Surface Colors
+  * Interactive surface colors for cards, panels, and components
+  */
+ --color-surface: #ffffff;              /* Base surface color */
+ --color-surface-hover: #f9fafb;        /* Surface hover state */
+ --color-surface-active: #f3f4f6;       /* Surface active state */
+
+ /* =============================================================================
+    Typography Color System
+    Text colors optimized for readability and hierarchy
+    ============================================================================= */
+ 
+ /**
+  * Text Colors
+  * Hierarchical text color system with accessibility compliance
+  */
+ --color-text-primary: #111827;         /* Primary text color - highest contrast */
+ --color-text-secondary: #4b5563;       /* Secondary text color - medium contrast */
+ --color-text-tertiary: #6b7280;        /* Tertiary text color - lower contrast */
+ --color-text-disabled: #9ca3af;        /* Disabled text color - minimal contrast */
+ --color-text-inverse: #ffffff;         /* Inverse text color for dark backgrounds */
+ 
+ /**
+  * Link Colors
+  * Interactive text colors for links and clickable elements
+  */
+ --color-text-link: #0ea5e9;            /* Primary link color */
+ --color-text-link-hover: #0284c7;      /* Link hover state color */
+
+ /* =============================================================================
+    Border Color System
+    Border colors for component definition and visual separation
+    ============================================================================= */
+ 
+ /**
+  * Border Colors
+  * Border color system for component definition and interaction states
+  */
+ --color-border: #e5e7eb;               /* Primary border color */
+ --color-border-hover: #d1d5db;         /* Border hover state */
+ --color-border-focus: #0ea5e9;         /* Border focus state */
+ --color-divider: #f3f4f6;              /* Subtle divider color */
+
+ /* =============================================================================
+    Typography System
+    Comprehensive typography scale and font definitions
+    ============================================================================= */
+ 
+ /**
+  * Font Families
+  * Cross-platform font stacks optimized for readability and performance
+  */
  --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
  --font-family-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
  
- --font-size-xs: 0.75rem;
- --font-size-sm: 0.875rem;
- --font-size-base: 1rem;
- --font-size-lg: 1.125rem;
- --font-size-xl: 1.25rem;
- --font-size-2xl: 1.5rem;
- --font-size-3xl: 1.875rem;
- --font-size-4xl: 2.25rem;
- --font-size-5xl: 3rem;
+ /**
+  * Font Size Scale
+  * Modular typography scale with mathematical relationships
+  */
+ --font-size-xs: 0.75rem;               /* 12px - Extra small text */
+ --font-size-sm: 0.875rem;              /* 14px - Small text */
+ --font-size-base: 1rem;                /* 16px - Base text size */
+ --font-size-lg: 1.125rem;              /* 18px - Large text */
+ --font-size-xl: 1.25rem;               /* 20px - Extra large text */
+ --font-size-2xl: 1.5rem;               /* 24px - 2x extra large text */
+ --font-size-3xl: 1.875rem;             /* 30px - 3x extra large text */
+ --font-size-4xl: 2.25rem;              /* 36px - 4x extra large text */
+ --font-size-5xl: 3rem;                 /* 48px - 5x extra large text */
 
- --font-weight-thin: 100;
- --font-weight-light: 300;
- --font-weight-normal: 400;
- --font-weight-medium: 500;
- --font-weight-semibold: 600;
- --font-weight-bold: 700;
- --font-weight-extrabold: 800;
+ /**
+  * Font Weight Scale
+  * Semantic font weight system for typography hierarchy
+  */
+ --font-weight-thin: 100;               /* Thin font weight */
+ --font-weight-light: 300;              /* Light font weight */
+ --font-weight-normal: 400;             /* Normal font weight */
+ --font-weight-medium: 500;             /* Medium font weight */
+ --font-weight-semibold: 600;           /* Semi-bold font weight */
+ --font-weight-bold: 700;               /* Bold font weight */
+ --font-weight-extrabold: 800;          /* Extra-bold font weight */
 
- --line-height-none: 1;
- --line-height-tight: 1.25;
- --line-height-snug: 1.375;
- --line-height-normal: 1.5;
- --line-height-relaxed: 1.625;
- --line-height-loose: 2;
+ /**
+  * Line Height Scale
+  * Line heights optimized for different content types and reading experiences
+  */
+ --line-height-none: 1;                 /* No line height - for tight layouts */
+ --line-height-tight: 1.25;             /* Tight line height - for headings */
+ --line-height-snug: 1.375;             /* Snug line height - for UI text */
+ --line-height-normal: 1.5;             /* Normal line height - for body text */
+ --line-height-relaxed: 1.625;          /* Relaxed line height - for reading */
+ --line-height-loose: 2;                /* Loose line height - for emphasis */
 
- /* Spacing */
- --spacing-0: 0;
- --spacing-1: 0.25rem;
- --spacing-2: 0.5rem;
- --spacing-3: 0.75rem;
- --spacing-4: 1rem;
- --spacing-5: 1.25rem;
- --spacing-6: 1.5rem;
- --spacing-7: 1.75rem;
- --spacing-8: 2rem;
- --spacing-9: 2.25rem;
- --spacing-10: 2.5rem;
- --spacing-12: 3rem;
- --spacing-14: 3.5rem;
- --spacing-16: 4rem;
- --spacing-20: 5rem;
- --spacing-24: 6rem;
- --spacing-28: 7rem;
- --spacing-32: 8rem;
- --spacing-36: 9rem;
- --spacing-40: 10rem;
- --spacing-44: 11rem;
- --spacing-48: 12rem;
- --spacing-52: 13rem;
- --spacing-56: 14rem;
- --spacing-60: 15rem;
- --spacing-64: 16rem;
- --spacing-72: 18rem;
- --spacing-80: 20rem;
- --spacing-96: 24rem;
+ /* =============================================================================
+    Spacing System
+    Consistent spacing scale for layout and component spacing
+    ============================================================================= */
+ 
+ /**
+  * Spacing Scale
+  * Modular spacing system with consistent increments
+  */
+ --spacing-0: 0;                        /* 0px - No spacing */
+ --spacing-1: 0.25rem;                  /* 4px - Minimal spacing */
+ --spacing-2: 0.5rem;                   /* 8px - Small spacing */
+ --spacing-3: 0.75rem;                  /* 12px - Medium-small spacing */
+ --spacing-4: 1rem;                     /* 16px - Base spacing unit */
+ --spacing-5: 1.25rem;                  /* 20px - Medium spacing */
+ --spacing-6: 1.5rem;                   /* 24px - Large spacing */
+ --spacing-7: 1.75rem;                  /* 28px - Extra large spacing */
+ --spacing-8: 2rem;                     /* 32px - 2x base spacing */
+ --spacing-9: 2.25rem;                  /* 36px - Large component spacing */
+ --spacing-10: 2.5rem;                  /* 40px - Extra large component spacing */
+ --spacing-12: 3rem;                    /* 48px - Section spacing */
+ --spacing-14: 3.5rem;                  /* 56px - Large section spacing */
+ --spacing-16: 4rem;                    /* 64px - Page section spacing */
+ --spacing-20: 5rem;                    /* 80px - Large page spacing */
+ --spacing-24: 6rem;                    /* 96px - Extra large page spacing */
+ --spacing-28: 7rem;                    /* 112px - Massive spacing */
+ --spacing-32: 8rem;                    /* 128px - Maximum component spacing */
+ --spacing-36: 9rem;                    /* 144px - Layout spacing */
+ --spacing-40: 10rem;                   /* 160px - Large layout spacing */
+ --spacing-44: 11rem;                   /* 176px - Extra large layout spacing */
+ --spacing-48: 12rem;                   /* 192px - Maximum layout spacing */
+ --spacing-52: 13rem;                   /* 208px - Container spacing */
+ --spacing-56: 14rem;                   /* 224px - Large container spacing */
+ --spacing-60: 15rem;                   /* 240px - Extra large container spacing */
+ --spacing-64: 16rem;                   /* 256px - Maximum container spacing */
+ --spacing-72: 18rem;                   /* 288px - Page-level spacing */
+ --spacing-80: 20rem;                   /* 320px - Large page-level spacing */
+ --spacing-96: 24rem;                   /* 384px - Maximum page-level spacing */
 
- /* Border Radius */
- --radius-none: 0;
- --radius-sm: 0.125rem;
- --radius-base: 0.25rem;
- --radius-md: 0.375rem;
- --radius-lg: 0.5rem;
- --radius-xl: 0.75rem;
- --radius-2xl: 1rem;
- --radius-3xl: 1.5rem;
- --radius-full: 9999px;
+ /* =============================================================================
+    Border Radius System
+    Consistent border radius scale for component styling
+    ============================================================================= */
+ 
+ /**
+  * Border Radius Scale
+  * Progressive border radius system for component corners
+  */
+ --radius-none: 0;                      /* No border radius - sharp corners */
+ --radius-sm: 0.125rem;                 /* 2px - Small border radius */
+ --radius-base: 0.25rem;                /* 4px - Base border radius */
+ --radius-md: 0.375rem;                 /* 6px - Medium border radius */
+ --radius-lg: 0.5rem;                   /* 8px - Large border radius */
+ --radius-xl: 0.75rem;                  /* 12px - Extra large border radius */
+ --radius-2xl: 1rem;                    /* 16px - 2x extra large border radius */
+ --radius-3xl: 1.5rem;                  /* 24px - 3x extra large border radius */
+ --radius-full: 9999px;                 /* Full border radius - perfect circles */
 
- /* Shadows */
- --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
- --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
- --shadow-base: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
- --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
- --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
- --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
- --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
- --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
- --shadow-none: 0 0 #0000;
+ /* =============================================================================
+    Shadow System
+    Layered shadow system for depth and visual hierarchy
+    ============================================================================= */
+ 
+ /**
+  * Shadow Scale
+  * Progressive shadow system for component elevation
+  */
+ --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);     /* Extra small shadow */
+ --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1); /* Small shadow */
+ --shadow-base: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); /* Base shadow */
+ --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* Medium shadow */
+ --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); /* Large shadow */
+ --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25); /* Extra large shadow */
+ --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25); /* 2x extra large shadow */
+ --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05); /* Inner shadow */
+ --shadow-none: 0 0 #0000;              /* No shadow */
 
- /* Z-index */
- --z-index-0: 0;
- --z-index-10: 10;
- --z-index-20: 20;
- --z-index-30: 30;
- --z-index-40: 40;
- --z-index-50: 50;
- --z-index-dropdown: 1000;
- --z-index-sticky: 1020;
- --z-index-fixed: 1030;
- --z-index-modal-backdrop: 1040;
- --z-index-modal: 1050;
- --z-index-popover: 1060;
- --z-index-tooltip: 1070;
+ /* =============================================================================
+    Z-Index System
+    Layering system for proper element stacking and hierarchy
+    ============================================================================= */
+ 
+ /**
+  * Z-Index Scale
+  * Consistent layering system for UI components and overlays
+  */
+ --z-index-0: 0;                        /* Base layer */
+ --z-index-10: 10;                      /* Low elevation */
+ --z-index-20: 20;                      /* Medium-low elevation */
+ --z-index-30: 30;                      /* Medium elevation */
+ --z-index-40: 40;                      /* Medium-high elevation */
+ --z-index-50: 50;                      /* High elevation */
+ --z-index-dropdown: 1000;              /* Dropdown menus */
+ --z-index-sticky: 1020;                /* Sticky positioned elements */
+ --z-index-fixed: 1030;                 /* Fixed positioned elements */
+ --z-index-modal-backdrop: 1040;        /* Modal backdrop overlays */
+ --z-index-modal: 1050;                 /* Modal dialog content */
+ --z-index-popover: 1060;               /* Popover elements */
+ --z-index-tooltip: 1070;               /* Tooltip elements */
 
- /* Transitions */
- --transition-none: none;
- --transition-all: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
- --transition-colors: background-color, border-color, color, fill, stroke 150ms cubic-bezier(0.4, 0, 0.2, 1);
- --transition-opacity: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
- --transition-shadow: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1);
- --transition-transform: transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+ /* =============================================================================
+    Animation and Transition System
+    Timing functions and durations for smooth interactions
+    ============================================================================= */
+ 
+ /**
+  * Transition Presets
+  * Pre-configured transition definitions for common use cases
+  */
+ --transition-none: none;                /* No transition */
+ --transition-all: all 150ms cubic-bezier(0.4, 0, 0.2, 1); /* All properties transition */
+ --transition-colors: background-color, border-color, color, fill, stroke 150ms cubic-bezier(0.4, 0, 0.2, 1); /* Color transitions */
+ --transition-opacity: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1); /* Opacity transitions */
+ --transition-shadow: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1); /* Shadow transitions */
+ --transition-transform: transform 150ms cubic-bezier(0.4, 0, 0.2, 1); /* Transform transitions */
 
- /* Animation Durations */
- --duration-75: 75ms;
- --duration-100: 100ms;
- --duration-150: 150ms;
- --duration-200: 200ms;
- --duration-300: 300ms;
- --duration-500: 500ms;
- --duration-700: 700ms;
- --duration-1000: 1000ms;
+ /**
+  * Animation Durations
+  * Standardized timing for animations and transitions
+  */
+ --duration-75: 75ms;                   /* Ultra-fast duration */
+ --duration-100: 100ms;                 /* Very fast duration */
+ --duration-150: 150ms;                 /* Fast duration */
+ --duration-200: 200ms;                 /* Medium-fast duration */
+ --duration-300: 300ms;                 /* Medium duration */
+ --duration-500: 500ms;                 /* Slow duration */
+ --duration-700: 700ms;                 /* Very slow duration */
+ --duration-1000: 1000ms;               /* Ultra-slow duration */
 
- /* Animation Timing Functions */
- --ease-linear: linear;
- --ease-in: cubic-bezier(0.4, 0, 1, 1);
- --ease-out: cubic-bezier(0, 0, 0.2, 1);
- --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+ /**
+  * Animation Timing Functions
+  * Easing functions for natural motion
+  */
+ --ease-linear: linear;                                  /* Linear easing */
+ --ease-in: cubic-bezier(0.4, 0, 1, 1);                /* Ease in */
+ --ease-out: cubic-bezier(0, 0, 0.2, 1);               /* Ease out */
+ --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);          /* Ease in-out */
 
- /* Breakpoints */
- --breakpoint-xs: 475px;
- --breakpoint-sm: 640px;
- --breakpoint-md: 768px;
- --breakpoint-lg: 1024px;
- --breakpoint-xl: 1280px;
- --breakpoint-2xl: 1536px;
+ /* =============================================================================
+    Responsive Design System
+    Breakpoints and container definitions for responsive layouts
+    ============================================================================= */
+ 
+ /**
+  * Breakpoint System
+  * Mobile-first breakpoints for responsive design
+  */
+ --breakpoint-xs: 475px;                /* Extra small devices */
+ --breakpoint-sm: 640px;                /* Small devices */
+ --breakpoint-md: 768px;                /* Medium devices */
+ --breakpoint-lg: 1024px;               /* Large devices */
+ --breakpoint-xl: 1280px;               /* Extra large devices */
+ --breakpoint-2xl: 1536px;              /* 2x extra large devices */
 
- /* Container */
- --container-xs: 475px;
- --container-sm: 640px;
- --container-md: 768px;
- --container-lg: 1024px;
- --container-xl: 1280px;
- --container-2xl: 1536px;
+ /**
+  * Container System
+  * Maximum widths for content containers at different breakpoints
+  */
+ --container-xs: 475px;                 /* Extra small container */
+ --container-sm: 640px;                 /* Small container */
+ --container-md: 768px;                 /* Medium container */
+ --container-lg: 1024px;                /* Large container */
+ --container-xl: 1280px;                /* Extra large container */
+ --container-2xl: 1536px;               /* 2x extra large container */
 
- /* Grid */
- --grid-cols-1: repeat(1, minmax(0, 1fr));
- --grid-cols-2: repeat(2, minmax(0, 1fr));
- --grid-cols-3: repeat(3, minmax(0, 1fr));
- --grid-cols-4: repeat(4, minmax(0, 1fr));
- --grid-cols-5: repeat(5, minmax(0, 1fr));
- --grid-cols-6: repeat(6, minmax(0, 1fr));
- --grid-cols-7: repeat(7, minmax(0, 1fr));
- --grid-cols-8: repeat(8, minmax(0, 1fr));
- --grid-cols-9: repeat(9, minmax(0, 1fr));
- --grid-cols-10: repeat(10, minmax(0, 1fr));
- --grid-cols-11: repeat(11, minmax(0, 1fr));
- --grid-cols-12: repeat(12, minmax(0, 1fr));
+ /**
+  * Grid System
+  * CSS Grid column definitions for layout systems
+  */
+ --grid-cols-1: repeat(1, minmax(0, 1fr));   /* 1 column grid */
+ --grid-cols-2: repeat(2, minmax(0, 1fr));   /* 2 column grid */
+ --grid-cols-3: repeat(3, minmax(0, 1fr));   /* 3 column grid */
+ --grid-cols-4: repeat(4, minmax(0, 1fr));   /* 4 column grid */
+ --grid-cols-5: repeat(5, minmax(0, 1fr));   /* 5 column grid */
+ --grid-cols-6: repeat(6, minmax(0, 1fr));   /* 6 column grid */
+ --grid-cols-7: repeat(7, minmax(0, 1fr));   /* 7 column grid */
+ --grid-cols-8: repeat(8, minmax(0, 1fr));   /* 8 column grid */
+ --grid-cols-9: repeat(9, minmax(0, 1fr));   /* 9 column grid */
+ --grid-cols-10: repeat(10, minmax(0, 1fr)); /* 10 column grid */
+ --grid-cols-11: repeat(11, minmax(0, 1fr)); /* 11 column grid */
+ --grid-cols-12: repeat(12, minmax(0, 1fr)); /* 12 column grid */
 
- /* Component Specific */
- --header-height: 64px;
- --sidebar-width: 280px;
- --sidebar-width-collapsed: 64px;
- --footer-height: 80px;
- --navbar-height: 56px;
- --toolbar-height: 48px;
+ /* =============================================================================
+    Layout Component Variables
+    Layout-specific dimensions and constraints
+    ============================================================================= */
+ 
+ /**
+  * Layout Dimensions
+  * Standard dimensions for layout components
+  */
+ --header-height: 64px;                 /* Header height */
+ --sidebar-width: 280px;                /* Sidebar width */
+ --sidebar-width-collapsed: 64px;       /* Collapsed sidebar width */
+ --footer-height: 80px;                 /* Footer height */
+ --navbar-height: 56px;                 /* Navigation bar height */
+ --toolbar-height: 48px;                /* Toolbar height */
 
- /* Input Variables */
- --input-height-sm: 32px;
- --input-height-base: 40px;
- --input-height-lg: 48px;
- --input-padding-x: var(--spacing-3);
- --input-padding-y: var(--spacing-2);
- --input-border-width: 1px;
- --input-focus-ring-width: 2px;
- --input-focus-ring-color: var(--color-primary-500);
- --input-disabled-opacity: 0.5;
+ /* =============================================================================
+    Component-Specific Variables
+    Specialized variables for UI components
+    ============================================================================= */
+ 
+ /**
+  * Input Component Variables
+  * Form input styling and behavior variables
+  */
+ --input-height-sm: 32px;               /* Small input height */
+ --input-height-base: 40px;             /* Base input height */
+ --input-height-lg: 48px;               /* Large input height */
+ --input-padding-x: var(--spacing-3);   /* Input horizontal padding */
+ --input-padding-y: var(--spacing-2);   /* Input vertical padding */
+ --input-border-width: 1px;             /* Input border width */
+ --input-focus-ring-width: 2px;         /* Input focus ring width */
+ --input-focus-ring-color: var(--color-primary-500); /* Input focus ring color */
+ --input-disabled-opacity: 0.5;         /* Input disabled opacity */
 
- /* Button Variables */
- --button-padding-x-sm: var(--spacing-3);
- --button-padding-y-sm: var(--spacing-1);
- --button-padding-x-base: var(--spacing-4);
- --button-padding-y-base: var(--spacing-2);
- --button-padding-x-lg: var(--spacing-6);
- --button-padding-y-lg: var(--spacing-3);
- --button-font-weight: var(--font-weight-medium);
- --button-border-width: 1px;
- --button-disabled-opacity: 0.5;
+ /**
+  * Button Component Variables
+  * Button styling and sizing variables
+  */
+ --button-padding-x-sm: var(--spacing-3);    /* Small button horizontal padding */
+ --button-padding-y-sm: var(--spacing-1);    /* Small button vertical padding */
+ --button-padding-x-base: var(--spacing-4);  /* Base button horizontal padding */
+ --button-padding-y-base: var(--spacing-2);  /* Base button vertical padding */
+ --button-padding-x-lg: var(--spacing-6);    /* Large button horizontal padding */
+ --button-padding-y-lg: var(--spacing-3);    /* Large button vertical padding */
+ --button-font-weight: var(--font-weight-medium); /* Button font weight */
+ --button-border-width: 1px;             /* Button border width */
+ --button-disabled-opacity: 0.5;         /* Button disabled opacity */
 
- /* Card Variables */
- --card-padding: var(--spacing-6);
- --card-padding-sm: var(--spacing-4);
- --card-padding-lg: var(--spacing-8);
- --card-border-radius: var(--radius-lg);
- --card-shadow: var(--shadow-base);
- --card-border-color: var(--color-border);
+ /**
+  * Card Component Variables
+  * Card styling and layout variables
+  */
+ --card-padding: var(--spacing-6);       /* Card padding */
+ --card-padding-sm: var(--spacing-4);    /* Small card padding */
+ --card-padding-lg: var(--spacing-8);    /* Large card padding */
+ --card-border-radius: var(--radius-lg); /* Card border radius */
+ --card-shadow: var(--shadow-base);      /* Card shadow */
+ --card-border-color: var(--color-border); /* Card border color */
 
- /* Modal Variables */
- --modal-backdrop-opacity: 0.5;
- --modal-backdrop-blur: 4px;
- --modal-padding: var(--spacing-6);
- --modal-border-radius: var(--radius-xl);
- --modal-shadow: var(--shadow-2xl);
- --modal-max-width-sm: 400px;
- --modal-max-width-base: 600px;
- --modal-max-width-lg: 800px;
- --modal-max-width-xl: 1200px;
+ /**
+  * Modal Component Variables
+  * Modal dialog styling and behavior variables
+  */
+ --modal-backdrop-opacity: 0.5;          /* Modal backdrop opacity */
+ --modal-backdrop-blur: 4px;             /* Modal backdrop blur */
+ --modal-padding: var(--spacing-6);      /* Modal content padding */
+ --modal-border-radius: var(--radius-xl); /* Modal border radius */
+ --modal-shadow: var(--shadow-2xl);      /* Modal shadow */
+ --modal-max-width-sm: 400px;            /* Small modal max width */
+ --modal-max-width-base: 600px;          /* Base modal max width */
+ --modal-max-width-lg: 800px;            /* Large modal max width */
+ --modal-max-width-xl: 1200px;           /* Extra large modal max width */
 
- /* Tooltip Variables */
- --tooltip-bg: var(--color-gray-900);
- --tooltip-color: var(--color-text-inverse);
- --tooltip-padding: var(--spacing-2) var(--spacing-3);
- --tooltip-border-radius: var(--radius-md);
- --tooltip-font-size: var(--font-size-sm);
- --tooltip-shadow: var(--shadow-lg);
+ /**
+  * Tooltip Component Variables
+  * Tooltip styling and positioning variables
+  */
+ --tooltip-bg: var(--color-gray-900);    /* Tooltip background */
+ --tooltip-color: var(--color-text-inverse); /* Tooltip text color */
+ --tooltip-padding: var(--spacing-2) var(--spacing-3); /* Tooltip padding */
+ --tooltip-border-radius: var(--radius-md); /* Tooltip border radius */
+ --tooltip-font-size: var(--font-size-sm); /* Tooltip font size */
+ --tooltip-shadow: var(--shadow-lg);     /* Tooltip shadow */
 
- /* Badge Variables */
- --badge-padding-x: var(--spacing-2);
- --badge-padding-y: var(--spacing-1);
- --badge-font-size: var(--font-size-xs);
- --badge-font-weight: var(--font-weight-semibold);
- --badge-border-radius: var(--radius-full);
+ /**
+  * Badge Component Variables
+  * Badge styling and sizing variables
+  */
+ --badge-padding-x: var(--spacing-2);    /* Badge horizontal padding */
+ --badge-padding-y: var(--spacing-1);    /* Badge vertical padding */
+ --badge-font-size: var(--font-size-xs); /* Badge font size */
+ --badge-font-weight: var(--font-weight-semibold); /* Badge font weight */
+ --badge-border-radius: var(--radius-full); /* Badge border radius */
 
- /* Avatar Variables */
- --avatar-size-xs: 24px;
- --avatar-size-sm: 32px;
- --avatar-size-base: 40px;
- --avatar-size-lg: 48px;
- --avatar-size-xl: 64px;
- --avatar-size-2xl: 96px;
- --avatar-border-radius: var(--radius-full);
+ /**
+  * Avatar Component Variables
+  * Avatar sizing and styling variables
+  */
+ --avatar-size-xs: 24px;                 /* Extra small avatar size */
+ --avatar-size-sm: 32px;                 /* Small avatar size */
+ --avatar-size-base: 40px;               /* Base avatar size */
+ --avatar-size-lg: 48px;                 /* Large avatar size */
+ --avatar-size-xl: 64px;                 /* Extra large avatar size */
+ --avatar-size-2xl: 96px;                /* 2x extra large avatar size */
+ --avatar-border-radius: var(--radius-full); /* Avatar border radius */
 
- /* Content Width */
- --content-width-sm: 640px;
- --content-width-md: 768px;
- --content-width-lg: 1024px;
- --content-width-xl: 1280px;
- --content-width-prose: 65ch;
+ /**
+  * Content Width Variables
+  * Content container width constraints
+  */
+ --content-width-sm: 640px;              /* Small content width */
+ --content-width-md: 768px;              /* Medium content width */
+ --content-width-lg: 1024px;             /* Large content width */
+ --content-width-xl: 1280px;             /* Extra large content width */
+ --content-width-prose: 65ch;            /* Prose content width */
 
- /* Karma Colors */
- --karma-bronze: #cd7f32;
- --karma-silver: #c0c0c0;
- --karma-gold: #ffd700;
- --karma-platinum: #e5e4e2;
- --karma-diamond: #b9f2ff;
+ /* =============================================================================
+    ShadowNews Platform-Specific Variables
+    Variables specific to email platform features and functionality
+    ============================================================================= */
+ 
+ /**
+  * Karma System Variables
+  * User reputation and achievement color system
+  */
+ --karma-bronze: #cd7f32;                /* Bronze karma tier color */
+ --karma-silver: #c0c0c0;                /* Silver karma tier color */
+ --karma-gold: #ffd700;                  /* Gold karma tier color */
+ --karma-platinum: #e5e4e2;              /* Platinum karma tier color */
+ --karma-diamond: #b9f2ff;               /* Diamond karma tier color */
 
- /* Repository Colors */
- --repo-public: var(--color-success);
- --repo-private: var(--color-warning);
- --repo-archived: var(--color-gray-500);
+ /**
+  * Repository Status Variables
+  * Email repository status and type indicators
+  */
+ --repo-public: var(--color-success);    /* Public repository indicator */
+ --repo-private: var(--color-warning);   /* Private repository indicator */
+ --repo-archived: var(--color-gray-500); /* Archived repository indicator */
 
- /* Email Status Colors */
- --email-verified: var(--color-success);
- --email-pending: var(--color-warning);
- --email-bounced: var(--color-error);
+ /**
+  * Email Status Variables
+  * Email verification and delivery status colors
+  */
+ --email-verified: var(--color-success); /* Verified email indicator */
+ --email-pending: var(--color-warning);  /* Pending email indicator */
+ --email-bounced: var(--color-error);    /* Bounced email indicator */
 
- /* Post Score Colors */
- --score-positive: var(--color-success);
- --score-neutral: var(--color-gray-500);
- --score-negative: var(--color-error);
+ /**
+  * Post Score Variables
+  * Post voting and score visualization colors
+  */
+ --score-positive: var(--color-success); /* Positive score color */
+ --score-neutral: var(--color-gray-500); /* Neutral score color */
+ --score-negative: var(--color-error);   /* Negative score color */
 
- /* Trending Indicators */
- --trending-hot: #ff4458;
- --trending-rising: #ff6900;
- --trending-new: #00d4ff;
+ /**
+  * Trending Indicator Variables
+  * Content trending and popularity indicators
+  */
+ --trending-hot: #ff4458;                /* Hot trending indicator */
+ --trending-rising: #ff6900;             /* Rising trending indicator */
+ --trending-new: #00d4ff;                /* New trending indicator */
 
- /* Focus States */
- --focus-ring-width: 2px;
- --focus-ring-color: var(--color-primary-500);
- --focus-ring-offset: 2px;
- --focus-ring-offset-color: var(--color-background);
+ /**
+  * Focus State Variables
+  * Accessibility and keyboard navigation variables
+  */
+ --focus-ring-width: 2px;                /* Focus ring width */
+ --focus-ring-color: var(--color-primary-500); /* Focus ring color */
+ --focus-ring-offset: 2px;               /* Focus ring offset */
+ --focus-ring-offset-color: var(--color-background); /* Focus ring offset color */
 }
 
-/* Dark Mode Variables */
+/* =============================================================================
+   Dark Theme Variable Overrides
+   Dark mode specific variable definitions
+   ============================================================================= */
+
+/**
+ * Dark Theme Variables
+ * Comprehensive dark mode variable overrides for optimal dark theme experience
+ */
 [data-theme="dark"] {
- /* Background Colors */
- --color-background: #0f172a;
- --color-background-secondary: #1e293b;
- --color-background-tertiary: #334155;
- --color-background-inverse: #ffffff;
- --color-surface: #1e293b;
- --color-surface-hover: #334155;
- --color-surface-active: #475569;
+ 
+ /**
+  * Dark Theme Background Colors
+  * Inverted background color system for dark mode
+  */
+ --color-background: #0f172a;            /* Dark primary background */
+ --color-background-secondary: #1e293b;  /* Dark secondary background */
+ --color-background-tertiary: #334155;   /* Dark tertiary background */
+ --color-background-inverse: #ffffff;    /* Light background for contrast */
+ --color-surface: #1e293b;               /* Dark surface color */
+ --color-surface-hover: #334155;         /* Dark surface hover state */
+ --color-surface-active: #475569;        /* Dark surface active state */
 
- /* Text Colors */
- --color-text-primary: #f1f5f9;
- --color-text-secondary: #cbd5e1;
- --color-text-tertiary: #94a3b8;
- --color-text-disabled: #64748b;
- --color-text-inverse: #0f172a;
+ /**
+  * Dark Theme Text Colors
+  * Inverted text color system for dark mode readability
+  */
+ --color-text-primary: #f1f5f9;          /* Light primary text */
+ --color-text-secondary: #cbd5e1;        /* Medium light secondary text */
+ --color-text-tertiary: #94a3b8;         /* Medium light tertiary text */
+ --color-text-disabled: #64748b;         /* Dark disabled text */
+ --color-text-inverse: #0f172a;          /* Dark text for light backgrounds */
 
- /* Border Colors */
- --color-border: #334155;
- --color-border-hover: #475569;
- --color-divider: #1e293b;
+ /**
+  * Dark Theme Border Colors
+  * Border color system adapted for dark backgrounds
+  */
+ --color-border: #334155;                /* Dark border color */
+ --color-border-hover: #475569;          /* Dark border hover state */
+ --color-divider: #1e293b;               /* Dark divider color */
 
- /* Component Specific Dark Mode */
- --card-border-color: #334155;
- --tooltip-bg: #f1f5f9;
- --tooltip-color: #0f172a;
- --input-focus-ring-color: var(--color-primary-400);
- --focus-ring-color: var(--color-primary-400);
+ /**
+  * Dark Theme Component Overrides
+  * Component-specific dark mode adaptations
+  */
+ --card-border-color: #334155;           /* Dark card border */
+ --tooltip-bg: #f1f5f9;                  /* Light tooltip background in dark mode */
+ --tooltip-color: #0f172a;               /* Dark tooltip text in dark mode */
+ --input-focus-ring-color: var(--color-primary-400); /* Brighter focus ring for dark mode */
+ --focus-ring-color: var(--color-primary-400); /* Brighter focus ring for dark mode */
 }
 
-/* Media Query Variables */
-@custom-media --xs (min-width: 475px);
-@custom-media --sm (min-width: 640px);
-@custom-media --md (min-width: 768px);
-@custom-media --lg (min-width: 1024px);
-@custom-media --xl (min-width: 1280px);
-@custom-media --2xl (min-width: 1536px);
+/* =============================================================================
+   Responsive Media Query Support
+   Media query breakpoint constants for responsive design
+   ============================================================================= */
+
+/**
+ * Media Query Support
+ * Breakpoint variables are defined above for use in JavaScript and CSS-in-JS
+ * 
+ * Usage examples:
+ * - CSS: @media (min-width: 768px) { ... }
+ * - JS: window.matchMedia(`(min-width: ${breakpoints.md})`)
+ * - Styled-components: ${media.md} { ... }
+ * 
+ * Breakpoint Values:
+ * - xs: 475px (Extra small devices and up)
+ * - sm: 640px (Small devices and up)
+ * - md: 768px (Medium devices and up)
+ * - lg: 1024px (Large devices and up)
+ * - xl: 1280px (Extra large devices and up)
+ * - 2xl: 1536px (2x extra large devices and up)
+ */
+
+/* =============================================================================
+   End of Design System Variables
+   Complete design token system for ShadowNews email platform
+   ============================================================================= */

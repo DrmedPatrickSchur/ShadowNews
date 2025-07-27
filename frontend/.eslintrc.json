@@ -1,13 +1,30 @@
 {
+ "_comment_header": "============================================================================",
+ "_comment_title": "ESLint Configuration for ShadowNews Frontend",
+ "_comment_description": "Comprehensive ESLint configuration for React + TypeScript development",
+ "_comment_architecture": "This configuration enforces code quality, accessibility, and consistency across the ShadowNews email-first social platform frontend codebase.",
+ "_comment_version": "ESLint 8.55.0 with TypeScript, React, and accessibility support",
+ "_comment_updated": "2025-01-27",
+ "_comment_separator": "============================================================================",
+
+ "_section_environment": "=== RUNTIME ENVIRONMENT CONFIGURATION ===",
  "env": {
+   "_env_purpose": "Defines global variables and features available in different environments",
    "browser": true,
+   "_browser_purpose": "Enables browser global variables (window, document, localStorage, etc.)",
    "es2021": true,
+   "_es2021_purpose": "Enables ES2021 syntax and global features (Promise.any, WeakRef, etc.)",
    "jest": true,
-   "node": true
+   "_jest_purpose": "Enables Jest testing framework globals (describe, it, expect, etc.)",
+   "node": true,
+   "_node_purpose": "Enables Node.js global variables and features (process, Buffer, etc.)"
  },
+
+ "_section_extends": "=== CONFIGURATION INHERITANCE ===",
+ "_extends_purpose": "Inherits and combines multiple ESLint configuration presets",
  "extends": [
    "eslint:recommended",
-   "plugin:react/recommended",
+   "plugin:react/recommended", 
    "plugin:react-hooks/recommended",
    "plugin:@typescript-eslint/recommended",
    "plugin:jsx-a11y/recommended",
@@ -16,15 +33,36 @@
    "plugin:import/typescript",
    "prettier"
  ],
+ "_eslint_recommended_purpose": "Core ESLint recommended rules for JavaScript best practices",
+ "_react_recommended_purpose": "React-specific linting rules for JSX and React patterns",
+ "_react_hooks_recommended_purpose": "Enforces Rules of Hooks for React development",
+ "_typescript_recommended_purpose": "TypeScript-specific linting rules and type checking",
+ "_jsx_a11y_recommended_purpose": "Accessibility linting rules for inclusive web development",
+ "_import_errors_purpose": "Import/export statement error detection and validation",
+ "_import_warnings_purpose": "Import/export statement warning detection for best practices",
+ "_import_typescript_purpose": "TypeScript-aware import/export validation and resolution",
+ "_prettier_extends_purpose": "Disables ESLint formatting rules that conflict with Prettier",
+
+ "_section_parser": "=== TYPESCRIPT PARSER CONFIGURATION ===",
  "parser": "@typescript-eslint/parser",
+ "_parser_purpose": "Uses TypeScript parser for understanding TS/TSX syntax and semantics",
+ 
  "parserOptions": {
+   "_parser_options_purpose": "Configuration options for the TypeScript parser",
    "ecmaFeatures": {
-     "jsx": true
+     "jsx": true,
+     "_jsx_purpose": "Enables JSX syntax parsing for React components"
    },
    "ecmaVersion": "latest",
+   "_ecma_version_purpose": "Uses latest ECMAScript version for modern JavaScript features",
    "sourceType": "module",
-   "project": "./tsconfig.json"
+   "_source_type_purpose": "Treats files as ES modules with import/export statements",
+   "project": "./tsconfig.json",
+   "_project_purpose": "References TypeScript configuration for type-aware linting"
  },
+
+ "_section_plugins": "=== ESLINT PLUGINS ===",
+ "_plugins_purpose": "Additional ESLint plugins providing specialized linting capabilities",
  "plugins": [
    "react",
    "react-hooks",
@@ -33,17 +71,38 @@
    "import",
    "prettier"
  ],
+ "_react_plugin_purpose": "React-specific linting rules and JSX support",
+ "_react_hooks_plugin_purpose": "React Hooks rules enforcement and validation",
+ "_typescript_plugin_purpose": "TypeScript-specific linting and type checking rules",
+ "_jsx_a11y_plugin_purpose": "Accessibility linting for inclusive web development",
+ "_import_plugin_purpose": "Import/export statement linting and organization",
+ "_prettier_plugin_purpose": "Prettier integration for code formatting",
+
+ "_section_rules": "=== CUSTOM LINTING RULES ===",
  "rules": {
+   "_rules_purpose": "Custom rule overrides and configurations for project-specific requirements",
+
+   "_subsection_react_rules": "--- React-Specific Rules ---",
    "react/react-in-jsx-scope": "off",
+   "_react_in_jsx_scope_purpose": "Disabled: React 17+ automatic JSX transform doesn't require React import",
+   
    "react/prop-types": "off",
+   "_prop_types_purpose": "Disabled: TypeScript provides better type checking than PropTypes",
+   
    "react/jsx-filename-extension": [
      1,
      {
        "extensions": [".tsx", ".jsx"]
      }
    ],
+   "_jsx_filename_extension_purpose": "Allows JSX syntax only in .tsx and .jsx files",
+   
    "react/jsx-props-no-spreading": "off",
+   "_jsx_props_no_spreading_purpose": "Disabled: Allows prop spreading for component composition",
+   
    "react/require-default-props": "off",
+   "_require_default_props_purpose": "Disabled: TypeScript optional properties handle defaults better",
+   
    "react/function-component-definition": [
      2,
      {
@@ -51,7 +110,12 @@
        "unnamedComponents": "arrow-function"
      }
    ],
+   "_function_component_definition_purpose": "Enforces arrow function syntax for consistent component definitions",
+
+   "_subsection_typescript_rules": "--- TypeScript-Specific Rules ---",
    "@typescript-eslint/explicit-module-boundary-types": "off",
+   "_explicit_module_boundary_types_purpose": "Disabled: Allows type inference for module boundaries",
+   
    "@typescript-eslint/no-unused-vars": [
      "error",
      {
@@ -59,24 +123,33 @@
        "varsIgnorePattern": "^_"
      }
    ],
+   "_no_unused_vars_purpose": "Errors on unused variables but ignores those starting with underscore",
+   
    "@typescript-eslint/no-explicit-any": "warn",
+   "_no_explicit_any_purpose": "Warns when using 'any' type to encourage better type safety",
+   
    "@typescript-eslint/no-non-null-assertion": "off",
+   "_no_non_null_assertion_purpose": "Disabled: Allows non-null assertion operator when type safety is ensured",
+
+   "_subsection_import_rules": "--- Import/Export Organization Rules ---",
    "import/extensions": [
      "error",
      "ignorePackages",
      {
        "ts": "never",
-       "tsx": "never",
+       "tsx": "never", 
        "js": "never",
        "jsx": "never"
      }
    ],
+   "_import_extensions_purpose": "Requires no file extensions for TypeScript and JavaScript imports",
+   
    "import/order": [
      "error",
      {
        "groups": [
          "builtin",
-         "external",
+         "external", 
          "internal",
          ["parent", "sibling"],
          "index",
@@ -102,8 +175,15 @@
        }
      }
    ],
+   "_import_order_purpose": "Enforces consistent import organization with React first, then external, internal, and local imports",
+   
    "import/prefer-default-export": "off",
+   "_prefer_default_export_purpose": "Disabled: Allows named exports without requiring default export",
+   
    "import/no-unresolved": "off",
+   "_no_unresolved_purpose": "Disabled: TypeScript handles module resolution",
+
+   "_subsection_accessibility_rules": "--- Accessibility Rules ---",
    "jsx-a11y/anchor-is-valid": [
      "error",
      {
@@ -112,43 +192,80 @@
        "aspects": ["invalidHref", "preferButton"]
      }
    ],
+   "_anchor_is_valid_purpose": "Validates anchor tags and React Router Link components for accessibility",
+   
    "jsx-a11y/click-events-have-key-events": "warn",
+   "_click_events_have_key_events_purpose": "Warns when click handlers lack keyboard event handlers",
+   
    "jsx-a11y/no-static-element-interactions": "warn",
+   "_no_static_element_interactions_purpose": "Warns when static elements have interactive handlers without proper roles",
+
+   "_subsection_general_rules": "--- General Code Quality Rules ---",
    "no-console": [
      "warn",
      {
        "allow": ["warn", "error"]
      }
    ],
+   "_no_console_purpose": "Warns on console.log but allows console.warn and console.error",
+   
    "no-unused-vars": "off",
+   "_no_unused_vars_js_purpose": "Disabled: TypeScript version handles this better",
+   
    "no-shadow": "off",
+   "_no_shadow_js_purpose": "Disabled: TypeScript version handles variable shadowing",
+   
    "@typescript-eslint/no-shadow": "error",
+   "_no_shadow_ts_purpose": "Errors on variable shadowing with TypeScript awareness",
+   
    "no-use-before-define": "off",
+   "_no_use_before_define_js_purpose": "Disabled: TypeScript version handles hoisting issues",
+   
    "@typescript-eslint/no-use-before-define": ["error"],
+   "_no_use_before_define_ts_purpose": "Errors on variable use before definition with TypeScript awareness",
+   
    "prettier/prettier": [
      "error",
      {
        "endOfLine": "auto"
      }
-   ]
+   ],
+   "_prettier_prettier_purpose": "Integrates Prettier formatting as ESLint errors with cross-platform line ending support"
  },
+
+ "_section_settings": "=== PLUGIN SETTINGS ===",
  "settings": {
+   "_settings_purpose": "Configuration settings for ESLint plugins",
    "react": {
-     "version": "detect"
+     "version": "detect",
+     "_react_version_purpose": "Automatically detects React version for appropriate linting rules"
    },
    "import/resolver": {
+     "_import_resolver_purpose": "Configures module resolution for import/export validation",
      "typescript": {},
+     "_typescript_resolver_purpose": "Uses TypeScript for module resolution and path mapping",
      "node": {
-       "extensions": [".js", ".jsx", ".ts", ".tsx"]
+       "extensions": [".js", ".jsx", ".ts", ".tsx"],
+       "_node_resolver_purpose": "Enables Node.js resolution for JavaScript and TypeScript files"
      }
    }
  },
+
+ "_section_overrides": "=== RULE OVERRIDES ===",
  "overrides": [
    {
+     "_overrides_purpose": "Special rule configurations for specific file patterns",
      "files": ["*.test.ts", "*.test.tsx"],
+     "_test_files_purpose": "Applies specific rules to test files",
      "rules": {
-       "@typescript-eslint/no-explicit-any": "off"
+       "@typescript-eslint/no-explicit-any": "off",
+       "_test_no_explicit_any_purpose": "Allows 'any' type in test files for mocking and testing flexibility"
      }
    }
- ]
+ ],
+
+ "_footer_comment": "============================================================================", 
+ "_footer_note": "ShadowNews ESLint Configuration Complete",
+ "_footer_description": "This ESLint configuration ensures code quality, accessibility, and consistency across the ShadowNews React + TypeScript frontend. It combines industry best practices with project-specific requirements for the email-first social platform.",
+ "_footer_separator": "============================================================================"
 }

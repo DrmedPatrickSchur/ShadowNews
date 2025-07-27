@@ -1,74 +1,298 @@
-/* Reset and Base Styles */
+/**
+ * Global Styles - Foundation CSS for ShadowNews Platform
+ * 
+ * Comprehensive global stylesheet providing foundation styles, resets,
+ * typography, layout utilities, and cross-browser compatibility for
+ * the ShadowNews email-first social platform with responsive design.
+ * 
+ * Core Features:
+ * - CSS Reset: Modern CSS reset with box-sizing and margin/padding normalization
+ * - Typography: Comprehensive font system with hierarchy and readability
+ * - Layout: Flexbox and Grid utilities for responsive layouts
+ * - Components: Base component styles and interactive elements
+ * - Accessibility: WCAG compliance with focus states and screen reader support
+ * - Performance: Optimized rendering with font smoothing and hardware acceleration
+ * - Cross-browser: Consistent styling across modern browsers and devices
+ * 
+ * CSS Reset and Normalization:
+ * - Box Model: Universal box-sizing border-box for predictable layouts
+ * - Margin Reset: Remove default margins and paddings for consistent spacing
+ * - Font Smoothing: Anti-aliased text rendering for crisp typography
+ * - Text Rendering: Optimized text rendering for legibility and performance
+ * - Overflow Control: Prevent horizontal scrolling and layout breaks
+ * - Baseline Grid: Consistent baseline grid for vertical rhythm
+ * 
+ * Typography System:
+ * - Font Stack: System font stack with fallbacks for performance and consistency
+ * - Font Sizes: Responsive font scale with rem units and viewport scaling
+ * - Line Height: Optimized line heights for readability and visual hierarchy
+ * - Font Weights: Comprehensive weight scale for emphasis and hierarchy
+ * - Letter Spacing: Fine-tuned character spacing for optimal legibility
+ * - Text Colors: Semantic color system with contrast ratios for accessibility
+ * - Font Loading: Optimized font loading with fallback and preload strategies
+ * 
+ * Responsive Design:
+ * - Mobile First: Progressive enhancement from mobile to desktop
+ * - Breakpoints: Consistent breakpoint system for responsive layouts
+ * - Fluid Typography: Responsive font scaling with viewport units
+ * - Flexible Images: Responsive images with aspect ratio preservation
+ * - Container Queries: Modern container-based responsive design
+ * - Viewport Units: Safe area handling for mobile devices and notches
+ * - Touch Optimization: Touch-friendly interface elements and gestures
+ * 
+ * Layout System:
+ * - Flexbox Utilities: Comprehensive flexbox classes for layout control
+ * - Grid System: CSS Grid utilities for complex layouts and alignment
+ * - Spacing Scale: Consistent spacing system with design tokens
+ * - Container System: Responsive containers with max-width and centering
+ * - Aspect Ratios: Responsive aspect ratio utilities for media content
+ * - Z-index Scale: Layered z-index system for proper element stacking
+ * - Position Utilities: Positioning classes for layout and overlays
+ * 
+ * Component Base Styles:
+ * - Form Elements: Consistent form styling with accessibility features
+ * - Buttons: Base button styles with states and variants
+ * - Links: Link styling with hover and focus states
+ * - Lists: List styling with proper spacing and markers
+ * - Tables: Responsive table styling with accessibility features
+ * - Code Elements: Code and pre-formatted text styling
+ * - Interactive Elements: Focus states and interaction feedback
+ * 
+ * Accessibility Features:
+ * - Focus Management: Visible focus indicators for keyboard navigation
+ * - Screen Reader: Hidden content for screen readers and assistive technology
+ * - Color Contrast: WCAG AA compliant color contrast ratios
+ * - Motion Preferences: Respect for reduced motion user preferences
+ * - Font Scaling: Support for user font size preferences
+ * - High Contrast: High contrast mode support for accessibility
+ * - Semantic HTML: Proper semantic markup with ARIA attributes
+ * 
+ * Performance Optimizations:
+ * - Critical CSS: Above-the-fold styling for fast initial render
+ * - Hardware Acceleration: GPU acceleration for smooth animations
+ * - Font Display: Optimized font loading with font-display swap
+ * - CSS Containment: CSS containment for performance isolation
+ * - Will-change: Strategic will-change usage for animation performance
+ * - Layer Creation: Efficient layer creation for complex animations
+ * - Memory Management: Efficient CSS with minimal memory footprint
+ * 
+ * Dark Mode Support:
+ * - CSS Variables: Dynamic theming with CSS custom properties
+ * - System Preference: Automatic dark mode detection and switching
+ * - Theme Persistence: Theme preference storage and restoration
+ * - Smooth Transitions: Seamless theme switching with transitions
+ * - Accessibility: Dark mode accessibility and contrast considerations
+ * - Custom Themes: Extensible theming system for brand customization
+ * 
+ * Cross-browser Compatibility:
+ * - Vendor Prefixes: Strategic vendor prefixes for broad compatibility
+ * - Feature Detection: CSS feature queries for progressive enhancement
+ * - Fallbacks: Graceful fallbacks for unsupported features
+ * - Polyfill Integration: CSS polyfill support for modern features
+ * - Legacy Support: Targeted support for older browser versions
+ * - Mobile Browsers: Optimized styling for mobile browser quirks
+ * 
+ * Email Platform Specific:
+ * - Email Composition: Styles for email composition and editing
+ * - Repository Display: Email repository visualization and management
+ * - Threading: Comment and email thread styling
+ * - Snowball Visualization: Viral distribution visualization styles
+ * - Analytics Dashboard: Data visualization and chart styling
+ * - Mobile Email: Mobile-optimized email interface
+ * 
+ * Print Styles:
+ * - Print Optimization: Optimized styles for printing and PDF generation
+ * - Color Management: Print-friendly color schemes and contrast
+ * - Page Breaks: Strategic page break handling for readability
+ * - Font Optimization: Print-optimized typography and spacing
+ * - Layout Simplification: Simplified layouts for print media
+ * - Resource Optimization: Reduced resource usage for print output
+ * 
+ * Development Features:
+ * - Debug Utilities: Development-time debugging and visualization tools
+ * - Component Documentation: Self-documenting CSS with clear organization
+ * - Maintainability: Modular CSS architecture for easy maintenance
+ * - Scalability: Scalable CSS patterns for large application growth
+ * - Testing Support: CSS testing utilities and visual regression support
+ * - Code Quality: Consistent formatting and linting compliance
+ * 
+ * Dependencies:
+ * - CSS Variables: CSS custom properties for dynamic theming
+ * - Modern CSS: CSS Grid, Flexbox, and modern layout features
+ * - Web Fonts: System font stack with web font fallbacks
+ * - Responsive Images: Modern image formats and responsive loading
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
+/* =============================================================================
+   CSS Reset and Normalization
+   Modern CSS reset with box-sizing normalization and cross-browser consistency
+   ============================================================================= */
+
+/**
+ * Universal Box Sizing
+ * Apply border-box to all elements for predictable sizing calculations
+ * Includes pseudo-elements for complete coverage
+ */
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
+/**
+ * Universal Reset
+ * Remove default margins and paddings for consistent spacing control
+ * Provides clean slate for custom styling
+ */
 * {
   margin: 0;
   padding: 0;
 }
 
+/**
+ * Root HTML Element
+ * Foundation font size and text rendering optimizations
+ * Enables rem unit calculations and smooth text rendering
+ */
 html {
+  /* Base font size for rem calculations (1rem = 16px) */
   font-size: 16px;
+  /* Smooth font rendering on WebKit browsers */
   -webkit-font-smoothing: antialiased;
+  /* Smooth font rendering on Firefox */
   -moz-osx-font-smoothing: grayscale;
+  /* Optimize text rendering for legibility */
   text-rendering: optimizeLegibility;
 }
 
+/**
+ * Body Element
+ * Foundation typography, color scheme, and layout configuration
+ * Establishes base styling for entire application
+ */
 body {
+  /* System font stack for optimal performance and native appearance */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+  /* Optimal line height for readability */
   line-height: 1.6;
+  /* Primary text color from CSS variables */
   color: var(--text-primary);
+  /* Primary background color from CSS variables */
   background-color: var(--bg-primary);
+  /* Ensure full viewport height coverage */
   min-height: 100vh;
+  /* Enable absolute positioning context */
   position: relative;
+  /* Prevent horizontal scrolling */
   overflow-x: hidden;
 }
 
-/* Typography */
+/* =============================================================================
+   Typography System
+   Comprehensive typography with hierarchy, spacing, and responsive scaling
+   ============================================================================= */
+
+/**
+ * Heading Elements
+ * Consistent heading typography with proper hierarchy and spacing
+ * Optimized for readability and visual hierarchy
+ */
 h1, h2, h3, h4, h5, h6 {
+  /* Semi-bold weight for emphasis without heaviness */
   font-weight: 600;
+  /* Tighter line height for headings */
   line-height: 1.25;
+  /* Bottom margin for proper spacing between headings and content */
   margin-bottom: 0.5em;
+  /* Heading color from CSS variables for theme consistency */
   color: var(--text-heading);
 }
 
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.75rem; }
-h4 { font-size: 1.5rem; }
-h5 { font-size: 1.25rem; }
-h6 { font-size: 1rem; }
+/**
+ * Heading Size Scale
+ * Responsive heading sizes using rem units for scalability
+ * Follows modular scale for visual hierarchy
+ */
+h1 { font-size: 2.5rem; }   /* Primary page headings */
+h2 { font-size: 2rem; }     /* Section headings */
+h3 { font-size: 1.75rem; }  /* Subsection headings */
+h4 { font-size: 1.5rem; }   /* Component headings */
+h5 { font-size: 1.25rem; }  /* Minor headings */
+h6 { font-size: 1rem; }     /* Smallest headings */
 
+/**
+ * Paragraph Elements
+ * Base paragraph styling with optimal spacing for readability
+ */
 p {
+  /* Bottom margin for proper paragraph separation */
   margin-bottom: 1em;
 }
 
+/**
+ * Link Elements
+ * Interactive link styling with hover and focus states
+ * Includes accessibility features and smooth transitions
+ */
 a {
+  /* Link color from CSS variables for theme consistency */
   color: var(--link-color);
+  /* Remove default underline for cleaner appearance */
   text-decoration: none;
+  /* Smooth color transition for better user experience */
   transition: color 0.2s ease;
 }
 
+/**
+ * Link Hover State
+ * Enhanced link appearance on hover for better interactivity
+ */
 a:hover {
+  /* Hover color from CSS variables */
   color: var(--link-hover);
+  /* Show underline on hover for clarity */
   text-decoration: underline;
 }
 
+/**
+ * Link Focus State
+ * Accessibility-focused outline for keyboard navigation
+ * WCAG compliant focus indicator
+ */
 a:focus {
+  /* Visible focus outline with theme color */
   outline: 2px solid var(--focus-color);
+  /* Offset outline to prevent overlap with content */
   outline-offset: 2px;
 }
 
-/* Lists */
+/* =============================================================================
+   List Elements
+   Consistent list styling with proper spacing and hierarchy
+   ============================================================================= */
+
+/**
+ * List Containers
+ * Base styling for ordered and unordered lists
+ */
 ul, ol {
+  /* Bottom margin for separation from following content */
   margin-bottom: 1em;
+  /* Left padding for list markers and indentation */
   padding-left: 2em;
 }
 
+/**
+ * List Items
+ * Individual list item spacing for readability
+ */
 li {
+  /* Small bottom margin for item separation */
   margin-bottom: 0.25em;
 }
 

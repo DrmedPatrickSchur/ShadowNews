@@ -1,3 +1,75 @@
+/**
+ * Application Routing Configuration
+ * 
+ * Comprehensive routing system for the ShadowNews platform that manages
+ * client-side navigation, route protection, and lazy loading strategies.
+ * Implements hierarchical route structure with authentication guards,
+ * role-based access control, and optimized code splitting.
+ * 
+ * Routing Architecture:
+ * - React Router v6: Modern declarative routing with outlet pattern
+ * - Lazy Loading: Code splitting for improved initial load performance
+ * - Route Guards: Authentication and authorization protection
+ * - Layout System: Nested layouts for consistent UI structure
+ * - Error Boundaries: Graceful handling of route-level errors
+ * 
+ * Route Categories:
+ * - Public Routes: Accessible without authentication (home, posts, search)
+ * - Auth Routes: Login, registration, and password recovery flows
+ * - Protected Routes: Require authentication (submit, settings, dashboard)
+ * - Role-based Routes: Karma or role requirements for access
+ * - Legal Routes: Terms, privacy, and informational pages
+ * 
+ * Authentication Flow:
+ * - Guest Access: Public content viewing and discovery features
+ * - User Registration: Account creation with email verification
+ * - Login Protection: Secure authentication with session management
+ * - Role Validation: Karma-based feature access and content submission
+ * - Logout Handling: Secure session termination and redirect logic
+ * 
+ * Performance Optimization:
+ * - Code Splitting: Each route loads only when accessed
+ * - Lazy Loading: Deferred component loading for faster initial render
+ * - Preloading: Strategic prefetching of likely next routes
+ * - Caching: Route-level data caching for improved navigation
+ * 
+ * Layout Structure:
+ * - Main Layout: Primary application layout with header, footer, sidebar
+ * - Auth Layout: Minimal layout for authentication flows
+ * - Profile Layout: User-specific layout for profile and settings
+ * - Error Layout: Dedicated layout for error states and 404 pages
+ * 
+ * Route Protection Levels:
+ * - Public: No authentication required
+ * - Authenticated: Valid user session required
+ * - Verified: Email verification required
+ * - Karma-based: Minimum karma points required
+ * - Role-based: Specific user roles required (admin, moderator)
+ * 
+ * Navigation Features:
+ * - Breadcrumb: Hierarchical navigation context
+ * - Deep Linking: Direct access to specific content
+ * - Search Integration: URL-based search queries and filters
+ * - History Management: Back/forward navigation with state preservation
+ * 
+ * SEO Optimization:
+ * - Dynamic Meta Tags: Route-specific SEO metadata
+ * - Open Graph: Social media sharing optimization
+ * - Canonical URLs: Duplicate content prevention
+ * - Sitemap Integration: Search engine crawling support
+ * 
+ * Dependencies:
+ * - React Router v6 for modern routing patterns
+ * - Redux for authentication state management
+ * - React Suspense for lazy loading coordination
+ * - TypeScript for type-safe route definitions
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 import React, { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -8,7 +80,14 @@ import Loading from './components/common/Loading/Loading';
 import MainLayout from './components/layout/MainLayout/MainLayout';
 import AuthLayout from './components/layout/AuthLayout/AuthLayout';
 
-// Lazy load pages for code splitting
+/**
+ * Lazy-loaded Page Components
+ * 
+ * Strategic code splitting implementation that loads page components
+ * only when their routes are accessed, reducing initial bundle size
+ * and improving application startup performance.
+ */
+// Core application pages with priority-based loading
 const Home = lazy(() => import('./pages/Home/Home'));
 const Login = lazy(() => import('./pages/Login/Login'));
 const Register = lazy(() => import('./pages/Register/Register'));
@@ -34,6 +113,12 @@ const FAQ = lazy(() => import('./pages/FAQ/FAQ'));
 const API = lazy(() => import('./pages/API/API'));
 const Contact = lazy(() => import('./pages/Contact/Contact'));
 
+/**
+ * Protected Route Component Interface
+ * 
+ * Defines the contract for route protection with configurable
+ * authentication requirements and access control parameters.
+ */
 // Protected Route Component
 interface ProtectedRouteProps {
   children: React.ReactNode;

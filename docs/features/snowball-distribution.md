@@ -1,3 +1,52 @@
+<!--
+============================================================================
+ShadowNews - Snowball Distribution System Documentation
+============================================================================
+
+Comprehensive documentation for ShadowNews' innovative snowball distribution
+system, enabling viral growth through CSV-based email network expansion.
+
+Purpose:
+- Define viral distribution mechanics and growth algorithms
+- Document CSV processing workflows and validation systems
+- Establish organic community growth and network effects
+- Provide integration guides for distribution management
+
+Target Audience:
+- Product managers understanding viral growth mechanics
+- Backend developers implementing distribution systems
+- Growth engineers optimizing viral coefficients
+- Community managers leveraging network effects
+
+Coverage:
+- Viral distribution algorithms and snowball mechanics
+- CSV upload processing and email validation workflows
+- Repository auto-assignment and topic matching
+- Opt-in verification and consent management
+- Growth analytics and viral coefficient tracking
+- Anti-spam measures and abuse prevention
+
+Key Features:
+- Automated CSV processing with email extraction
+- Intelligent repository assignment based on content topics
+- Viral growth mechanics with quality preservation
+- Real-time validation and duplicate prevention
+- Analytics dashboard for tracking viral coefficients
+- Community-driven moderation and quality control
+
+Technical Components:
+- Background job processing for bulk operations
+- Email validation and deliverability services
+- Machine learning for topic classification
+- Real-time analytics and growth tracking
+- Anti-spam and fraud detection systems
+- Integration with email service providers
+
+Last Updated: 2025-07-27
+Version: 1.0.0
+============================================================================
+-->
+
 # Snowball Distribution System
 
 ## Overview

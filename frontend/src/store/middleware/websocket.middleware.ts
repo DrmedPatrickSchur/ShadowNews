@@ -1,3 +1,103 @@
+/**
+ * WebSocket Middleware - Real-time Redux Integration
+ * 
+ * Comprehensive Redux middleware providing seamless WebSocket integration
+ * with automatic event handling, state synchronization, and real-time
+ * updates for the ShadowNews email-first social platform.
+ * 
+ * Core Features:
+ * - Real-time Communication: WebSocket integration with Redux action dispatch
+ * - Event Broadcasting: Bidirectional event handling and state synchronization
+ * - Connection Management: Automatic reconnection and health monitoring
+ * - State Synchronization: Live state updates from server events
+ * - Error Handling: Comprehensive error management and recovery mechanisms
+ * - Performance Optimization: Event batching and throttling for efficiency
+ * - Type Safety: Full TypeScript integration with typed events and actions
+ * 
+ * WebSocket Event Handling:
+ * - Post Events: Real-time post creation, updates, deletions, and voting
+ * - Comment Events: Live comment threading, replies, and moderation
+ * - Repository Events: Email repository updates, member changes, and analytics
+ * - Notification Events: Instant notification delivery and read status updates
+ * - User Events: Presence tracking, typing indicators, and activity status
+ * - System Events: Heartbeat, connection status, and health monitoring
+ * 
+ * State Synchronization:
+ * - Automatic Dispatch: Server events automatically trigger Redux actions
+ * - Conflict Resolution: Handle concurrent updates and state conflicts
+ * - Optimistic Updates: Local state updates with server confirmation
+ * - Data Integrity: Ensure state consistency across multiple clients
+ * - Event Ordering: Maintain proper event sequence and temporal consistency
+ * - Rollback Support: Automatic rollback for failed operations
+ * 
+ * Connection Management:
+ * - Auto-reconnection: Intelligent reconnection with exponential backoff
+ * - Health Monitoring: Connection heartbeat and status tracking
+ * - Authentication: JWT token integration and session management
+ * - Error Recovery: Graceful error handling and connection restoration
+ * - Load Balancing: Multiple server connection and failover support
+ * - Offline Support: Queue events during disconnection for later sync
+ * 
+ * Event Broadcasting:
+ * - Room Management: Channel-based event routing and subscription
+ * - User Targeting: User-specific event delivery and filtering
+ * - Event Filtering: Selective event subscription and handling
+ * - Broadcast Modes: Global, room-based, and targeted event distribution
+ * - Message Queuing: Event queuing and delivery guarantees
+ * - Rate Limiting: Event throttling and spam prevention
+ * 
+ * Performance Features:
+ * - Event Batching: Batch multiple events for efficient processing
+ * - Throttling: Rate limiting for high-frequency events
+ * - Debouncing: Prevent duplicate event processing
+ * - Memory Management: Efficient event handling and cleanup
+ * - Compression: WebSocket compression for bandwidth optimization
+ * - Lazy Loading: On-demand event subscription and resource management
+ * 
+ * Security Features:
+ * - Authentication: JWT-based WebSocket authentication
+ * - Authorization: Event-level permission checking and access control
+ * - Data Validation: Server event payload validation and sanitization
+ * - Rate Limiting: Connection and message rate limiting
+ * - Encryption: End-to-end encryption for sensitive real-time data
+ * - Audit Trail: WebSocket activity logging and monitoring
+ * 
+ * Development Features:
+ * - Debug Logging: Comprehensive WebSocket event logging
+ * - Error Reporting: Detailed error reporting and stack traces
+ * - Performance Monitoring: Real-time performance metrics and analysis
+ * - Testing Support: Mock WebSocket implementation for testing
+ * - Hot Reloading: Development-time WebSocket connection preservation
+ * - DevTools Integration: Redux DevTools integration for WebSocket events
+ * 
+ * Mobile and Offline:
+ * - Background Sync: Background WebSocket management for mobile apps
+ * - Offline Queue: Event queuing during network unavailability
+ * - Battery Optimization: Efficient connection management for mobile devices
+ * - Progressive Enhancement: Graceful degradation for limited connectivity
+ * - Data Usage: Optimized data transfer for limited bandwidth
+ * - Wake Lock: Prevent connection drops during background operation
+ * 
+ * Integration Features:
+ * - Redux Integration: Seamless Redux store integration with action dispatch
+ * - Service Integration: Integration with authentication and API services
+ * - React Hooks: Custom hooks for WebSocket state management
+ * - Component Integration: High-order components for WebSocket connectivity
+ * - Router Integration: Navigation-aware WebSocket connection management
+ * - External Services: Integration with external real-time services
+ * 
+ * Dependencies:
+ * - Redux Toolkit: State management integration with middleware pattern
+ * - Socket.IO Client: WebSocket client library for real-time communication
+ * - Redux Slices: Integration with feature-specific Redux slices
+ * - TypeScript: Full type safety with comprehensive type definitions
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 import { Middleware } from '@reduxjs/toolkit';
 import { io, Socket } from 'socket.io-client';
 import { 

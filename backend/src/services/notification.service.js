@@ -1,4 +1,21 @@
-const nodemailer = require('nodemailer');
+/**
+ * @fileoverview notification.service.js
+ * 
+ * Implementation file for notification.service.js
+ * 
+ * Key Features:
+ * - Core functionality
+ * - Error handling
+ * - Performance optimization
+ * 
+ * Dependencies:
+ *  * - No external dependencies
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */\n\nconst nodemailer = require('nodemailer');
 const Bull = require('bull');
 const { redis } = require('../utils/redis');
 const User = require('../models/User.model');

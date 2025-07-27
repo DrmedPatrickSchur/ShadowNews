@@ -1,3 +1,44 @@
+/**
+ * Authentication Integration Tests
+ * 
+ * Comprehensive test suite for authentication and authorization functionality
+ * in the ShadowNews platform. Tests cover user registration, login, session
+ * management, password security, email verification, and role-based access control.
+ * 
+ * Test Categories:
+ * - User Registration: Account creation, validation, and email verification
+ * - Authentication: Login/logout flows, session management, and token handling
+ * - Password Security: Password strength validation, hashing, and reset flows
+ * - Email Verification: Email confirmation process and account activation
+ * - Role-Based Access: Permission validation for different user roles
+ * - Security Measures: Rate limiting, input validation, and attack prevention
+ * 
+ * Testing Strategy:
+ * - Integration testing with real HTTP requests to API endpoints
+ * - Database state validation for persistent authentication data
+ * - Email service mocking for verification workflow testing
+ * - Security vulnerability testing for common attack vectors
+ * - Performance testing for authentication bottlenecks
+ * 
+ * Security Coverage:
+ * - OWASP authentication guidelines compliance
+ * - Input sanitization and SQL injection prevention
+ * - Session hijacking and CSRF protection
+ * - Brute force attack mitigation
+ * - Password policy enforcement
+ * 
+ * Dependencies:
+ * - Supertest for HTTP request testing
+ * - Jest for test framework and assertions
+ * - Test database with isolated data
+ * - Mocked email service for verification testing
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 const request = require('supertest');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
@@ -5,22 +46,64 @@ const app = require('../../src/app');
 const User = require('../../src/models/User.model');
 const { setupTestDB, teardownTestDB } = require('../fixtures/testData');
 
+/**
+ * Authentication Integration Test Suite
+ * 
+ * Main test suite encompassing all authentication-related functionality.
+ * Tests are organized by feature area with comprehensive coverage of
+ * success scenarios, error conditions, and edge cases.
+ */
 describe('Auth Integration Tests', () => {
- beforeAll(async () => {
-   await setupTestDB();
- });
+  /**
+   * Test Environment Setup
+   * 
+   * Initializes clean test database and authentication environment
+   * before running test suite. Ensures isolated testing conditions
+   * without interference from existing data or authentication states.
+   */
+  beforeAll(async () => {
+    await setupTestDB();
+  });
 
- afterAll(async () => {
-   await teardownTestDB();
-   await mongoose.connection.close();
- });
+  /**
+   * Test Environment Cleanup
+   * 
+   * Cleans up test environment after all tests complete.
+   * Removes test data and closes database connections to
+   * prevent resource leaks and ensure clean shutdown.
+   */
+  afterAll(async () => {
+    await teardownTestDB();
+    await mongoose.connection.close();
+  });
 
- beforeEach(async () => {
-   await User.deleteMany({});
- });
+  /**
+   * Individual Test Data Cleanup
+   * 
+   * Ensures clean state between individual test cases by
+   * removing user data created during each test execution.
+   * Prevents test interference and ensures deterministic results.
+   */
+  beforeEach(async () => {
+    await User.deleteMany({});
+  });
 
- describe('POST /api/auth/register', () => {
-   test('should register a new user with valid data', async () => {
+  /**
+   * User Registration Test Suite
+   * 
+   * Comprehensive testing of user account creation functionality.
+   * Covers successful registration, validation errors, duplicate
+   * account prevention, and security measures during registration.
+   */
+  describe('POST /api/auth/register', () => {
+    /**
+     * Test: Successful User Registration
+     * 
+     * Validates that users can successfully create accounts with valid
+     * credentials. Verifies proper data storage, password hashing,
+     * response format, and initial user state configuration.
+     */
+    test('should register a new user with valid data', async () => {
      const newUser = {
        email: 'test@example.com',
        password: 'Test123!@#',

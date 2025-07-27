@@ -1,3 +1,68 @@
+/**
+ * Button Styled Components
+ * 
+ * Comprehensive styled-components implementation for the Button component
+ * providing consistent styling, theming, and interactive states across
+ * the ShadowNews platform. Uses CSS-in-JS for dynamic styling and theming.
+ * 
+ * Styling Architecture:
+ * - Styled Components: CSS-in-JS for dynamic theming and conditional styling
+ * - CSS Variables: Theme-aware color system with CSS custom properties
+ * - Modular Styles: Separated size, variant, and state style definitions
+ * - Responsive Design: Flexible sizing and spacing for various screen sizes
+ * - Animation: Smooth transitions and micro-interactions for better UX
+ * 
+ * Size System:
+ * - Small: Compact buttons for secondary actions and tight layouts
+ * - Medium: Default size for most interface elements and forms
+ * - Large: Prominent buttons for primary actions and call-to-actions
+ * - Consistent spacing and typography scaling across all sizes
+ * 
+ * Variant System:
+ * - Primary: Main brand actions with high visual prominence
+ * - Secondary: Supporting actions with moderate visual weight
+ * - Outline: Bordered style for secondary actions without background fill
+ * - Ghost: Minimal style for subtle actions and navigation elements
+ * - Danger: Critical actions requiring user caution (delete, remove)
+ * - Success: Positive actions and confirmations (save, approve)
+ * - Link: Text-only style that mimics anchor link appearance
+ * 
+ * Interactive States:
+ * - Hover: Smooth color transitions and visual feedback
+ * - Active: Pressed state with subtle transform animation
+ * - Focus: Accessible focus indicators for keyboard navigation
+ * - Disabled: Reduced opacity and interaction prevention
+ * - Loading: Spinner integration with state-specific styling
+ * 
+ * Accessibility Features:
+ * - Focus Indicators: Visible focus rings with proper contrast ratios
+ * - Color Contrast: WCAG 2.1 AA compliant color combinations
+ * - Touch Targets: Minimum 44px touch target size for mobile
+ * - Reduced Motion: Respects user preference for reduced animations
+ * 
+ * Theming Integration:
+ * - CSS Variables: Dynamic color values based on theme selection
+ * - Dark Mode: Automatic adaptation to light/dark theme contexts
+ * - Brand Colors: Consistent use of primary and secondary brand colors
+ * - Semantic Colors: Proper use of success, warning, and error colors
+ * 
+ * Performance Optimizations:
+ * - CSS-in-JS: Optimized style injection and removal
+ * - Conditional Styles: Only applied when props require them
+ * - Transition Efficiency: Hardware-accelerated CSS transitions
+ * - Selector Specificity: Minimal specificity for easy overrides
+ * 
+ * Dependencies:
+ * - styled-components for CSS-in-JS styling and theming
+ * - CSS custom properties for dynamic color system
+ * - TypeScript interfaces for type-safe prop handling
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 import styled, { css } from 'styled-components';
 import { ButtonProps } from './Button.types';
 

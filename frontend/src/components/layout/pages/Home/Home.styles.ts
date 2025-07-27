@@ -1,3 +1,121 @@
+/**
+ * Home Page Styled Components
+ * 
+ * Comprehensive styling system for the Home page component, implementing
+ * responsive design, animation integration, and theme-based styling. Provides
+ * adaptive layouts for hero sections, content grids, filtering interfaces,
+ * and sidebar modules with performance-optimized CSS-in-JS architecture.
+ * 
+ * Component Architecture:
+ * - HomeContainer: Main page wrapper with full viewport height
+ * - HeroSection: Promotional banner with gradient background and animations
+ * - MainContent: Primary content grid with responsive column layouts
+ * - FeedSection: Post feed container with filtering and interactive states
+ * - Sidebar Components: Modular sidebar sections with consistent styling
+ * 
+ * Design System Features:
+ * - Responsive Grid: Flexible layout system adapting to various screen sizes
+ * - Animation Integration: Framer Motion styled-components for smooth transitions
+ * - Theme Consistency: Comprehensive theme variable usage throughout components
+ * - Interactive States: Hover, focus, and active states with smooth transitions
+ * - Typography Hierarchy: Consistent font sizing and weight scaling
+ * 
+ * Layout Patterns:
+ * - Hero Layout: Full-width promotional section with centered content
+ * - Grid System: Two-column desktop layout collapsing to single column on mobile
+ * - Card Components: Consistent card styling for posts and repositories
+ * - Filter Interface: Tab-based filtering with visual active state indicators
+ * - Statistics Display: Metrics presentation with animated number counters
+ * 
+ * Responsive Breakpoints:
+ * - Desktop (1024px+): Full two-column layout with sidebar
+ * - Tablet (768px-1024px): Single column with stacked content
+ * - Mobile (<768px): Mobile-optimized layout with touch-friendly interfaces
+ * - High-DPI Support: Retina display optimization and high-resolution assets
+ * 
+ * Animation System:
+ * - Entrance Effects: Staggered animations for content sections
+ * - Hover States: Subtle feedback animations for interactive elements
+ * - Loading States: Skeleton screens and progressive loading indicators
+ * - Transition Effects: Smooth state changes and navigation animations
+ * 
+ * Hero Section Design:
+ * - Gradient Background: Eye-catching gradient with brand color integration
+ * - Typography Scale: Large headings with responsive font sizing
+ * - Call-to-Action: Prominent button placement with conversion optimization
+ * - Statistics Ticker: Animated real-time metrics display
+ * 
+ * Content Feed Styling:
+ * - Card Layout: Consistent post card design with hover effects
+ * - Filter Tabs: Interactive filtering with visual feedback
+ * - Infinite Scroll: Seamless content loading with loading indicators
+ * - Empty States: Engaging empty state designs with action prompts
+ * 
+ * Sidebar Architecture:
+ * - Modular Sections: Reusable sidebar component patterns
+ * - Quick Actions: Prominent action buttons for authenticated users
+ * - Repository Cards: Compact repository display with engagement metrics
+ * - Community Stats: Real-time statistics with badge components
+ * 
+ * Interactive Elements:
+ * - Button Variants: Multiple button styles with consistent interaction patterns
+ * - Link Hover States: Smooth color transitions and underline animations
+ * - Filter Activation: Clear visual indication of selected filters
+ * - Card Interactions: Hover elevation and border highlighting
+ * 
+ * Performance Optimizations:
+ * - Efficient Selectors: Optimized CSS generation with minimal specificity
+ * - Animation Performance: Hardware-accelerated transforms and opacity
+ * - Render Optimization: Minimal layout thrashing and paint operations
+ * - Memory Efficiency: Proper styled-component lifecycle management
+ * 
+ * Theme Integration:
+ * - Color System: Dynamic theming with light and dark mode support
+ * - Spacing Scale: Consistent spacing using theme-based measurements
+ * - Typography: Font system integration with proper scale and hierarchy
+ * - Shadow System: Layered shadow effects for depth and visual separation
+ * 
+ * Mobile Optimizations:
+ * - Touch Targets: Minimum 44px touch areas for optimal usability
+ * - Gesture Support: Touch-friendly interactions and swipe gestures
+ * - Performance: Optimized animations and transitions for mobile devices
+ * - Battery Efficiency: Reduced animation complexity on mobile
+ * 
+ * Accessibility Features:
+ * - Focus Indicators: Clear focus states for keyboard navigation
+ * - Color Contrast: WCAG compliant contrast ratios for all text
+ * - Semantic Structure: Proper heading hierarchy and landmark elements
+ * - Screen Reader Support: Accessible component structure and labeling
+ * 
+ * Component States:
+ * - Default State: Base styling with theme integration
+ * - Loading State: Skeleton screens and loading indicators
+ * - Error State: Error message styling with recovery actions
+ * - Empty State: Engaging empty content with call-to-action elements
+ * 
+ * Visual Hierarchy:
+ * - Typography Scale: Clear heading and body text differentiation
+ * - Color Emphasis: Strategic use of brand colors for important elements
+ * - Spacing Rhythm: Consistent vertical and horizontal spacing patterns
+ * - Visual Weight: Proper balance between content sections
+ * 
+ * Cross-Browser Compatibility:
+ * - Vendor Prefixes: Automatic vendor prefix handling for CSS properties
+ * - Fallback Support: Graceful degradation for older browsers
+ * - Progressive Enhancement: Enhanced features for modern browsers
+ * - Standards Compliance: W3C standards adherence for broad compatibility
+ * 
+ * Dependencies:
+ * - styled-components: CSS-in-JS library for component styling
+ * - Framer Motion: Animation library integration for styled components
+ * - Theme System: Design token integration for consistent styling
+ * 
+ * @author ShadowNews Team
+ * @version 1.0.0
+ * @since 2024-01-01
+ * @lastModified 2025-07-27
+ */
+
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
