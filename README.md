@@ -496,7 +496,6 @@ lsof -i :3000
 
 - Check [documentation](./docs/)
 - Search [existing issues](https://github.com/DrmedPatrickSchur/ShadowNews/issues)
-- Join [Discord community](https://discord.gg/shadownews)
 - Email shadownews@artofdigitalshadow.org
 
 ## 📈 Roadmap
@@ -554,10 +553,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 💬 Community
 
 - **GitHub**: [ShadowNews Repository](https://github.com/DrmedPatrickSchur/ShadowNews)
-- **Discord**: [Join our server](https://discord.gg/shadownews)
-- **Twitter**: [@shadownews](https://twitter.com/shadownews)
+- **Twitter**: [@shadownews](https://twitter.com/shadownews_)
 - **Email**: shadownews@artofdigitalshadow.org
-- **Documentation**: [artofdigitalshadow.org/shadownews/docs](https://artofdigitalshadow.org/shadownews/docs)
+- **Documentation**: [artofdigitalshadow.org/shadownews/docs](./docs/)
 
 ## 🌟 Star History
 
